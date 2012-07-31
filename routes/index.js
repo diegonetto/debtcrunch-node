@@ -1,8 +1,9 @@
-
-/*
- * GET home page.
+/**
+ * Setup the routes object.
  */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+module.exports = {
+  home: require(__dirname + '/home.js'),
+  manage: require(__dirname + '/manage.js')
 };
+
+
