@@ -2,6 +2,27 @@ doctype 5
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    block head
+      link(rel='stylesheet', href='/stylesheets/style.css')
+      link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
+
   body
-    block content
+    .main-wrapper
+      .container
+        .navbar.navbar-fixed-top
+          .navbar-inner
+            .container
+              ul.nav.pull-left
+                li: a(href='/') Home
+                li: a(href='/manage') Manage
+        #main
+          block content
+      .push 
+
+    footer
+      .container
+        p 
+        | <hr />
+        | Diego Netto &copy 2012 <br />
+        | <a href="/">Home</a> ⋅ 
+        | <a href="/manage">Manage</a>

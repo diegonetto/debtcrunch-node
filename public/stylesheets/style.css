@@ -1,8 +1,41 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+  height: 100%;
+  background-color: #EDEDED !important;
 }
 
-a {
-  color: #00B7FF;
+footer {
+  text-align: center;
 }
+
+.main-wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -95px;
+}
+
+#main {
+  padding-top: 39px;
+}
+
+.push {
+  height: 95px;
+}
+
+/* responsive footer fix by Aalaap Ghag */
+@media (max-width: 767px) {
+   body {
+     padding-right: 0px;
+     padding-left: 0px;
+   }
+    
+   footer, .wrapper {
+     padding-left: 20px;
+     padding-right: 20px;
+   }
+}
+
+.container {
+  max-width: 940px;
+}
+/* end responsive footer fix */
