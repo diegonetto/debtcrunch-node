@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "diegonetto",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "express": "3.0.0rc1",
-    "jade": "*"
+    "jade": "*",
   }
 }

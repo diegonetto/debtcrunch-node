@@ -1,5 +1,11 @@
 extends layout
 
+append head
+  script(src='/vendor/underscore/underscore-min.js')  
+  script(src='/vendor/backbone/backbone-min.js')  
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+  script(src='/javascripts/test.js')
+
 block content
   h1= title
   p Take control of your finances.
