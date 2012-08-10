@@ -3,7 +3,7 @@
  */
 module.exports = {
   home: require(__dirname + '/home.js'),
-  manage: require(__dirname + '/app.js')
+  app: require(__dirname + '/app.js')
 };
 
 

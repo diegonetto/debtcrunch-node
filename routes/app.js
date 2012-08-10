@@ -1,7 +1,7 @@
 /*
- * GET manage page.
+ * GET app page.
  */
 
 module.exports = function(req, res){
-  res.render('manage', { title: 'Manage your Debt' });
+  res.render('app', { title: 'Manage your Debt' });
 };
