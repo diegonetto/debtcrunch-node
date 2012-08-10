@@ -1,6 +1,33 @@
 html, body {
   height: 100%;
-  background-color: #EDEDED !important;
+/*  background-color: #EAEAEA !important;*/
+}
+
+.caption {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#subnav {
+  margin-bottom: 0px;
+}
+
+.tab-pane {
+  margin-top: 18px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#app-tabs {
+  background: rgba(255, 255, 255, 0.9); 
+  border-left: 1px solid #DDD;
+  border-right: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  position: relative;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2),
+                                0 25px 50px 0 rgba(0, 0, 0, 0.15);
 }
 
 footer {

@@ -3,9 +3,22 @@ extends layout
 append head
   script(src='/vendor/underscore/underscore-min.js')  
   script(src='/vendor/backbone/backbone-min.js')  
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-  script(src='/javascripts/test.js')
 
 block content
-  h1= title
-  p Take control of your finances.
+  .caption
+    h1= title
+    p Take control of your finances.
+
+  
+  ul#subnav.nav.nav-tabs
+    li.active: a(href='#organize', data-toggle='tab') Organize
+    li: a(href='#analyze', data-toggle='tab') Analyze
+    li: a(href='#strategize', data-toggle='tab') Strategize
+
+  #app-tabs.tab-content
+    #organize.tab-pane.active
+      p Organize app under development
+    #analyze.tab-pane
+      p Analyze app under development
+    #strategize.tab-pane
+      p Strategize app under development
