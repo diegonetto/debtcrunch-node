@@ -3,17 +3,28 @@ extends layout
 append head
   script(src='/vendor/underscore/underscore-min.js')  
   script(src='/vendor/backbone/backbone-min.js')  
+  script(src='/javascripts/lib/backbone-localstorage.js')  
+  script(src='/javascripts/models/debt.js')
+  script(src='/javascripts/collections/debts.js')
+  script(src='/javascripts/views/debt.js')
+  script(src='/javascripts/views/organize.js')
+  script(src='/javascripts/views/app.js')
+  script(src='/javascripts/app.js')
 
 block content
   .caption
     h1 Debt Management App
   
-  ul#subnav.nav.nav-tabs
-    li.active: a(href='#analyze', data-toggle='tab') Analyze
-    li: a(href='#strategize', data-toggle='tab') Strategize
+  section#debtapp
+    header#app-header
+      ul#subnav.nav.nav-tabs
+        li.active: a(href='#organize', data-toggle='tab') Organize
+        li: a(href='#strategize', data-toggle='tab') Strategize
 
-  #app-tabs.tab-content
-    #analyze.tab-pane.active
-      p Analyze app under development
-    #strategize.tab-pane
-      p Strategize app under development
+    section#app-main
+      #app-tabs.tab-content
+        #organize.tab-pane.active
+          include partials/organize
+
+        #strategize.tab-pane
+          include partials/strategize
