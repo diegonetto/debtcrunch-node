@@ -15,7 +15,7 @@ var app = app || {};
 		defaults: {
 			title: '',
 			type: 'credit',
-			principle: 5000,
+			principal: 5000,
 			rate: 6.8,
 			repayment: 10
 		},

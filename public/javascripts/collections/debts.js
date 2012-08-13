@@ -8,7 +8,7 @@ var app = app || {};
 
 	// The collection of debts is backed by *localStorage* instead of a remote
 	// server.
-	var app.DebtList = Backbone.Collection.extend({
+	var DebtList = Backbone.Collection.extend({
 
 		// Reference to this collection's model.
 		model: app.Debt,
