@@ -1,0 +1,52 @@
+/*#add-debt,
+#debt-table {
+  width: 750px;
+  margin: 0px auto;
+}*/
+
+#add-debt {
+  margin-right: 10px;
+}
+
+.debt-prop {
+  margin-right: 10px;
+}
+
+/* Table formatting */
+#table-wrapper {
+  padding-right: 10px !important;
+}
+
+#order {
+  width: 20px;
+}
+
+#title {
+  width: 190px;
+}
+
+#type {
+
+}
+
+#prin {
+
+}
+
+#rate {
+
+}
+
+#repay {
+
+}
+
+.center-col {
+  text-align: center !important;
+}
+
+#sum-row {
+  color: firebrick;
+  font-weight: bold;
+}
+
