@@ -1,0 +1,33 @@
+append head
+  link(rel='stylesheet', href='/stylesheets/organize.css')
+
+form#add-debt.well.form-inline
+  input#debt-title.debt-prop.span3(type="text", placeholder="Title of debt")
+  select#debt-type.debt-prop.span2
+    option Credit Card
+    option Stafford Loan
+    option Perkins Loan
+    option Plus Loan
+  input#debt-principal.debt-prop.span2(type="text", placeholder="Principal")
+  input#debt-rate.debt-prop.span2(type="text", placeholder="Rate")
+  input#debt-repayment.debt-prop.span2(type="text", placeholder="Repayment")
+  button(type="button")#debt-add.btn.btn-primary Add
+  
+#table-wrapper
+  table#debt-table.table
+    thead
+      tr
+        th#order #
+        th#title Title
+        th#type.center-col Type
+        th#prin.center-col Principal
+        th#rate.center-col Rate
+        th#repay.center-col Repayment
+        th#monthly.center-col Monthly
+    tfoot#sum-row
+      td(colspan="5")
+      td.center-col Total
+      td.center-col $200.69
+    tbody#debt-table-body
+
+include templates/debt
