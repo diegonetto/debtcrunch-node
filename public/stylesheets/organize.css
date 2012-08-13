@@ -50,3 +50,62 @@
   font-weight: bold;
 }
 
+/* DebtView Styling */
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  /*-moz-appearance: none;*/
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+#destroy-wrapper {
+  position: relative;
+  width: 0px;
+  height: 0px;
+}
+
+#debt-table tr .destroy-btn {
+  display: none;
+  position: relative;
+  top: -19px;
+  right: -85px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto 0;
+  font-size: 22px;
+  border: 0px 0px 0px 0px;
+  color: #a88a8a;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+#debt-table .destroy-btn:hover {
+  text-shadow: 0 0 1px #000,
+			 0 0 10px rgba(199, 107, 107, 0.8);
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  transform: scale(1.3);
+}
+
+#debt-table tr .destroy-btn:after {
+  content: '✖';
+}
+
+#debt-table tr:hover .destroy-btn {
+  display: block;
+}
