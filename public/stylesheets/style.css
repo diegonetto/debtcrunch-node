@@ -54,6 +54,10 @@ footer {
   width: 100%;
 }
 
+.alert {
+  display: none;
+}
+
 /* responsive footer fix by Aalaap Ghag */
 @media (max-width: 767px) {
    body {
