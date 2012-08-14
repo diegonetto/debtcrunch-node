@@ -87,8 +87,12 @@ $(function() {
 		// Debt from error handling. 
 		handleErr: function ( model, errors ) {
 			console.log("Errors: " + JSON.stringify(errors));
+
+			// Create a new AlertView with the given errors,
+			// place it in the DOM and show it with a jQuery UI Effect
 			var view = new app.AlertView();
 			$('#error-msgs').html( view.render().el );
+			$('.alert').show("drop", { direction: 'up' });
 		}
 
 	});

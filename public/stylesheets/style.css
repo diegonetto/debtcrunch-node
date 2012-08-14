@@ -51,11 +51,17 @@ footer {
 
 /* Style Error Alert Messages */
 .error-msgs {
+  position: relative;
   width: 100%;
+  height: 0px;
 }
 
 .alert {
   display: none;
+  width: 889px;
+  position: absolute;
+  margin: 0px auto;
+  top: 45px;
 }
 
 /* responsive footer fix by Aalaap Ghag */
