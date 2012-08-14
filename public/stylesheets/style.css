@@ -42,11 +42,16 @@ footer {
 }
 
 #main {
-  padding-top: 39px;
+  padding-top: 45px;
 }
 
 .push {
   height: 95px;
+}
+
+/* Style Error Alert Messages */
+.error-msgs {
+  width: 100%;
 }
 
 /* responsive footer fix by Aalaap Ghag */

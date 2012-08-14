@@ -31,16 +31,17 @@ $(function() {
                         this.rate = this.$('#debt-rate');
                         this.repayment = this.$('#debt-repayment');
 
-                        window.app.Debts.on('add', this.addAll, this);
-                        window.app.Debts.on('reset', this.addAll, this);
-                        window.app.Debts.on('change:completed', this.addAll, this);
-                        window.app.Debts.on('all', this.render, this);
-			
+                        window.app.Debts.on( 'add', this.addAll, this );
+                        window.app.Debts.on( 'reset', this.addAll, this );
+                        window.app.Debts.on( 'change:completed', this.addAll, this );
+                        window.app.Debts.on( 'all', this.render, this );
+			window.app.Debts.on( 'error', this.handleErr, this );
+
 			app.Debts.fetch();
                 },
 
                 // Re-rendering the Organize view means refreshing the sum row
-                render: function() {
+                render: function( eventName ) {
                         // TODO: Update the sum-row via template
                 },
 
@@ -73,15 +74,22 @@ $(function() {
 		// If you click on the Add button, create new **Debt** model,
 		// persisting it to *LocalStorage*.
 		createOnAdd: function( e ) {
-			app.Debts.create( this.newAttributes() );
-			this.title.val('');
-			this.type.val('Credit Card');
-			this.principal.val('');
-			this.rate.val('');
-			this.repayment.val('');
+			// Create new model in collection, check if successful
+			if ( app.Debts.create( this.newAttributes() ) ) {
+				this.title.val('');
+				this.type.val('Credit Card');
+				this.principal.val('');
+				this.rate.val('');
+				this.repayment.val('');						
+			}
+		},
+
+		// Debt from error handling. 
+		handleErr: function ( model, errors ) {
+			console.log("Errors: " + JSON.stringify(errors));
+			var view = new app.AlertView();
+			$('#error-msgs').html( view.render().el );
 		}
 
 	});
 });
-
-
