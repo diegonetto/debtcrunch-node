@@ -1,6 +1,6 @@
 var app = app || {};
 
-$(function( $ ) {
+$(function() {
         'use strict';
 
         // Organize Tab View
@@ -17,7 +17,7 @@ $(function( $ ) {
 
                 // Delegated events for creating and deleting debts
                 events: {
-                        'click #debt-add': 'createOnAdd'
+                        'click #debt-add':	'createOnAdd'
                         // TODO: Add ability to delete
                 },
 

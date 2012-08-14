@@ -17,7 +17,7 @@ $(function() {
 
 		// The DOM events specific to a debt.
 		events: {
-			// TODO: add interactive events
+			'click .destroy-btn':	'clear'
 		},
 
 		// The DebtView listens for changes to its model, re-rendering. Since there's
@@ -34,6 +34,12 @@ $(function() {
 			
 			return this;
 		},
+
+		// Remove the debt item, destroy the model from *LocalStorage* and delete
+		// its view (since the OrganizeView is listening for changes in the collection).
+		clear: function() {
+			this.model.destroy();
+		}
 
 	});
 });
