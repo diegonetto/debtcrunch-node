@@ -74,7 +74,7 @@ var app = app || {};
 			}
 		},
 
-		// Validates title. 
+		// Validates title.
 		// Only returns a JS object if error is detected.
 		validateTitle: function (value) {
 			var msgs = [];
@@ -86,7 +86,7 @@ var app = app || {};
 			return msgs;			
 		},
 
-		// Validates type
+		// Validates type.
 		// Only returns a JS object if error is detected.
 		validateType: function (value) {
 			var msgs = [];
@@ -100,21 +100,25 @@ var app = app || {};
 			console.log("TODO: Validate Type");
 		},
 
-		// TODO: Validates principal
+		// Validates principal.
 		// Only returns a JS object if error is detected.
 		validatePrincipal: function (value) {
 			var msgs = [];
 
 			if( _.isEmpty(value) ) {
 				msgs.push('<strong>Principal</strong> cannot be empty.');
+				return msgs;
 			}
 			
-			return msgs;
+			var parsed = parseFloat( value.replace('/,/g', '') );
+			if( !parsed ) {
+				msgs.push('<strong>Principal</strong> ( ' + value + ' ) was unable to be converted to a valid number.');
+			}
 
-			console.log("TODO: Validate Principal");
+			return msgs;
 		},
 
-		// TODO: Validates rate
+		// TODO: Validates rate.
 		// Only returns a JS object if error is detected.
 		validateRate: function (value) {
 			console.log("TODO: Validate Rate");
