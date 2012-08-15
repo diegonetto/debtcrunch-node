@@ -1,13 +1,23 @@
 form#debt-form.well.form-inline
-  input(maxlength="35")#debt-title.debt-input.span3(type="text", placeholder="Title of debt")
-  select#debt-type.debt-input.span2
-    option Credit Card
-    option Stafford Loan
-    option Perkins Loan
-    option Plus Loan
-  input#debt-principal.debt-input.span2(type="text", placeholder="Principal")
-  input#debt-rate.debt-input.span2(type="text", placeholder="Rate")
-  input#debt-repayment.debt-input.span2(type="text", placeholder="Repayment")
+  #title-group.control-group
+    .controls
+      input(maxlength="35")#debt-title.debt-input.span3(type="text", placeholder="Title of debt")
+  #type-group.control-group
+    .controls
+      select#debt-type.debt-input.span2
+        option Credit Card
+        option Stafford Loan
+        option Perkins Loan
+        option Plus Loan
+  #principal-group.control-group
+    .controls
+      input#debt-principal.debt-input.span2(type="text", placeholder="Principal")
+  #rate-group.control-group
+    .controls
+      input#debt-rate.debt-input.span2(type="text", placeholder="Rate")
+  #repayment-group.control-group
+    .controls
+      input#debt-repayment.debt-input.span2(type="text", placeholder="Repayment")
   button(type="button")#debt-add.btn.btn-primary Add
   
 #table-wrapper

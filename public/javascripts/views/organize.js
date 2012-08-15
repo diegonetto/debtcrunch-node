@@ -42,6 +42,7 @@ $(function() {
 
                 // Re-rendering the Organize view means refreshing the sum row
                 render: function( eventName ) {
+			console.log("OrganizeView render() called with event: " + eventName);
                         // TODO: Update the sum-row via template
                 },
 
@@ -53,9 +54,10 @@ $(function() {
 		},
 
 		// Add all debts in the **Debts** collection at once.
+		// Clear current rows from the table and current errors.
 		addAll: function() {
 			this.$('#debt-table-body').html('');
-	
+			this.clearErrors();	
 			app.Debts.each( this.addOne, this );
 		},
 
@@ -84,16 +86,22 @@ $(function() {
 			}
 		},
 
-		// Debt from error handling. 
-		handleErr: function ( model, errors ) {
-			console.log("Errors: " + JSON.stringify(errors));
-
-			// Create a new AlertView with the given errors,
-			// place it in the DOM and show it with a jQuery UI Effect
-			var view = new app.AlertView();
+		// Debt from error handling.
+		// Hide all control-group errors, create a new AlertView with the
+		// given errors, place it in the DOM, show it with a jQuery UI Effect
+		// and add the 'error' class to all appropriate control-groups.
+		handleErr: function( model, errors ) {
+			this.clearErrors();
+			var view = new app.AlertView({ errors: errors });
 			$('#error-msgs').html( view.render().el );
 			$('.alert').show("drop", { direction: 'up' });
-		}
+			_.each( errors, function(error){ 
+				$('#' + error.field + '-group').addClass('error'); });
+		},
 
+		clearErrors: function() {
+			$('.control-group').removeClass('error');
+			$('.alert').alert('close');
+		}
 	});
 });

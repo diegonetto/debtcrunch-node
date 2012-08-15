@@ -39,21 +39,38 @@ var app = app || {};
 			}
 		},
 
-		// Validation helper for debt form
+		// Validation helper for debt form. Retrieve the error messages
+		// from the appropriate validation function and construct an error
+		// object if messages were retrieved.
 		validateHelper: function(value, field, attrs) {
+			var msgs;
+
 			switch( field ) {
 				case 'title':
-					return this.validateTitle(value);
+					msgs = this.validateTitle(value);
+					break;
 				case 'type':
-					return this.validateType(value);
+					msgs = this.validateType(value);
+					break;
 				case 'principal':
-					return this.validatePrincipal(value);
+					msgs = this.validatePrincipal(value);
+					break;
 				case 'rate':
-					return this.validateRate(value);
+					msgs = this.validateRate(value);
+					break;
 				case 'repayment':
-					return this.validateRepayment(value);
+					msgs = this.validateRepayment(value);
+					break;
 				default:
 					break;
+			}
+
+			if ( !_.isEmpty(msgs) ) {
+				// Error object
+				return {
+					field: field,
+					msgs: msgs
+				};
 			}
 		},
 
@@ -63,15 +80,10 @@ var app = app || {};
 			var msgs = [];
 
 			if( _.isEmpty(value) ) {
-				msgs.push('Title of debt must be specified.');
+				msgs.push('<strong>Title</strong> of debt must be specified.');
 			}
 			
-			if ( !_.isEmpty(msgs) ) {
-				return {
-					field: 'title',
-					msg: msgs
-				};
-			}
+			return msgs;			
 		},
 
 		// TODO: Validates type
@@ -83,12 +95,7 @@ var app = app || {};
 				msgs.push('Type of cannot be empty.');
 			}
 			
-			if ( !_.isEmpty(msgs) ) {
-				return {
-					field: 'type',
-					msg: msgs
-				};
-			}
+			return msgs;
 
 			console.log("TODO: Validate Type");
 		},
@@ -99,15 +106,11 @@ var app = app || {};
 			var msgs = [];
 
 			if( _.isEmpty(value) ) {
-				msgs.push('Principal cannot be empty.');
+				msgs.push('<strong>Principal</strong> cannot be empty.');
 			}
 			
-			if ( !_.isEmpty(msgs) ) {
-				return {
-					field: 'principal',
-					msg: msgs
-				};
-			}
+			return msgs;
+
 			console.log("TODO: Validate Principal");
 		},
 

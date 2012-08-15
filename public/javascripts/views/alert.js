@@ -20,10 +20,18 @@ $(function() {
 
                 // Re-render the alert
                 render: function() {
-                        this.$el.html( this.template() );
+                        this.$el.html( this.template({ msgs: this.collectMsgs() }) );
 
                         return this;
                 },
+
+		// Reduce all the error messages from the various fields
+		// into one array for easier manipulation in the View Template.
+		collectMsgs: function() {
+			return _.reduce( this.options.errors, function(memo, error) { 
+				return memo.concat(error.msgs);
+			}, [] );
+		}
 
         });
 })

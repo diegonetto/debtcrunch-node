@@ -4,7 +4,11 @@
 }
 
 .debt-input {
-  margin-right: 10px;
+  margin-right: 10px; 
+}
+
+.control-group {
+  float: left;
 }
 
 /* Table formatting */

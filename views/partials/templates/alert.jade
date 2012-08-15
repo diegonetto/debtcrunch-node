@@ -2,7 +2,4 @@ script(type="text/template")#alert-template
   button(type="button", data-dismiss="alert").close:&times;
   h4.alert-heading Oops! Please fix your errors so we can get back to number crunching.
   p
-  p &nbsp;&nbsp;&bull; Some Lame Ass Error  
-  p &nbsp;&nbsp;&bull; Some Lame Ass Error  
-  p &nbsp;&nbsp;&bull; Some Lame Ass Error  
-
+  <% _.each( msgs, function(msg) { %> <p>&nbsp;&nbsp;&bull; <%= msg %><p> <% }); %>
