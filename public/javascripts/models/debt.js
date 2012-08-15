@@ -43,7 +43,18 @@ var app = app || {};
 		// from the appropriate validation function and construct an error
 		// object if messages were retrieved.
 		validateHelper: function(value, field, attrs) {
-			var msgs;
+			var msgs = [];
+		
+			// Skip the individual validations if the input value is empty
+			if( _.isEmpty(value) && field !== 'order' ) {
+				msgs.push('<strong>' + field.charAt(0).toUpperCase() + 
+					field.slice(1) + '</strong> cannot be empty.');
+				// Error object
+				return {
+					field: field,
+					msgs: msgs
+				};
+			}
 
 			switch( field ) {
 				case 'title':
@@ -79,10 +90,8 @@ var app = app || {};
 		validateTitle: function (value) {
 			var msgs = [];
 
-			if( _.isEmpty(value) ) {
-				msgs.push('<strong>Title</strong> of debt must be specified.');
-			}
-			
+			// TODO: Do not allow duplicate titles
+
 			return msgs;			
 		},
 
@@ -96,8 +105,6 @@ var app = app || {};
 			}
 			
 			return msgs;
-
-			console.log("TODO: Validate Type");
 		},
 
 		// Validates principal.
@@ -105,11 +112,6 @@ var app = app || {};
 		validatePrincipal: function (value) {
 			var msgs = [];
 
-			if( _.isEmpty(value) ) {
-				msgs.push('<strong>Principal</strong> cannot be empty.');
-				return msgs;
-			}
-			
 			var parsed = parseFloat( value.replace('/,/g', '') );
 			if( !parsed ) {
 				msgs.push('<strong>Principal</strong> ( ' + value + ' ) was unable to be converted to a valid number.');
@@ -121,7 +123,19 @@ var app = app || {};
 		// TODO: Validates rate.
 		// Only returns a JS object if error is detected.
 		validateRate: function (value) {
-			console.log("TODO: Validate Rate");
+			var msgs = [];
+
+			var parsed = parseFloat( value );
+			if( !parsed ) {
+				msgs.push('<strong>Rate</strong> ( ' + value + ' ) is not a valid percentage.');
+				return msgs;
+			}
+
+			if ( parsed > 100.00 ) {
+				msgs.push('<strong>Rate</strong> ( ' + value + '% ) cannot be over 100%.');
+			}
+
+			return msgs;
 		},
 
 		// TODO: Validates repayment
