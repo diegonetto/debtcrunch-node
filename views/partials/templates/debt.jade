@@ -2,7 +2,7 @@ script(type="text/template")#debt-template
   td <%= order %>
   td <%- title %>
   td.center-col <%- type %>
-  td.center-col $<%- principal %>
+  td.center-col <% print(accounting.formatMoney(principal)) %>
   td.center-col <%- rate %>%
   td.center-col <%- repayment %> years
   td.center-col  $xx.xx  
