@@ -86,13 +86,13 @@ var app = app || {};
 			return msgs;			
 		},
 
-		// TODO: Validates type
+		// Validates type
 		// Only returns a JS object if error is detected.
 		validateType: function (value) {
 			var msgs = [];
 
-			if( _.isEmpty(value) ) {
-				msgs.push('Type of cannot be empty.');
+			if( DEBT_TYPES.indexOf(value) == -1 ) {
+				msgs.push('<strong>Shame on you! Type</strong> should not be modified from given values.');
 			}
 			
 			return msgs;

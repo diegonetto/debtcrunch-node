@@ -1,5 +1,6 @@
 var app = app || {};
 var ENTER_KEY = 13;
+var DEBT_TYPES = ['Credit Card', 'Stafford Loan', 'Perkins Loan', 'Plus Loan'];
 
 $(function() {
 
