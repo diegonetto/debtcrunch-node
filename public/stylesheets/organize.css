@@ -54,6 +54,51 @@
 }
 
 /* DebtView Styling */
+#debt-table td {
+  vertical-align: middle;
+}
+
+#debt-table tr input {
+  border: none;
+  box-shadow: none;
+}
+
+.cell {
+  position: relative;
+  height: auto;
+  width: auto;
+}
+
+#debt-table tr .edit {
+  display: none;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: inherit;
+}
+
+#debt-table tr .edit-type {
+  margin-top: 3px;
+}
+
+#debt-table .edit-title {
+  padding-left: 8px !important;
+}
+
+#debt-table tr:hover .edit {
+  background-color: #f5f5f5;
+}
+
+#debt-table tr .editing .edit {
+  display: block;
+  z-index: 10;
+}
+
+#deb-table tr .view {
+  z-index: 1;
+}
+
 button {
   margin: 0;
   padding: 0;

@@ -1,6 +1,11 @@
 html, body {
   height: 100%;
 /*  background-color: #EAEAEA !important;*/
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 
 .caption {
