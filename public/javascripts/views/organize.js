@@ -62,12 +62,14 @@ $(function() {
 		},
 
 		// Generate the attributes for a new Debt item.
+		// First sanitize the strings from the input fields
+		// and convert to proper types before sending off to the model.
 		newAttributes: function() {
 			return {
 				title: this.title.val().trim(),
 				type: this.type.val().trim(),
-				principal: this.principal.val().trim(),
-				rate: this.rate.val().trim(),
+				principal: parseFloat( this.principal.val().trim().replace('/,/g', '') ),
+				rate: parseFloat( this.rate.val().trim() ),
 				repayment: this.repayment.val().trim(),
 				order: app.Debts.nextOrder()
 			};

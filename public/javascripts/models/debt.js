@@ -46,9 +46,18 @@ var app = app || {};
 			var msgs = [];
 		
 			// Skip the individual validations if the input value is empty
-			if( _.isEmpty(value) && field !== 'order' ) {
+			if( value == '' ) {
 				msgs.push('<strong>' + field.charAt(0).toUpperCase() + 
 					field.slice(1) + '</strong> cannot be empty.');
+				// Error object
+				return {
+					field: field,
+					msgs: msgs
+				};
+			} 
+			else if( !value ) {
+				msgs.push('<strong>' + field.charAt(0).toUpperCase() + 
+					field.slice(1) + '</strong> does not contain a valid number.');
 				// Error object
 				return {
 					field: field,
@@ -87,7 +96,7 @@ var app = app || {};
 
 		// Validates title.
 		// Only returns a JS object if error is detected.
-		validateTitle: function (value) {
+		validateTitle: function ( value ) {
 			var msgs = [];
 
 			// TODO: Do not allow duplicate titles
@@ -101,7 +110,7 @@ var app = app || {};
 
 		// Validates type.
 		// Only returns a JS object if error is detected.
-		validateType: function (value) {
+		validateType: function ( value ) {
 			var msgs = [];
 
 			if( DEBT_TYPES.indexOf(value) == -1 ) {
@@ -113,16 +122,19 @@ var app = app || {};
 
 		// Validates principal.
 		// Only returns a JS object if error is detected.
-		validatePrincipal: function (value) {
+		validatePrincipal: function ( value ) {
 			var msgs = [];
 
 			if ( value.length > 18 ) {
 				msgs.push('<strong>Principal</strong> cannot be longer than 18 characters.');
 			}
 
-			var parsed = parseFloat( value.replace('/,/g', '') );
-			if( !parsed ) {
-				msgs.push('<strong>Principal</strong> ( ' + value + ' ) was unable to be converted to a valid number.');
+			if( !value ) {
+				msgs.push('<strong>Principal</strong> was unable to be converted to a valid number.');
+			}
+
+			if ( value < 0 ) {
+				msgs.push('<strong>Principal</strong> cannot be a negative number.');
 			}
 
 			return msgs;
@@ -130,23 +142,27 @@ var app = app || {};
 
 		// Validates rate.
 		// Only returns a JS object if error is detected.
-		validateRate: function (value) {
+		validateRate: function ( value ) {
 			var msgs = [];
 
 			if ( value.length > 4 ) {
 				msgs.push('<strong>Rate</strong> cannot be longer than 4 characters.');
 			}
 
-			var parsed = parseFloat( value );
-			if( !parsed ) {
+			if( !value ) {
 				msgs.push('<strong>Rate</strong> ( ' + value + ' ) is not a valid percentage.');
 				return msgs;
 			}
 
-			if ( parsed > 100.00 ) {
+			if ( value > 100.00 ) {
 				msgs.push('<strong>Rate</strong> ( ' + value + '% ) cannot be over 100%.');
 			}
 
+			if ( value < 0 ) {
+				msgs.push('<strong>Rate</strong> ( ' + value + '% ) cannot be negative.');
+			}
+			
+			this.attributes.principal = 22.15;
 			return msgs;
 		},
 
