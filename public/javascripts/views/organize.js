@@ -70,7 +70,7 @@ $(function() {
 				type: this.type.val().trim(),
 				principal: parseFloat( this.principal.val().trim().replace('/,/g', '') ),
 				rate: parseFloat( this.rate.val().trim() ),
-				repayment: this.repayment.val().trim(),
+				repayment: parseInt( this.repayment.val().trim() ),
 				order: app.Debts.nextOrder()
 			};
 		},

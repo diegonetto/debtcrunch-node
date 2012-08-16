@@ -45,20 +45,26 @@ var app = app || {};
 		validateHelper: function(value, field, attrs) {
 			var msgs = [];
 		
-			// Skip the individual validations if the input value is empty
+			// Skip the individual validations if the input value is empty or is NaN
 			if( value == '' ) {
 				msgs.push('<strong>' + field.charAt(0).toUpperCase() + 
 					field.slice(1) + '</strong> cannot be empty.');
-				// Error object
 				return {
 					field: field,
 					msgs: msgs
 				};
 			} 
-			else if( !value ) {
+			if( !value ) {
 				msgs.push('<strong>' + field.charAt(0).toUpperCase() + 
 					field.slice(1) + '</strong> does not contain a valid number.');
-				// Error object
+				return {
+					field: field,
+					msgs: msgs
+				};
+			}
+			if( value < 0 ) {
+				msgs.push('<strong>' + field.charAt(0).toUpperCase() +
+					field.slice(1) + '</strong> cannot be a negative number.');
 				return {
 					field: field,
 					msgs: msgs
@@ -125,16 +131,8 @@ var app = app || {};
 		validatePrincipal: function ( value ) {
 			var msgs = [];
 
-			if ( value.length > 18 ) {
-				msgs.push('<strong>Principal</strong> cannot be longer than 18 characters.');
-			}
-
-			if( !value ) {
-				msgs.push('<strong>Principal</strong> was unable to be converted to a valid number.');
-			}
-
-			if ( value < 0 ) {
-				msgs.push('<strong>Principal</strong> cannot be a negative number.');
+			if ( value > 50000000000000000000 ) {
+				msgs.push('<strong>Principal</strong> cannot be longer than 50 quintillion.');
 			}
 
 			return msgs;
@@ -145,31 +143,23 @@ var app = app || {};
 		validateRate: function ( value ) {
 			var msgs = [];
 
-			if ( value.length > 4 ) {
-				msgs.push('<strong>Rate</strong> cannot be longer than 4 characters.');
-			}
-
-			if( !value ) {
-				msgs.push('<strong>Rate</strong> ( ' + value + ' ) is not a valid percentage.');
-				return msgs;
-			}
-
 			if ( value > 100.00 ) {
 				msgs.push('<strong>Rate</strong> ( ' + value + '% ) cannot be over 100%.');
 			}
-
-			if ( value < 0 ) {
-				msgs.push('<strong>Rate</strong> ( ' + value + '% ) cannot be negative.');
-			}
 			
-			this.attributes.principal = 22.15;
 			return msgs;
 		},
 
-		// TODO: Validates repayment
+		// Validates repayment.
 		// Only returns a JS object if error is detected.
 		validateRepayment: function (value) {
-			console.log("TODO: Validate Repayment");
+			var msgs = [];
+
+			if ( value > 12000 ) {
+				msgs.push('<strong>Repayment</strong> period cannot be longer than 12000 months.');
+			}
+			
+			return msgs;
 		}
 	});
 
