@@ -16,6 +16,10 @@
   padding-right: 10px !important;
 }
 
+#debt-table {
+  display: none;
+}
+
 #order {
   width: 20px;
 }
@@ -110,4 +114,15 @@ button {
 
 #debt-table tr:hover .destroy-btn {
   display: block;
+}
+
+/* Guidance information styling */
+.stress {
+  font-weight: bold;
+  color: #0055cc;
+}
+
+#step-one,
+#step-two {
+  display: none;
 }

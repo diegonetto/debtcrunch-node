@@ -37,13 +37,37 @@ $(function() {
                         window.app.Debts.on( 'all', this.render, this );
 			window.app.Debts.on( 'error', this.handleErr, this );
 
+			this.$stepOne = this.$('#step-one');
+			this.$stepTwo = this.$('#step-two');
+			this.$debtTable = this.$('#debt-table');
+
 			app.Debts.fetch();
                 },
 
-                // Re-rendering the Organize view means refreshing the sum row
+                // Re-rendering the Organize view means deciding which steps of
+		// the guidance wizard to show and redrawing the sum row.
                 render: function( eventName ) {
 			console.log("OrganizeView render() called with event: " + eventName);
                         // TODO: Update the sum-row via template
+
+			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
+				switch ( app.Debts.length ) {
+					case 0:
+						this.$debtTable.hide();
+						this.$stepTwo.hide();
+						this.$stepOne.show('drop', { direction: 'up' });
+						break;
+					case 1:
+						this.$stepOne.hide();
+						this.$debtTable.show('drop', { direction: 'up' });
+						this.$stepTwo.show('drop', { direction: 'up' } );
+						break;
+					default:
+						this.$stepTwo.hide();
+						this.$debtTable.show();
+						break;
+				}
+			}
                 },
 
 		// Add a single debt to the list by creating a view for it and
