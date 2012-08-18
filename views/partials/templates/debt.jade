@@ -1,23 +1,28 @@
 script(type="text/template")#debt-template
-  td.cell.title-cell 
+  td.title-cell 
     .view <%- title %>
-    input(type="text", value!="<%- title %>", maxlength="35").edit.edit-title
-  td.cell.type-cell.center-col
+    .edit-wrapper
+      input(type="text", value!="<%- title %>", maxlength="35").edit.edit-title
+  td.type-cell.center-col
     .view <%- type %>
-    select.edit.edit-type
-      option Credit Card
-      option Stafford Loan
-      option Perkins Loan
-      option Plus Loan
-  td.cell.principal-cell.center-col
+    .edit-wrapper
+      select.edit.edit-type
+        option Credit Card
+        option Stafford Loan
+        option Perkins Loan
+        option Plus Loan
+  td.principal-cell.center-col
     .view <% print(accounting.formatMoney(principal)) %>
-    input(type="text", value!="<%- principal %>", maxlength="18").edit.edit-principal
-  td.cell.rate-cell.center-col 
+    .edit-wrapper
+      input(type="text", value!="<%- principal %>", maxlength="18").edit.edit-principal
+  td.rate-cell.center-col 
     .view <%- rate %>
-    input(type="text", value!="<%- rate %>", maxlength="4").edit.edit-rate
-  td.cell.repayment-cell.center-col 
+    .edit-wrapper
+      input(type="text", value!="<%- rate %>", maxlength="4").edit.edit-rate
+  td.repayment-cell.center-col 
     .view <%- repayment %> months
-    input(type="text",  value!="<%- repayment %>", maxlength="5").edit.edit-repayment
+    .edit-wrapper
+      input(type="text",  value!="<%- repayment %>", maxlength="5").edit.edit-repayment
   td.center-col  $xx.xx  
     div#destroy-wrapper
       button.destroy-btn

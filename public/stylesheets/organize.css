@@ -63,18 +63,18 @@
   box-shadow: none;
 }
 
-.cell {
+.edit-wrapper {
   position: relative;
-  height: auto;
-  width: auto;
+  height: 0px;
+  width: 0px;
 }
 
 #debt-table tr .edit {
   display: none;
   padding: 0px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: -26px;
+  left: -9px;
   text-align: inherit;
   border: 1px solid #999;
   box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -90,7 +90,7 @@
 }
 
 #debt-table .edit-title {
-  padding-left: 6px !important;
+  padding-left: 7px !important;
 }
 
 #debt-table tr:hover .edit {
@@ -98,7 +98,7 @@
 }
 
 #debt-table tr .editing .edit {
-  display: block;
+  display: inline-block;
   z-index: 10;
 }
 
