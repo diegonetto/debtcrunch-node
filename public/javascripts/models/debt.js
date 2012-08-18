@@ -34,7 +34,7 @@ var app = app || {};
 				// Since we have a handle on the Debts collection
 				// from the app, fire off an error event during validation
 				// so the errors will be visible even during Collection.create.
-				window.app.Debts.trigger('error', this, errors);
+				window.app.Debts.trigger('creation-error', this, errors);
 				return errors;
 			}
 		},

@@ -35,7 +35,8 @@ $(function() {
                         window.app.Debts.on( 'reset', this.addAll, this );
                         window.app.Debts.on( 'change:completed', this.addAll, this );
                         window.app.Debts.on( 'all', this.render, this );
-			window.app.Debts.on( 'error', this.handleErr, this );
+			window.app.Debts.on( 'creation-error', this.formError, this );
+			window.app.Debts.on( 'error', this.flashErrors, this );
 
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
@@ -113,16 +114,22 @@ $(function() {
 		},
 
 		// Debt from error handling.
+		// Add the 'error' class to all appropriate control-groups in the form
+		// then flash the error messages.
+		formError: function( model, errors ) {
+			_.each( errors, function(error){ 
+				$('#' + error.field + '-group').addClass('error'); });
+
+			this.flashErrors( model, errors );
+		},
+		
 		// Hide all control-group errors, create a new AlertView with the
 		// given errors, place it in the DOM, show it with a jQuery UI Effect
-		// and add the 'error' class to all appropriate control-groups.
-		handleErr: function( model, errors ) {
+		flashErrors: function( model, errors ) {
 			this.clearErrors();
 			var view = new app.AlertView({ errors: errors });
 			$('#error-msgs').html( view.render().el );
 			$('.alert').show("drop", { direction: 'up' });
-			_.each( errors, function(error){ 
-				$('#' + error.field + '-group').addClass('error'); });
 		},
 
 		clearErrors: function() {
