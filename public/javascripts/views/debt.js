@@ -54,13 +54,14 @@ $(function() {
 			this.startEditing( cell );
 		},
 
-		// Overlay the current input in the table cell for the debt Type.
+		// Set the default selected option, then overlay the current input in the table cell for the debt Type.
 		// Since we want the type cell to behave slightly differently (not get maxed
 		// inside its parent's table cell) we have to manually turn on editing mode and set focus.
 		editType: function( event ) {
 			var cell = this.$('.type-cell');
 			this.currentInput = this.$('.edit-type');
 			this.currentInput.width( cell.outerWidth() );
+			this.currentInput.val(this.model.attributes.type);
 			cell.addClass('editing');
 			this.currentInput.focus();
 		},
