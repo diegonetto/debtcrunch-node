@@ -32,6 +32,7 @@ $(function() {
 		initialize: function() {
 			this.model.on( 'change', this.render, this );
 			this.model.on( 'destroy', this.remove, this );
+			this.model.on( 'error', this.render, this );
 		},
 
 		// Re-render the data in the table of this debt.
@@ -87,8 +88,37 @@ $(function() {
 			this.startEditing( cell )
 		},
 
-		// TODO:
+		// Disable editing mode, trim and parse value if appropriate,
+		// and attempt to save the updates. If value is empty, flash a message and return.
 		close: function() {
+			var value = this.currentInput.val().trim();
+
+			if ( !value ) {
+				// TODO: Flash message
+				return;
+			}			
+
+			var response;
+			switch ( this.currentInput.selector ) {
+				case '.edit-title':
+					response = this.model.save({ title: value });
+					break;
+				case '.edit-type':
+					response = this.model.save({ type: value });
+					break;
+				case '.edit-principal':
+					response = this.model.save({ principal: parseFloat( value.replace('/,/g', '') ) });
+					break;
+				case '.edit-rate':
+					response = this.model.save({ rate: parseFloat( value ) });
+					break;
+				case '.edit-repayment':
+					response = this.model.save({ repayment: parseInt( value ) });
+					break;
+				default:
+					break;
+			}
+
 			this.$('.editing').removeClass('editing');
 		},
 
