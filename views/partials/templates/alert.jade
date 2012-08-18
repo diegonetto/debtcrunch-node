@@ -1,5 +1,5 @@
 script(type="text/template")#alert-template
   button(type="button", data-dismiss="alert").close:&times;
-  h4.alert-heading Oops! Please fix your errors so we can get back to number crunching.
+  h4.alert-heading Oops!
   p
   <% _.each( msgs, function(msg) { %> <p>&nbsp;&nbsp;&bull; <%= msg %><p> <% }); %>
