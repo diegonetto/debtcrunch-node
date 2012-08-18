@@ -36,7 +36,7 @@ $(function() {
                         window.app.Debts.on( 'change:completed', this.addAll, this );
                         window.app.Debts.on( 'all', this.render, this );
 			window.app.Debts.on( 'creation-error', this.formError, this );
-			window.app.Debts.on( 'error', this.flashErrors, this );
+			window.app.Debts.on( 'error', this.modelError, this );
 
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
@@ -103,22 +103,49 @@ $(function() {
 		// If you click on the Add button, create new **Debt** model,
 		// persisting it to *LocalStorage*.
 		createOnAdd: function( e ) {
+			// Clear any current errors
+			this.clearErrors();
+
 			// Create new model in collection, check if successful
 			if ( app.Debts.create( this.newAttributes() ) ) {
+				this.clearFormInputs();
+			}
+		},
+
+		// Helper function that clears debt form input fields
+		clearFormInputs: function() {
 				this.title.val('');
 				this.type.val('Credit Card');
 				this.principal.val('');
 				this.rate.val('');
-				this.repayment.val('');						
-			}
+				this.repayment.val('');
 		},
 
 		// Debt from error handling.
 		// Add the 'error' class to all appropriate control-groups in the form
 		// then flash the error messages.
+		// The trigger for function comes from event manually fired from the Debt Model
+		// during validation to take care of returning errors during model creation.
 		formError: function( model, errors ) {
 			_.each( errors, function(error){ 
 				$('#' + error.field + '-group').addClass('error'); });
+
+			this.flashErrors( model, errors );
+		},
+
+		// Debt model error handling.
+		// Trigger for this function comes from the 'error' event that is
+		// automatically fired when the model fails validation.
+		// In this case we do not want to highlight the form inputs so
+		// we clear them out (since during model validation failure both
+		// automatic 'error' and manual 'creation-error' are fired.).
+		modelError: function( model, errors ) {
+			this.clearErrors();
+
+			// Since this will only be fired from model if validation fails
+			// after a model already is created, go ahead and re-render the
+			// debt creation form since we just cleared any errors it might have had.
+			this.clearFormInputs();
 
 			this.flashErrors( model, errors );
 		},
@@ -126,7 +153,6 @@ $(function() {
 		// Hide all control-group errors, create a new AlertView with the
 		// given errors, place it in the DOM, show it with a jQuery UI Effect
 		flashErrors: function( model, errors ) {
-			this.clearErrors();
 			var view = new app.AlertView({ errors: errors });
 			$('#error-msgs').html( view.render().el );
 			$('.alert').show("drop", { direction: 'up' });
