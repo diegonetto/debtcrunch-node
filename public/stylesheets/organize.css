@@ -76,6 +76,13 @@
   top: 0px;
   left: 0px;
   text-align: inherit;
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #debt-table tr .edit-type {
@@ -83,7 +90,7 @@
 }
 
 #debt-table .edit-title {
-  padding-left: 8px !important;
+  padding-left: 6px !important;
 }
 
 #debt-table tr:hover .edit {
