@@ -47,50 +47,43 @@ $(function() {
 			this.model.destroy();
 		},
 
-		// Set editing mode on and display the input field for debt Title.
-		// Position the input within the cell.
+		// Overlay the current input in the table cell for the debt Title.
 		editTitle: function( event ) {
 			var cell = this.$('.title-cell');
-			var element = this.$('.edit-title');
-			this.overlayInCell( cell, element );
-			cell.addClass('editing');
-			element.focus();
+			this.currentInput = this.$('.edit-title');
+			this.startEditing( cell );
 		},
 
-		// Set editing mode on and display the input field for debt Type.
+		// Overlay the current input in the table cell for the debt Type.
+		// Since we want the type cell to behave slightly differently (not get maxed
+		// inside its parent's table cell) we have to manually turn on editing mode and set focus.
 		editType: function( event ) {
 			var cell = this.$('.type-cell');
-			var element = this.$('.edit-type');
-			element.width( cell.outerWidth() );
+			this.currentInput = this.$('.edit-type');
+			this.currentInput.width( cell.outerWidth() );
 			cell.addClass('editing');
-			element.focus();
+			this.currentInput.focus();
 		},
 
-		// Set editing mode on and display the input field for debt Principal.
+		// Overlay the current input in the table cell for the debt Principal.
 		editPrincipal: function( event ) {
 			var cell = this.$('.principal-cell');
-			var element = this.$('.edit-principal');
-			this.overlayInCell( cell, element );
-			cell.addClass('editing');
-			element.focus();
+			this.currentInput = this.$('.edit-principal');
+			this.startEditing( cell );
 		},
 
-		// Set editing mode on and display the input field for debt Rate.
+		// Overlay the current input in the table cell for the debt Rate.
 		editRate: function( event ) {
 			var cell = this.$('.rate-cell');
-			var element = this.$('.edit-rate');
-			this.overlayInCell( cell, element );
-			cell.addClass('editing');
-			element.focus();
+			this.currentInput = this.$('.edit-rate');
+			this.startEditing( cell );
 		},
 
-		// Set editing mode on and display the input field for debt Repayment.
+		// Overlay the current input in the table cell for the debt Repayment.
 		editRepayment: function( event ) {
 			var cell = this.$('.repayment-cell');
-			var element = this.$('.edit-repayment');
-			this.overlayInCell( cell, element );
-			cell.addClass('editing');
-			element.focus();
+			this.currentInput = this.$('.edit-repayment');
+			this.startEditing( cell )
 		},
 
 		// TODO:
@@ -98,11 +91,14 @@ $(function() {
 			this.$('.editing').removeClass('editing');
 		},
 
-		// Overlays an element complete within its parent table cell.
-		overlayInCell: function( cell, element ) {
-			element.width( cell.outerWidth() );
-			// Subtract 1px to account for bottom border
-			element.height( cell.outerHeight() - 1);
+		// Overlays the current input completely within its parent table cell,
+		// Turns on editing mode, and sets the focus on the currentInput.
+		startEditing: function( cell ) {
+			this.currentInput.width( cell.outerWidth() );
+			// TODO (remove this hack): Subtract 1px to account for bottom border
+			this.currentInput.height( cell.outerHeight() - 1);
+			cell.addClass('editing');
+			this.currentInput.focus();
 		}
 	});
 });
