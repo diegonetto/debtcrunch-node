@@ -42,6 +42,7 @@ $(function() {
 			this.$stepTwo = this.$('#step-two');
 			this.$debtTable = this.$('#debt-table');
 			this.$principalTotal = this.$('#principal-total');
+			this.$monthlyTotal = this.$('#monthly-total');
 
 			app.Debts.fetch();
                 },
@@ -54,6 +55,12 @@ $(function() {
 			var principalSum = _.reduce(window.app.Debts.pluck("principal"), 
 				function(sum, num) { return sum + num; }, 0 );
 			this.$principalTotal.html( accounting.formatMoney(principalSum) );
+
+			// Pluck all the monthly values from each model in the Debts collection
+			// and reduce them down to a sum and update the html.
+			var monthlySum = _.reduce(window.app.Debts.pluck("monthly"), 
+				function(sum, num) { return sum + num; }, 0 );
+			this.$monthlyTotal.html( accounting.formatMoney(monthlySum) );
 
 			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
 				switch ( app.Debts.length ) {
