@@ -40,7 +40,7 @@ $(function() {
 
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
-			this.$debtTable = this.$('#debt-table');
+			this.$debtTable = this.$('#table-wrapper');
 			this.$principalTotal = this.$('#principal-total');
 			this.$monthlyTotal = this.$('#monthly-total');
 
