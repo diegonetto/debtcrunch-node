@@ -41,6 +41,7 @@ $(function() {
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
 			this.$debtTable = this.$('#debt-table');
+			this.$principalTotal = this.$('#principal-total');
 
 			app.Debts.fetch();
                 },
@@ -50,6 +51,12 @@ $(function() {
                 render: function( eventName ) {
 			console.log("OrganizeView render() called with event: " + eventName);
                         // TODO: Update the sum-row via template
+
+			// Pluck all the principal values from each model in the Debts collection
+			// and reduce them down to a sum and update the html.
+			var principalSum = _.reduce(window.app.Debts.pluck("principal"), 
+				function(sum, num) { return sum + num; }, 0 );
+			this.$principalTotal.html( accounting.formatMoney(principalSum) );
 
 			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
 				switch ( app.Debts.length ) {
