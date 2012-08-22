@@ -48,9 +48,18 @@
   text-align: center !important;
 }
 
-#sum-row {
+#sum-row td {
+  border-top: 1px solid #2C2C2C;
   color: firebrick;
   font-weight: bold;
+}
+
+#table-notes {
+  margin: -15px auto 0;
+  color: #a6a6a6;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
 
 /* DebtView Styling */
