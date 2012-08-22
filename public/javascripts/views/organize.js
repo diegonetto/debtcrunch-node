@@ -49,9 +49,6 @@ $(function() {
                 // Re-rendering the Organize view means deciding which steps of
 		// the guidance wizard to show and redrawing the sum row.
                 render: function( eventName ) {
-			console.log("OrganizeView render() called with event: " + eventName);
-                        // TODO: Update the sum-row via template
-
 			// Pluck all the principal values from each model in the Debts collection
 			// and reduce them down to a sum and update the html.
 			var principalSum = _.reduce(window.app.Debts.pluck("principal"), 

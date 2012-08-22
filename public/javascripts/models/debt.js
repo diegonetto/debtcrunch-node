@@ -7,17 +7,72 @@ var app = app || {};
 	// ----------
 
 	// Our basic **Debt** model has 'title', 'type', 'principle', 'rate', 
-	// 'order', and 'repayment' attributes.
+	// 'order', 'repayment', and 'monthly' attributes.
 	app.Debt = Backbone.Model.extend({
 
 		// Default attributes for the debt. Ensure that each debt created 
-		// has 'title', 'type', 'principle', 'rate', and 'repayment' keys.
+		// has 'title', 'type', 'principle', 'rate', 'repayment', and 'monthly' keys.
 		defaults: {
 			title: 'Double Click to Change',
 			type: 'credit',
 			principal: 5000,
 			rate: 6.8,
-			repayment: 10
+			repayment: 10,
+			monthly: 0
+		},
+
+		// The model listens for changes on itself in order properly
+		// update its 'monthly' attribute value when it is first added and
+		// subsequently on 'type' changes.
+		initialize: function() {
+			this.on( 'add change:type', this.updateMonthly, this );
+		},
+
+		// Helper function that will update the model's 'monthly' attribute
+		// based on the current 'type' value. Use the 'silent: true' option
+		// when setting so that another 'change' event is not triggered on the model.
+		updateMonthly: function( eventName ) {
+			switch( this.attributes.type ) {
+				case 'Credit Card':
+					this.set( { monthly: this.creditCardMonthly() }, { silent: true } );
+					break;
+				case 'Stafford Loan':
+					this.set( { monthly: this.staffordLoanMonthly() }, { silent: true } );
+					break;
+				case 'Perkins Loan':
+					this.set( { monthly: this.perkinsLoanMonthly() }, { silent: true } );
+					break;
+				case 'Plus Loan':
+					this.set( { monthly: this.plusLoanMonthly() }, { silent: true } );
+					break
+				default:
+					this.set( { monthly: 0 }, { silent: true } );
+					break;
+			}
+		},
+
+		// Function that calculates monthly payment for Credit Card debts.
+		creditCardMonthly: function() {
+			console.log('TODO: Update monthly payment for CREDIT CARD');
+			return 10.10;
+		},
+
+		// Function that calculates monthly payment for Stafford Loan debts.
+		staffordLoanMonthly: function() {
+			console.log('TODO: Update monthly payment for STAFFORD LOAN');
+			return 20.20;
+		},
+
+		// Function that calculates monthly payment for Perkins Loan debts.
+		perkinsLoanMonthly: function() {
+			console.log('TODO: Update monthly payment for PERKINS LOAN');
+			return 30.30;
+		},
+
+		// Function that calculates monthly payment for Plus Loan debts.
+		plusLoanMonthly: function() {
+			console.log('TODO: Update monthly payment for PLUS LOAN');
+			return 40.40;
 		},
 
 		// Validation function that gets called before 'set' and 'save'.
@@ -44,6 +99,12 @@ var app = app || {};
 		// object if messages were retrieved.
 		validateHelper: function(value, field, attrs) {
 			var msgs = [];
+
+			// TODO: Consider a smarter alternative to completely skipping validation.
+			// Skip validation if the field being validated is the 'monthly' attribute 
+			if( field == 'monthly' ) {
+				return;
+			}
 		
 			// Skip the individual validations if the input value is empty or is NaN
 			if( value == '' ) {
