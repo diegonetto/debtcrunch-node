@@ -23,7 +23,7 @@ script(type="text/template")#debt-template
     .view <%- repayment %> months
     .edit-wrapper
       input(type="text",  value!="<%- repayment %>", maxlength="5").edit.edit-repayment
-  td.center-col  $xx.xx  
+  td.center-col <% print(accounting.formatMoney(monthly)) %>  
     div#destroy-wrapper
       button.destroy-btn
 
