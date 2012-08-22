@@ -125,9 +125,8 @@ $(function() {
 		// Overlays the current input completely within its parent table cell,
 		// Turns on editing mode, and sets the focus on the currentInput.
 		startEditing: function( cell ) {
-			this.currentInput.width( cell.outerWidth() );
-			// TODO (remove this hack): Subtract 1px to account for bottom border
-			this.currentInput.height( cell.outerHeight() - 1);
+			this.currentInput.width( cell.innerWidth() );
+			this.currentInput.height( cell.innerHeight() );
 			cell.addClass('editing');
 			this.currentInput.focus();
 		}
