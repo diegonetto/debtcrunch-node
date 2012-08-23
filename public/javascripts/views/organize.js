@@ -88,7 +88,7 @@ $(function() {
 			switch ( input.attr('data-field') ) {
 				case 'title':
 					title = 'Debt Title';
-					content = 'A unique title for this debt.';
+					content = 'A descriptive title for this debt.';
 					break;
 				case 'type':
 					title = 'Type';
