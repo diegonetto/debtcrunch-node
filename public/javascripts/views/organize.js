@@ -100,7 +100,7 @@ $(function() {
 					break;
 				case 'rate':
 					title = 'Percentage Rate';
-					content = 'The Annual Percentage Rate (APR) of this debt.';
+					content = 'The annual interest rate (percentage) of this debt.';
 					break;
 				case 'repayment':
 					title = 'Repayment Time';
