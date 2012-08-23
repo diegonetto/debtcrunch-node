@@ -66,7 +66,7 @@ $(function() {
 						this.$debtTable.hide();
 						break;
 					case 1:
-						this.$debtTable.show('drop', { direction: 'up' });
+						this.$debtTable.show('blind', 700);
 						break;
 					default:
 						this.$debtTable.show();
