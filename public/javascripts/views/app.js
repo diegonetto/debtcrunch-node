@@ -23,17 +23,39 @@ $(function( $ ) {
 			// TODO: Bind to the appropriate events (once Debts are added / changed
 			// call render to update clocks
 
+			window.app.Debts.on( 'all', this.render, this );
+
+			this.$stepOne = this.$('#step-one');
+			this.$stepTwo = this.$('#step-two');
+
 			// Create the views for the tabs
 			new app.OrganizeView();
 			//new app.StrategizeView();
-
 		},
 
-		// Re-rendering the App means refreshing the clocks at the top of the page
-		render: function() {
+		// Re-rendering the App means managing the guide at the top of the page
+		// and refreshing the interest clocks.
+		render: function( eventName ) {
 			// TODO: Update the clocks via template
-		},
 
+			// Be specific about which events to show / hide the wizard since we are using
+			// animations and do not want them to repeat unnecessarily 
+			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
+				switch ( app.Debts.length ) {
+					case 0:
+						this.$stepTwo.hide();
+						this.$stepOne.show('drop', { direction: 'up' });
+						break;
+					case 1:
+						this.$stepOne.hide();
+						this.$stepTwo.show('drop', { direction: 'up' } );
+						break;
+					default:
+						this.$stepTwo.hide();
+						break;
+				}
+			}
+		}
 
 	});
 });

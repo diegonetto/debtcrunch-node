@@ -38,8 +38,6 @@ $(function() {
 			window.app.Debts.on( 'creation-error', this.formError, this );
 			window.app.Debts.on( 'error', this.modelError, this );
 
-			this.$stepOne = this.$('#step-one');
-			this.$stepTwo = this.$('#step-two');
 			this.$debtTable = this.$('#table-wrapper');
 			this.$principalTotal = this.$('#principal-total');
 			this.$monthlyTotal = this.$('#monthly-total');
@@ -66,16 +64,11 @@ $(function() {
 				switch ( app.Debts.length ) {
 					case 0:
 						this.$debtTable.hide();
-						this.$stepTwo.hide();
-						this.$stepOne.show('drop', { direction: 'up' });
 						break;
 					case 1:
-						this.$stepOne.hide();
 						this.$debtTable.show('drop', { direction: 'up' });
-						this.$stepTwo.show('drop', { direction: 'up' } );
 						break;
 					default:
-						this.$stepTwo.hide();
 						this.$debtTable.show();
 						break;
 				}
