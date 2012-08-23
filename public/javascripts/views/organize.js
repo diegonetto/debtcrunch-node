@@ -17,7 +17,8 @@ $(function() {
 
                 // Delegated events for creating and deleting debts
                 events: {
-                        'click #debt-add':	'createOnAdd'
+                        'click #debt-add':		'createOnAdd',
+			'keypress .debt-input':		'createOnEnter',
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts"
@@ -157,6 +158,13 @@ $(function() {
 			if ( app.Debts.create( this.newAttributes() ) ) {
 				this.clearFormInputs();
 			}
+		},
+
+		// If the enter key is pressed while in a debt input, attempt to create a new debt.
+		createOnEnter: function( e ) {
+				if ( e.which == ENTER_KEY ) {
+					this.createOnAdd();
+				}
 		},
 
 		// Helper function that clears debt form input fields
