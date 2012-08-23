@@ -18,7 +18,6 @@ $(function() {
                 // Delegated events for creating and deleting debts
                 events: {
                         'click #debt-add':	'createOnAdd'
-                        // TODO: Add ability to delete
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts"
@@ -30,6 +29,12 @@ $(function() {
                         this.principal = this.$('#debt-principal');
                         this.rate = this.$('#debt-rate');
                         this.repayment = this.$('#debt-repayment');
+
+			// Wrap the debt inputs in a list for ease of processing.
+			this.debtInputs = [this.title, this.type, this.principal, this.rate, this.repayment];
+
+			// Enable the help pop-overs for each of the debt inputs.
+			_.each( this.debtInputs, this.enablePopovers, this );
 
                         window.app.Debts.on( 'add', this.addAll, this );
                         window.app.Debts.on( 'reset', this.addAll, this );
@@ -74,6 +79,44 @@ $(function() {
 				}
 			}
                 },
+
+		// Helper function that iterates over the debtInputs and creates unique popovers.
+		enablePopovers: function( input ) {
+			var title = '';
+			var content = '';
+
+			switch ( input.attr('data-field') ) {
+				case 'title':
+					title = 'Debt Title';
+					content = 'A unique title for this debt.';
+					break;
+				case 'type':
+					title = 'Type';
+					content = 'The debt type affects how monthly payments are calculated.';
+					break;
+				case 'principal':
+					title = 'Starting Principal';
+					content = 'The initial dollar amount of this debt.';
+					break;
+				case 'rate':
+					title = 'Percentage Rate';
+					content = 'The Annual Percentage Rate (APR) of this debt.';
+					break;
+				case 'repayment':
+					title = 'Repayment Time';
+					content = 'The lifetime of this debt in months.';
+					break;
+				default:
+					break;
+			}
+
+			input.popover({ 
+				placement: 'top',
+				title: title,
+				content: content,
+				trigger: 'focus'
+			});
+		},
 
 		// Add a single debt to the list by creating a view for it and
 		// appending its element to the table
