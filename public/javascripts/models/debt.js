@@ -23,9 +23,9 @@ var app = app || {};
 
 		// The model listens for changes on itself in order properly
 		// update its 'monthly' attribute value when it is first added and
-		// subsequently on 'type' changes.
+		// subsequently on 'type', 'principal', 'rate', or 'repayment' change.
 		initialize: function() {
-			this.on( 'add change:type', this.updateMonthly, this );
+			this.on( 'add change:type change:principal change:rate change:repayment', this.updateMonthly, this );
 		},
 
 		// Helper function that will update the model's 'monthly' attribute
@@ -53,8 +53,11 @@ var app = app || {};
 
 		// Function that calculates monthly payment for Credit Card debts.
 		creditCardMonthly: function() {
+			// payment = (1% * principal) + (rate / 12) * principal
 			console.log('TODO: Update monthly payment for CREDIT CARD');
-			return 10.10;
+			var rate = this.attributes.rate / 100.0;
+			var principal = this.attributes.principal;
+			return (0.01 * principal) + (rate / 12) * principal;
 		},
 
 		// Function that calculates monthly payment for Stafford Loan debts.
