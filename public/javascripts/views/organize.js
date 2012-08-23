@@ -140,8 +140,8 @@ $(function() {
 			return {
 				title: this.title.val().trim(),
 				type: this.type.val().trim(),
-				principal: parseFloat( this.principal.val().trim().replace('/,/g', '') ),
-				rate: parseFloat( this.rate.val().trim() ),
+				principal: accounting.toFixed( parseFloat(this.principal.val().trim().replace('/,/g', '')), 2 ),
+				rate: accounting.toFixed( parseFloat( this.rate.val().trim()), 2 ),
 				repayment: parseInt( this.repayment.val().trim() ),
 				order: app.Debts.nextOrder()
 			};
