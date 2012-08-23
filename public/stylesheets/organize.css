@@ -17,11 +17,11 @@
 
 /* Table formatting */
 #table-wrapper {
-  padding-right: 10px !important;
+  padding-right: 9px;
 }
 
 #title {
-  width: 190px;
+  width: 190px; 
 }
 
 #type {
