@@ -27,6 +27,7 @@ $(function( $ ) {
 
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
+			this.$clockWrapper = this.$('#interest-clocks-wrapper');
 
 			// Set the padding for the wizard hero units so they will be correct during animation
 			var heroUnit = this.$('.hero-unit');
@@ -50,13 +51,19 @@ $(function( $ ) {
 					case 0:
 						this.$stepTwo.hide();
 						this.$stepOne.show('blind', 1000);
+						this.$clockWrapper.hide();
 						break;
 					case 1:
 						this.$stepOne.hide();
 						this.$stepTwo.show('blind', 1000);
+						this.$clockWrapper.hide();
+						break;
+					case 2:
+						this.$stepTwo.hide();
+						this.$clockWrapper.show('blind', { direction: 'vertical' }, 1000);
 						break;
 					default:
-						this.$stepTwo.hide();
+						this.$clockWrapper.show();
 						break;
 				}
 			}
