@@ -28,6 +28,11 @@ $(function( $ ) {
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
 
+			// Set the padding for the wizard hero units so they will be correct during animation
+			var heroUnit = this.$('.hero-unit');
+			heroUnit.css('padding-top', '10px');
+			heroUnit.css('padding-bottom', '10px');
+
 			// Create the views for the tabs
 			new app.OrganizeView();
 			//new app.StrategizeView();
@@ -44,11 +49,11 @@ $(function( $ ) {
 				switch ( app.Debts.length ) {
 					case 0:
 						this.$stepTwo.hide();
-						this.$stepOne.show('drop', { direction: 'up' });
+						this.$stepOne.show('blind', 1000);
 						break;
 					case 1:
 						this.$stepOne.hide();
-						this.$stepTwo.show('drop', { direction: 'up' } );
+						this.$stepTwo.show('blind', 1000);
 						break;
 					default:
 						this.$stepTwo.hide();
