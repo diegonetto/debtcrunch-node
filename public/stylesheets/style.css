@@ -1,11 +1,11 @@
 html, body {
   height: 100%;
-/*  background-color: #EAEAEA !important;*/
+/*  background-color: MintCream !important; */
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  font-smoothing: antialiased; 
 }
 
 #subnav {
@@ -62,6 +62,21 @@ footer {
   position: absolute;
   margin: 0px auto;
   top: 45px;
+}
+
+/* Guidance Wizard styling */
+#wizard-wrapper > .hero-unit {
+  margin-bottom: 10px;
+}
+
+.stress {
+  font-weight: bold;
+  color: #0055cc;
+}
+
+#step-one,
+#step-two {
+  display: none;
 }
 
 /* responsive footer fix by Aalaap Ghag */

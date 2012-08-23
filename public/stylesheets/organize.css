@@ -11,13 +11,13 @@
   float: left;
 }
 
+#debt-rate {
+  width: 110px;
+}
+
 /* Table formatting */
 #table-wrapper {
   padding-right: 10px !important;
-}
-
-#order {
-  width: 20px;
 }
 
 #title {
@@ -78,8 +78,8 @@
   display: none;
   padding: 0px;
   position: absolute;
-  top: -26px;
-  left: -9px;
+  top: -28px;
+  left: -8px;
   text-align: inherit;
   border: 1px solid #999;
   box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -171,15 +171,4 @@ button {
 
 #debt-table tr:hover .destroy-btn {
   display: block;
-}
-
-/* Guidance information styling */
-.stress {
-  font-weight: bold;
-  color: #0055cc;
-}
-
-#step-one,
-#step-two {
-  display: none;
 }

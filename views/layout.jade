@@ -3,8 +3,8 @@ html
   head
     title= title
     block head
-      link(rel='stylesheet', href='/stylesheets/style.css')
       link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
+      link(rel='stylesheet', href='/stylesheets/style.css')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js')
       script(src='/vendor/bootstrap/js/bootstrap.js')
@@ -13,7 +13,7 @@ html
   body
     .main-wrapper
       .container
-        .navbar.navbar-fixed-top
+        .navbar.navbar-fixed-top.navbar-inverse
           .navbar-inner
             .container
               ul.nav.pull-left
