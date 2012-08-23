@@ -79,6 +79,32 @@ footer {
   display: none;
 }
 
+/* Interest Clock styling */
+#interest-clocks-wrapper {
+  display: none;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+#lifetime-interest-clock {
+  border: 2px solid DeepPink;
+  width: 47%;
+  height: 175px;
+  text-align: center;
+  float: left;
+}
+
+#daily-interest-clock {
+  border: 2px solid DeepPink;
+  width: 47%;
+  height: 175px;
+  text-align: center;
+  float: right;
+}
+
 /* responsive footer fix by Aalaap Ghag */
 @media (max-width: 767px) {
    body {
