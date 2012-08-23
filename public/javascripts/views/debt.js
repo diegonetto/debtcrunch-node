@@ -30,12 +30,13 @@ $(function() {
 		// a one-to-one correspondence between a **Debt** and a *DebtView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.on( 'change', this.render, this );
+			this.model.on( 'change sync', this.render, this );
 			this.model.on( 'destroy', this.remove, this );
 			this.model.on( 'error', this.render, this );
 		},
 
-		// Re-render the data in the table of this debt.
+		// Re-render the data in the table of this debt, and update the inputs accordingly.
+		// (See debt-item template).
 		render: function() {
 			this.$el.html( this.template( this.model.toJSON() ) );
 			
@@ -107,7 +108,7 @@ $(function() {
 					response = this.model.save({ type: value });
 					break;
 				case '.edit-principal':
-					response = this.model.save({ principal: accounting.toFixed( parseFloat( value.replace('/,/g', '')), 2 ) });
+					response = this.model.save({ principal: accounting.toFixed( parseFloat(value.replace('/,/g', '')), 2 ) });
 					break;
 				case '.edit-rate':
 					response = this.model.save({ rate: accounting.toFixed( parseFloat(value), 2 ) });
