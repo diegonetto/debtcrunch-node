@@ -30,15 +30,11 @@ html, body {
                                 0 25px 50px 0 rgba(0, 0, 0, 0.15);
 }
 
-footer {
-  text-align: center;
-}
-
 .main-wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -95px;
+  margin: 0 auto -35px;
 }
 
 #main {
@@ -46,7 +42,17 @@ footer {
 }
 
 .push {
-  height: 95px;
+  height: 35px;
+}
+
+footer {
+  text-align: center;
+  height: 30px;
+}
+
+footer hr {
+  margin-top: 5px;
+  margin-bottom: 3px;
 }
 
 /* Style Error Alert Messages */
