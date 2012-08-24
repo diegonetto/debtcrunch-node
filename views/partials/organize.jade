@@ -5,10 +5,9 @@ form#debt-form.well.form-inline
   #type-group.control-group
     .controls
       select(data-field="type")#debt-type.debt-input.span2
-        option Credit Card
-        option Stafford Loan
-        option Perkins Loan
-        option Plus Loan
+        include /templates/debt-types
+        each type in DEBT_TYPES
+          option= type
   #principal-group.control-group
     .controls
       input(maxlength="18", data-field="principal")#debt-principal.debt-input.span2(type="text", placeholder="Principal")

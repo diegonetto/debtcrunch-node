@@ -7,10 +7,9 @@ script(type="text/template")#debt-template
     .view <%- type %>
     .edit-wrapper
       select.edit.edit-type
-        option Credit Card
-        option Stafford Loan
-        option Perkins Loan
-        option Plus Loan
+        include debt-types
+        each type in DEBT_TYPES
+          option= type   
   td.principal-cell.center-col
     .view <% print(accounting.formatMoney(principal)) %>
     .edit-wrapper

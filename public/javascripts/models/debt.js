@@ -46,7 +46,7 @@ var app = app || {};
 					this.set( { monthly: this.plusLoanMonthly() }, { silent: true } );
 					break
 				default:
-					this.set( { monthly: 0 }, { silent: true } );
+					this.set( { monthly: this.calculateMonthly() }, { silent: true } );
 					break;
 			}
 		},
@@ -54,29 +54,36 @@ var app = app || {};
 		// Function that calculates monthly payment for Credit Card debts.
 		creditCardMonthly: function() {
 			// payment = (1% * principal) + (rate / 12) * principal
-			console.log('TODO: Update monthly payment for CREDIT CARD');
 			var rate = this.attributes.rate / 100.0;
 			var principal = this.attributes.principal;
 			return (0.01 * principal) + (rate / 12) * principal;
 		},
 
-		// Function that calculates monthly payment for Stafford Loan debts.
+		// Calculate monthly payment for Stafford Loan based on minimum payment.
 		staffordLoanMonthly: function() {
-			console.log('TODO: Update monthly payment for STAFFORD LOAN');
-			return 20.20;
+			var payment = this.calculateMonthly();
+			return payment > 50.0 ? payment : payment != 0 ? 50.0 : 0;
 		},
 
-		// Function that calculates monthly payment for Perkins Loan debts.
+		// Calculate monthly payment for Perkins Loan based on minimum payment.
 		perkinsLoanMonthly: function() {
-			console.log('TODO: Update monthly payment for PERKINS LOAN');
-			return 30.30;
+			var payment = this.calculateMonthly();
+			return payment > 40.0 ? payment : payment != 0 ? 40.0 : 0;
 		},
 
-		// Function that calculates monthly payment for Plus Loan debts.
+		// Calculate monthly payment for Plus Loan based on minimum payment.
 		plusLoanMonthly: function() {
-			console.log('TODO: Update monthly payment for PLUS LOAN');
-			return 40.40;
+			var payment = this.calculateMonthly();
+			return payment > 50.0 ? payment : payment != 0 ? 50.0 : 0;
 		},
+
+		// Calculate monthly payment based on compounding interest formula.
+		calculateMonthly: function() {
+			var intRate = (this.attributes.rate / 100.0) / 12;
+			var intRatePow = Math.pow( (1 + intRate), this.attributes.repayment );
+			return (intRate * intRatePow * this.attributes.principal) /
+				(intRatePow - 1);
+		}, 
 
 		// Validation function that gets called before 'set' and 'save'.
 		validate: function( attrs ) {
