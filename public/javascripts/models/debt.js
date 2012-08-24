@@ -85,6 +85,12 @@ var app = app || {};
 				(intRatePow - 1);
 		}, 
 
+		// Calculate total interest accrued over lifetime of this debt.
+		calculateLifetimeInterest: function() {
+			// TODO
+			return 10.0;
+		},
+
 		// Validation function that gets called before 'set' and 'save'.
 		validate: function( attrs ) {
 

@@ -23,11 +23,13 @@ $(function( $ ) {
 			// TODO: Bind to the appropriate events (once Debts are added / changed
 			// call render to update clocks
 
+			// TODO: Use only the appropriate events to limit calls
 			window.app.Debts.on( 'all', this.render, this );
 
 			this.$stepOne = this.$('#step-one');
 			this.$stepTwo = this.$('#step-two');
 			this.$clockWrapper = this.$('#interest-clocks-wrapper');
+			this.$lifetimeInterest = this.$('#lifetime-interest');
 
 			// Set the padding for the wizard hero units so they will be correct during animation
 			var heroUnit = this.$('.hero-unit');
@@ -42,7 +44,16 @@ $(function( $ ) {
 		// Re-rendering the App means managing the guide at the top of the page
 		// and refreshing the interest clocks.
 		render: function( eventName ) {
-			// TODO: Update the clocks via template
+			console.log( 'AppView render() called with "' + eventName + '"' );
+
+			// TODO: Update the lifetime interest
+			// Iterate over all Debt models in the Debts collection and reduce
+			// all the lifetime interest calculations down to one sum.
+                        var lifetimeSum = app.Debts.reduce( 
+				function(sum, model) { return sum + model.calculateLifetimeInterest(); }, 0 );
+			this.$lifetimeInterest.html( accounting.formatMoney(lifetimeSum) );
+
+			// TODO: Update the daily interest
 
 			// Be specific about which events to show / hide the wizard since we are using
 			// animations and do not want them to repeat unnecessarily 
