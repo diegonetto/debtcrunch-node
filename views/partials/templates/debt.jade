@@ -16,7 +16,7 @@ script(type="text/template")#debt-template
     .edit-wrapper
       input(type="text", value!="<%- principal %>", maxlength="18").edit.edit-principal
   td.rate-cell.center-col 
-    .view <%- rate %>
+    .view <% print(accounting.toFixed(rate,2) + '%') %>
     .edit-wrapper
       input(type="text", value!="<%- rate %>", maxlength="5").edit.edit-rate
   td.repayment-cell.center-col 
