@@ -170,7 +170,7 @@ $(function() {
 		// Helper function that clears debt form input fields
 		clearFormInputs: function() {
 				this.title.val('');
-				this.type.val('Credit Card');
+				this.type.val(DEBT_TYPES[0]);
 				this.principal.val('');
 				this.rate.val('');
 				this.repayment.val('');
