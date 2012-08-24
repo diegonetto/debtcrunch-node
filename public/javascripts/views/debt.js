@@ -108,10 +108,10 @@ $(function() {
 					response = this.model.save({ type: value });
 					break;
 				case '.edit-principal':
-					response = this.model.save({ principal: accounting.toFixed( parseFloat(value.replace('/,/g', '')), 2 ) });
+					response = this.model.save({ principal: app.toFixed( parseFloat(value.replace('/,/g', '')) ) });
 					break;
 				case '.edit-rate':
-					response = this.model.save({ rate: accounting.toFixed( parseFloat(value), 2 ) });
+					response = this.model.save({ rate: app.toFixed( parseFloat(value) ) });
 					break;
 				case '.edit-repayment':
 					response = this.model.save({ repayment: parseInt( value ) });
