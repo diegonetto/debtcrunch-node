@@ -1,6 +1,7 @@
 /* Debt creation form styling */
 #debt-form {
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .debt-input {
@@ -23,7 +24,6 @@
 }
 
 #debt-table {
-  
 }
 
 #title {
