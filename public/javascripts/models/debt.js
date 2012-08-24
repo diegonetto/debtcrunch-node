@@ -79,7 +79,7 @@ var app = app || {};
 
 		// Calculate monthly payment based on compounding interest formula.
 		//  P = L*i / (1 - 1/(1 + i)^n)
-		// 	L = Prinicpal 	
+		// 	L = prinicpal 	
 		// 	i = APR / 12
 		// 	n = term in months
 		calculateMonthly: function() {
@@ -91,20 +91,18 @@ var app = app || {};
 		}, 
 
 		// Calculate total interest accrued over lifetime of this debt.
+		// I = cN - P
+		// 	c = cost of payment
+		//	N = number of payments
+		// 	P = principal
 		calculateLifetimeInterest: function() {
-			// TODO ((pmt - ir*Loan)*(ir + 1)^start +((ir*Loan - pmt)*(ir + 1)^end + ir*pmt*(end - start + 1))*(ir + 1))/(ir*(ir + 1)) 
-
-			var intRate = (this.attributes.rate/100.0)/ 12;
-			var monthlyPmt = this.attributes.monthly;
-			var principal = this.attributes.principal;
-			var start = 1;
-			var end = this.attributes.repayment;
-
-			var lifetime = ( (monthlyPmt - intRate*principal)*Math.pow((intRate + 1), start) + 
-				((intRate*principal - monthlyPmt)*Math.pow((intRate + 1), end) + intRate*monthlyPmt*(end - start +1))*(intRate +1)) / 
-				(intRate*(intRate + 1) );
-
-			console.log('Calculated lifetime interest to be: ' + lifetime);
+			// Re-calculate monthly payment so we don't use the value determined
+			// by specific stipulations
+			var c = this.calculateMonthly();
+			var N = this.attributes.repayment;
+			var P = this.attributes.principal;
+			
+			return c*N - P;
 		},
 
 		// Validation function that gets called before 'set' and 'save'.
