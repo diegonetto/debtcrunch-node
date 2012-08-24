@@ -44,7 +44,7 @@ $(function() {
 			window.app.Debts.on( 'creation-error', this.formError, this );
 			window.app.Debts.on( 'error', this.modelError, this );
 
-			this.$debtTable = this.$('#table-wrapper');
+			this.$debtTable = this.$('#debt-table-wrapper');
 			this.$principalTotal = this.$('#principal-total');
 			this.$monthlyTotal = this.$('#monthly-total');
 

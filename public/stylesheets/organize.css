@@ -16,8 +16,14 @@
 }
 
 /* Table formatting */
-#table-wrapper {
+#debt-table-wrapper {
   padding-right: 9px;
+  height: 150px;
+  overflow-y: auto;
+}
+
+#debt-table {
+  
 }
 
 #title {
