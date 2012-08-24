@@ -23,7 +23,8 @@ $(function() {
 			'dblclick .principal-cell':	'editPrincipal',
 			'dblclick .rate-cell':		'editRate',
 			'dblclick ..repayment-cell':	'editRepayment',
-			'blur .edit':			'close'
+			'blur .edit':			'close',
+			'keypress .edit':		'closeOnEnter'
 		},
 
 		// The DebtView listens for changes to its model, re-rendering. Since there's
@@ -121,6 +122,13 @@ $(function() {
 			}
 
 			this.$('.editing').removeClass('editing');
+		},
+
+		// Calls the this.close() function if enter key is pressed in an .edit input.
+		closeOnEnter: function( e ) {
+			if ( e.which == ENTER_KEY ) {
+				this.close();
+			}
 		},
 
 		// Overlays the current input completely within its parent table cell,
