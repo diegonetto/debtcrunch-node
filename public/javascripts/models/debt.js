@@ -78,17 +78,33 @@ var app = app || {};
 		},
 
 		// Calculate monthly payment based on compounding interest formula.
+		//  P = L*i / (1 - 1/(1 + i)^n)
+		// 	L = Prinicpal 	
+		// 	i = APR / 12
+		// 	n = term in months
 		calculateMonthly: function() {
-			var intRate = (this.attributes.rate / 100.0) / 12;
-			var intRatePow = Math.pow( (1 + intRate), this.attributes.repayment );
-			return (intRate * intRatePow * this.attributes.principal) /
-				(intRatePow - 1);
+			var i = (this.attributes.rate/100.0)/12;
+			var L = this.attributes.principal;
+			var n = this.attributes.repayment;
+
+			return L*i / (1 - 1/Math.pow(1+i, n));
 		}, 
 
 		// Calculate total interest accrued over lifetime of this debt.
 		calculateLifetimeInterest: function() {
-			// TODO
-			return 10.0;
+			// TODO ((pmt - ir*Loan)*(ir + 1)^start +((ir*Loan - pmt)*(ir + 1)^end + ir*pmt*(end - start + 1))*(ir + 1))/(ir*(ir + 1)) 
+
+			var intRate = (this.attributes.rate/100.0)/ 12;
+			var monthlyPmt = this.attributes.monthly;
+			var principal = this.attributes.principal;
+			var start = 1;
+			var end = this.attributes.repayment;
+
+			var lifetime = ( (monthlyPmt - intRate*principal)*Math.pow((intRate + 1), start) + 
+				((intRate*principal - monthlyPmt)*Math.pow((intRate + 1), end) + intRate*monthlyPmt*(end - start +1))*(intRate +1)) / 
+				(intRate*(intRate + 1) );
+
+			console.log('Calculated lifetime interest to be: ' + lifetime);
 		},
 
 		// Validation function that gets called before 'set' and 'save'.
