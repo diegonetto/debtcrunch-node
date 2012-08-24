@@ -63,10 +63,7 @@ $(function() {
 		editType: function( event ) {
 			var cell = this.$('.type-cell');
 			this.currentInput = this.$('.edit-type');
-			this.currentInput.width( cell.outerWidth() );
-			this.currentInput.val(this.model.attributes.type);
-			cell.addClass('editing');
-			this.currentInput.focus();
+			this.startEditing( cell );
 		},
 
 		// Overlay the current input in the table cell for the debt Principal.
