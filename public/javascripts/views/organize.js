@@ -105,7 +105,7 @@ $(function() {
 					break;
 				case 'repayment':
 					title = 'Repayment Time';
-					content = 'The lifetime of this debt in months.';
+					content = 'The lifetime of this debt in months. Normally the default is 120 months (10 years).';
 					break;
 				default:
 					break;
