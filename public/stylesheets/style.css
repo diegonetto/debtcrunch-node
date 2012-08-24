@@ -114,6 +114,19 @@ footer {
   margin: 0px auto;
 }
 
+.top-clock-inner > h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: FireBrick;
+}
+
+.top-clock-inner > p {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+}
+
 #lifetime-interest-clock {
   float: left;
 }
