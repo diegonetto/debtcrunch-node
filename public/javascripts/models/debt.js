@@ -105,6 +105,13 @@ var app = app || {};
 			return c*N - P;
 		},
 
+		// Calculate interest gained today
+		calculateDailyInterest: function() {
+			// TODO Make this more efficient by caching lifetimeInterest calculations
+			// TODO Make this more accurate by using the exact number of days in this month.
+			return this.calculateLifetimeInterest() / this.attributes.repayment / 30;
+		},
+
 		// Validation function that gets called before 'set' and 'save'.
 		validate: function( attrs ) {
 

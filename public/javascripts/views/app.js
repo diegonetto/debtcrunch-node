@@ -30,6 +30,7 @@ $(function( $ ) {
 			this.$stepTwo = this.$('#step-two');
 			this.$clockWrapper = this.$('#interest-clocks-wrapper');
 			this.$lifetimeInterest = this.$('#lifetime-interest');
+			this.$dailyInterest = this.$('#daily-interest');
 
 			// Set the padding for the wizard hero units so they will be correct during animation
 			var heroUnit = this.$('.hero-unit');
@@ -46,14 +47,16 @@ $(function( $ ) {
 		render: function( eventName ) {
 			console.log( 'AppView render() called with "' + eventName + '"' );
 
-			// TODO: Update the lifetime interest
 			// Iterate over all Debt models in the Debts collection and reduce
 			// all the lifetime interest calculations down to one sum.
                         var lifetimeSum = app.Debts.reduce( 
 				function(sum, model) { return sum + model.calculateLifetimeInterest(); }, 0 );
 			this.$lifetimeInterest.html( accounting.formatMoney(lifetimeSum) );
 
-			// TODO: Update the daily interest
+			// Update the daily interest in a similar manner.
+			var dailySum = app.Debts.reduce(
+				function(sum, model) { return sum + model.calculateDailyInterest(); }, 0 );
+			this.$dailyInterest.html( accounting.formatMoney(dailySum) );
 
 			// Be specific about which events to show / hide the wizard since we are using
 			// animations and do not want them to repeat unnecessarily 
