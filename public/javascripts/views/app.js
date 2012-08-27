@@ -40,6 +40,12 @@ $(function( $ ) {
 			// Create the views for the tabs
 			new app.OrganizeView();
 			new app.StrategizeView();
+
+			// Kick things off by fetching an pre-existing models from the collection
+			// stored in *LocalStorage*.
+			// TODO: Remove this and boostrap it to the page as per Backbone JS
+			// 	 recommendation: http://backbonejs.org/#FAQ-bootstrap
+			app.Debts.fetch();
 		},
 
 		// Re-rendering the App means managing the guide at the top of the page

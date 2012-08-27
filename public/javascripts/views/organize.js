@@ -22,8 +22,7 @@ $(function() {
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts'
-                // collection when debts are added or changed. Start things off by
-                // loading any pre-existing debts that might have been saved in *LocalStorage*.
+                // collection when debts are added or changed.
                 initialize: function() {
                         this.title = this.$('#debt-title');
                         this.type = this.$('#debt-type');
@@ -47,13 +46,13 @@ $(function() {
 			this.$debtTable = this.$('#debt-table-wrapper');
 			this.$principalTotal = this.$('#principal-total');
 			this.$monthlyTotal = this.$('#monthly-total');
-
-			app.Debts.fetch();
                 },
 
                 // Re-rendering the Organize view means showing or hiding the debt table
 		// and redrawing the sum row.
                 render: function( eventName ) {
+			console.log( 'OrganizeView render() called with "' + eventName + '"' );
+
 			// Pluck all the principal values from each model in the Debts collection
 			// and reduce them down to a sum and update the html.
 			var principalSum = _.reduce(window.app.Debts.pluck("principal"), 
