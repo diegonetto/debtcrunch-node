@@ -18,7 +18,7 @@ $(function() {
                 // Delegated events for creating and deleting debts
                 events: {
                         'click #debt-add':		'createOnAdd',
-			'keypress .debt-input':		'createOnEnter',
+			'keypress .debt-input':		'createOnEnter'
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts"
