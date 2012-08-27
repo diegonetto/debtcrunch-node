@@ -9,7 +9,7 @@ $(function() {
 	// The OrganizeView is the UI piece for the Organize tab in the App.
 	app.OrganizeView = Backbone.View.extend({
 
-		// Instead of generating to a new element, bind to the existing skeleton
+		// Instead of generating a new element, bind to the existing skeleton
 		// of the Organize tab already present in the HTML.
 		el: '#organize',
 
@@ -21,7 +21,7 @@ $(function() {
 			'keypress .debt-input':		'createOnEnter'
                 },
 
-                // At initialization we bind to the relevant events in the 'Debts"
+                // At initialization we bind to the relevant events in the 'Debts'
                 // collection when debts are added or changed. Start things off by
                 // loading any pre-existing debts that might have been saved in *LocalStorage*.
                 initialize: function() {
@@ -51,8 +51,8 @@ $(function() {
 			app.Debts.fetch();
                 },
 
-                // Re-rendering the Organize view means deciding which steps of
-		// the guidance wizard to show and redrawing the sum row.
+                // Re-rendering the Organize view means showing or hiding the debt table
+		// and redrawing the sum row.
                 render: function( eventName ) {
 			// Pluck all the principal values from each model in the Debts collection
 			// and reduce them down to a sum and update the html.
