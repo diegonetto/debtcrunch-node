@@ -83,7 +83,7 @@ var app = app || {};
 		// 	i = APR / 12
 		// 	n = term in months
 		calculateMonthly: function() {
-			var i = (this.attributes.rate/100.0)/12;
+			var i = (this.attributes.rate/100.0)/12.0;
 			var L = this.attributes.principal;
 			var n = this.attributes.repayment;
 
@@ -110,6 +110,39 @@ var app = app || {};
 			// TODO Make this more efficient by caching lifetimeInterest calculations
 			// TODO Make this more accurate by using the exact number of days in this month.
 			return this.calculateLifetimeInterest() / this.attributes.repayment / 30;
+		},
+
+		lifetimeWithOverpay: function( payment ) {
+			var principal = this.attributes.principal;
+			var sum = 0.0;
+			var i = (this.attributes.rate/100.0)/12.0;
+			var interest = 0.0;
+
+			while ( principal != 0.0 ) {
+				// Calculate monthly interest and new principal
+				interest = principal * i;
+				principal += interest;
+
+				if ( payment < interest ) {
+					console.log('Debt model lifetimeWithOverpay(): payment of $'
+						+ payment + ' is smaller than interest ($' + 
+						interest + ')');
+					break;
+				}
+
+				// Apply payment if it is less than the new total (after interest
+				// is added). Otherwise, just pay what is left.
+				if ( principal >= payment ) {
+					principal -= payment;
+				} else {
+					principal = 0.0;
+				}	
+
+				// Add interest to sum
+				sum += interest;
+			}
+			
+			return sum;
 		},
 
 		// Validation function that gets called before 'set' and 'save'.
