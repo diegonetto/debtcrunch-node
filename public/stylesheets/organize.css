@@ -1,11 +1,10 @@
 /* Debt creation form styling */
 #debt-form {
-  margin-right: 10px;
   margin-bottom: 10px;
 }
 
 .debt-input {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .control-group {
@@ -18,7 +17,7 @@
 
 /* Table formatting */
 #debt-table-wrapper {
-  padding-right: 9px;
+
 }
 
 #debt-table {
