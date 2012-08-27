@@ -32,8 +32,39 @@ $(function() {
 		// the strategize wizard to show and updating the calculations.
 		render: function( eventName ) {
 			console.log( 'StrategizeView render() called with "' + eventName + '"' );
-			this.$avaLifeInterest.html('TEST');
-			this.$avaDayInterest.html('TEST');
+			this.$avaLifeInterest.html( this.avalancheLifetimeInterest() );
+			this.$avaDayInterest.html( this.snowballLifetimeInterest() );
+		},
+
+		// Calculate the total lifetime interest for a list of debts sorted by
+		// rate in descending order (Avalanche repayment method).
+		avalancheLifetimeInterest: function() {
+			return this.totalLifetimeInterest( app.Debts.sortByRate(true) );
+		},
+
+		// Calculate the total lifetime interest for a list of debts sorted by
+		// principal in ascending order (Snowball repayment method).
+		snowballLifetimeInterest: function() {
+			return this.totalLifetimeInterest( app.Debts.sortByPrincipal() );
+		},
+
+		// TODO: Implement
+		// Helper function that calculates total lifetime interest for a list of debts
+		// by applying a fixed overpayment during each month to the first debt in the list.
+		totalLifetimeInterest: function( debts ) {
+			// Create a new list from the debts
+			var debtList = _.map( debts, function(debt) { 
+				return {
+					'principal': 	debt.attributes.principal,
+					'rate':		debt.attributes.rate,
+					'monthly': 	debt.attributes.monthly
+				}; 
+			});
+
+			// If applying there is $$ left after applying the overpayment to a debt,
+			// the remaining amount will be applied to the next loan.
+
+			return 'Passed';
 		}
 	});
 });
