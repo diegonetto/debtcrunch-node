@@ -39,7 +39,7 @@ $(function( $ ) {
 
 			// Create the views for the tabs
 			new app.OrganizeView();
-			//new app.StrategizeView();
+			new app.StrategizeView();
 		},
 
 		// Re-rendering the App means managing the guide at the top of the page
