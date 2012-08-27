@@ -28,6 +28,20 @@ var app = app || {};
 		// Debts are sorted by their original insertion order.
 		comparator: function( debt ) {
 			return debt.get('order');
+		},
+
+		// Return a list of debts sorted by principal balance.
+		// Pass in 'true' to sort in descending order.
+		sortByPrincipal: function( descending ) {
+			var dir = descending ? -1 : 1;
+			return this.sortBy( function(debt) { return dir * debt.attributes.principal; } );
+		},
+
+		// Return a list of debts sorted by interest rate.
+		// Pass in 'true' to sort in descending order.
+		sortByRate: function( descending ) {
+			var dir = descending ? -1 : 1;
+			return this.sortBy( function(debt) { return dir * debt.attributes.rate; } );
 		}
 	});
 
