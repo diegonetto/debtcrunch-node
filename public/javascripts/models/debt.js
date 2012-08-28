@@ -143,19 +143,6 @@ var app = app || {};
 			return L*i / (1 - 1/Math.pow(1+i, n));
 		}, 
 
-		// Calculate total interest accrued over lifetime of this debt.
-		// I = cN - P
-		// 	c = cost of payment
-		//	N = number of payments
-		// 	P = principal
-		calculateLifetimeInterest: function() {
-			var c = this.attributes.monthly;
-			var N = this.attributes.repayment;
-			var P = this.attributes.principal;
-			
-			return c*N - P;
-		},
-
 		// Calculate interest gained today
 		calculateDailyInterest: function() {
 			// TODO Make this more efficient by caching lifetimeInterest calculations
@@ -163,8 +150,11 @@ var app = app || {};
 			return this.calculateLifetimeInterest() / this.attributes.repayment / 30;
 		},
 
-		lifetimeWithOverpay: function( payment ) {
+		// Calculate total interest accrued over lifetime of this debt
+		// using only the principal and monthly payment attributes.
+		calculateLifetimeInterest: function() {
 			var principal = this.attributes.principal;
+			var payment = this.attributes.monthly;
 			var sum = 0.0;
 			var i = (this.attributes.rate/100.0)/12.0;
 			var interest = 0.0;
@@ -175,7 +165,7 @@ var app = app || {};
 				principal += interest;
 
 				if ( payment < interest ) {
-					console.log('Debt model lifetimeWithOverpay(): payment of $'
+					console.log('Debt model calculateLifetimeInterest: payment of $'
 						+ payment + ' is smaller than interest ($' + 
 						interest + ')');
 					break;
@@ -193,6 +183,8 @@ var app = app || {};
 				sum += interest;
 			}
 			
+			console.log('Debt Principal: $' + this.attributes.principal + ' Interest: $' + sum );
+
 			return sum;
 		},
 
