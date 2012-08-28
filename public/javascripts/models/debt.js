@@ -75,19 +75,49 @@ var app = app || {};
 		// Calculate monthly payment for Stafford Loan based on minimum payment.
 		staffordLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 50.0 ? payment : 50.0;
+			
+			// Check to see if payment is less than loan agreement.
+			// If so, adjust it and update the repayment time.
+			if ( payment < STAFFORD_LOAN_MIN ) {
+				this.fixRepayment( STAFFORD_LOAN_MIN );
+				return STAFFORD_LOAN_MIN;
+			} else {
+				return payment;
+			}
 		},
 
 		// Calculate monthly payment for Perkins Loan based on minimum payment.
 		perkinsLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 40.0 ? payment : 40.0;
+			
+			// Check to see if payment is less than loan agreement.
+			// If so, adjust it and update the repayment time.
+			if ( payment < PERKINS_LOAN_MIN ) {
+				this.fixRepayment( PERKINS_LOAN_MIN );
+				return PERKINS_LOAN_MIN;
+			} else {
+				return payment;
+			}
 		},
 
 		// Calculate monthly payment for Plus Loan based on minimum payment.
 		plusLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 50.0 ? payment : 50.0;
+			
+			// Check to see if payment is less than loan agreement.
+			// If so, adjust it and update the repayment time.
+			if ( payment < PLUS_LOAN_MIN ) {
+				this.fixRepayment( PLUS_LOAN_MIN );
+				return PLUS_LOAN_MIN;
+			} else {
+				return payment;
+			}
+		},
+
+		// Update the repayment time for this debt to factor in a minimum 
+		// monthly repayment requirement.
+		fixRepayment: function( payment ) {
+			// TODO: Implement
 		},
 
 		// Calculate monthly payment based on compounding interest formula.
