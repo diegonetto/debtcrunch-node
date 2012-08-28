@@ -32,22 +32,35 @@ var app = app || {};
 		// based on the current 'type' value. Use the 'silent: true' option
 		// when setting so that another 'change' event is not triggered on the model.
 		updateMonthly: function( eventName ) {
+			var payment = 0.0;
+
 			switch( this.attributes.type ) {
 				case 'Credit Card':
-					this.set( { monthly: this.creditCardMonthly() }, { silent: true } );
+					payment = this.creditCardMonthly();
 					break;
 				case 'Stafford Loan':
-					this.set( { monthly: this.staffordLoanMonthly() }, { silent: true } );
+					payment=  this.staffordLoanMonthly();
 					break;
 				case 'Perkins Loan':
-					this.set( { monthly: this.perkinsLoanMonthly() }, { silent: true } );
+					payment = this.perkinsLoanMonthly();
 					break;
 				case 'Plus Loan':
-					this.set( { monthly: this.plusLoanMonthly() }, { silent: true } );
+					payment = this.plusLoanMonthly();
 					break
 				default:
-					this.set( { monthly: this.calculateMonthly() }, { silent: true } );
+					payment = this.calculateMonthly(); 
 					break;
+			}
+
+			// If the monthly payment is greater than the principal, 
+			// simply use the principal. This also covers the specific
+			// minimum payment stipulations for the various loan programs
+			// and credit cards because their adjustments result in a higher
+			// payment amount.
+			if ( payment > this.attributes.principal ) {
+				this.set( { monthly: this.attributes.principal }, { silent: true } );
+			} else {
+				this.set( { monthly: payment }, { silent: true } );
 			}
 		},
 
@@ -62,19 +75,19 @@ var app = app || {};
 		// Calculate monthly payment for Stafford Loan based on minimum payment.
 		staffordLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 50.0 ? payment : payment != 0 ? 50.0 : 0;
+			return payment > 50.0 ? payment : 50.0;
 		},
 
 		// Calculate monthly payment for Perkins Loan based on minimum payment.
 		perkinsLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 40.0 ? payment : payment != 0 ? 40.0 : 0;
+			return payment > 40.0 ? payment : 40.0;
 		},
 
 		// Calculate monthly payment for Plus Loan based on minimum payment.
 		plusLoanMonthly: function() {
 			var payment = this.calculateMonthly();
-			return payment > 50.0 ? payment : payment != 0 ? 50.0 : 0;
+			return payment > 50.0 ? payment : 50.0;
 		},
 
 		// Calculate monthly payment based on compounding interest formula.
