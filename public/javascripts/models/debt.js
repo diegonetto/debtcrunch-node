@@ -69,7 +69,9 @@ var app = app || {};
 			// payment = (1% * principal) + (rate / 12) * principal
 			var rate = this.attributes.rate / 100.0;
 			var principal = this.attributes.principal;
-			return (0.01 * principal) + (rate / 12) * principal;
+			var payment = (0.01 * principal) + (rate / 12) * principal;
+			this.fixRepayment( payment );
+			return payment;
 		},
 
 		// Calculate monthly payment for Stafford Loan based on minimum payment.
