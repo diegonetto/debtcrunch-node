@@ -153,7 +153,7 @@ var app = app || {};
 		},
 
 		// Calculate total interest accrued over lifetime of this debt
-		// using only the principal and monthly payment attributes.
+		// using only the principal, rate, and monthly payment attributes.
 		calculateLifetimeInterest: function() {
 			var principal = this.attributes.principal;
 			var payment = this.attributes.monthly;
