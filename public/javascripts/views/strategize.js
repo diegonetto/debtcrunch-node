@@ -33,7 +33,7 @@ $(function() {
 		render: function( eventName ) {
 			console.log( 'StrategizeView render() called with "' + eventName + '"' );
 
-			var normal = this.totalLifetimeInterest(app.Debts.sortByRate(true));
+			var normal = this.totalLifetimeInterest(app.Debts.sortByRate(true), 0);
 
 			var overPayment = 3500;
 
@@ -92,8 +92,8 @@ $(function() {
 				}
 
 				if ( payment > debt.principal ) {
-					debt.principal = 0;
 					overPayment -= debt.principal;
+					debt.principal = 0;
 				} else {
 					debt.principal -= payment;
 					overPayment = 0;
