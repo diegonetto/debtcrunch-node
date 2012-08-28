@@ -117,7 +117,17 @@ var app = app || {};
 		// Update the repayment time for this debt to factor in a minimum 
 		// monthly repayment requirement.
 		fixRepayment: function( payment ) {
-			// TODO: Implement
+			var rate = (this.attributes.rate/100.0)/12.0;
+			var interest = 0.0;
+			var months = 0;
+			var principal = this.attributes.principal;
+		
+			while ( principal > 0 ) {
+				principal = principal + (principal * rate) - payment;
+				months++;
+			}
+
+			this.set( { repayment: months }, { silent: true } );
 		},
 
 		// Calculate monthly payment based on compounding interest formula.
@@ -139,9 +149,7 @@ var app = app || {};
 		//	N = number of payments
 		// 	P = principal
 		calculateLifetimeInterest: function() {
-			// Re-calculate monthly payment so we don't use the value determined
-			// by specific stipulations
-			var c = this.calculateMonthly();
+			var c = this.attributes.monthly;
 			var N = this.attributes.repayment;
 			var P = this.attributes.principal;
 			
