@@ -27,7 +27,6 @@ $(function( $ ) {
 			window.app.Debts.on( 'all', this.render, this );
 
 			this.$stepOne = this.$('#step-one');
-			this.$stepTwo = this.$('#step-two');
 			this.$clockWrapper = this.$('#interest-clocks-wrapper');
 			this.$lifetimeInterest = this.$('#lifetime-interest');
 			this.$dailyInterest = this.$('#daily-interest');
@@ -69,17 +68,11 @@ $(function( $ ) {
 			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
 				switch ( app.Debts.length ) {
 					case 0:
-						this.$stepTwo.hide();
 						this.$stepOne.show('blind', 1000);
 						this.$clockWrapper.hide();
 						break;
 					case 1:
 						this.$stepOne.hide();
-						this.$stepTwo.show('blind', 1000);
-						this.$clockWrapper.hide();
-						break;
-					case 2:
-						this.$stepTwo.hide();
 						this.$clockWrapper.show('blind', { direction: 'vertical' }, 1000);
 						break;
 					default:
