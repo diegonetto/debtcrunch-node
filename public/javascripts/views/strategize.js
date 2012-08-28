@@ -39,13 +39,15 @@ $(function() {
 		// Calculate the total lifetime interest for a list of debts sorted by
 		// rate in descending order (Avalanche repayment method).
 		avalancheLifetimeInterest: function() {
-			return this.totalLifetimeInterest( app.Debts.sortByRate(true) );
+			return accounting.formatMoney(
+				this.totalLifetimeInterest(app.Debts.sortByRate(true)) );
 		},
 
 		// Calculate the total lifetime interest for a list of debts sorted by
 		// principal in ascending order (Snowball repayment method).
 		snowballLifetimeInterest: function() {
-			return this.totalLifetimeInterest( app.Debts.sortByPrincipal() );
+			return accounting.formatMoney(
+				this.totalLifetimeInterest(app.Debts.sortByPrincipal()) );
 		},
 
 		// TODO: Implement
@@ -56,15 +58,45 @@ $(function() {
 			var debtList = _.map( debts, function(debt) { 
 				return {
 					'principal': 	debt.attributes.principal,
-					'rate':		debt.attributes.rate,
-					'monthly': 	debt.attributes.monthly
+					'rate':		(debt.attributes.rate/100.0)/12.0,
+					'monthly': 	debt.calculateMonthly()
 				}; 
 			});
+
+			var interest = 0.0;
+			var sum = 0.0;
+			// Iterate until all debts in the list are paid off (list is empty).
+			while ( !_.isEmpty(debtList) ) {
+
+				// Treat the rest of the list normally
+				_.each( debtList, function(debt, key, debtList) {
+					// Calculate interest and new principal
+					interest = debt.principal * debt.rate;
+					debt.principal += interest;
+
+					// Apply payment
+					if ( debt.monthly > debt.principal ) {
+						debt.principal = 0.0;
+					} else {
+						debt.principal -= debt.monthly;
+					}	
+
+					// Add interest to sum
+					sum += interest;
+				});
+
+				// Reject debts in the list with a principal of 0
+				debtList = _.reject(debtList, function(debt) { 
+					return debt.principal == 0.0; 
+				});
+			}
+
+			console.log( 'Total sum: ' + sum );
 
 			// If applying there is $$ left after applying the overpayment to a debt,
 			// the remaining amount will be applied to the next loan.
 
-			return 'Passed';
+			return sum;
 		}
 	});
 });
