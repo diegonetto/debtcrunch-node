@@ -63,6 +63,7 @@ $(function() {
 		editType: function( event ) {
 			var cell = this.$('.type-cell');
 			this.currentInput = this.$('.edit-type');
+			this.currentInput.val(this.model.attributes.type);
 			this.startEditing( cell );
 		},
 
