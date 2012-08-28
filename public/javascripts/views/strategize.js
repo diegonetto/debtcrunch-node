@@ -32,69 +32,99 @@ $(function() {
 		// the strategize wizard to show and updating the calculations.
 		render: function( eventName ) {
 			console.log( 'StrategizeView render() called with "' + eventName + '"' );
-			this.$avaLifeInterest.html( this.avalancheLifetimeInterest() );
-			this.$avaDayInterest.html( this.snowballLifetimeInterest() );
+
+			var normal = this.totalLifetimeInterest(app.Debts.sortByRate(true));
+
+			var overPayment = 3500;
+
+			var ava = this.avalancheLifetimeInterest(overPayment);
+			var snow = this.snowballLifetimeInterest(overPayment);
+
+			this.$avaLifeInterest.html('Avalanche total: ' + 
+				accounting.formatMoney(ava) + ' Savings: ' + 
+				accounting.formatMoney(normal-ava) );
+			this.$avaDayInterest.html('Snowball total: ' + 
+				accounting.formatMoney(snow) + ' Savings: ' + 
+				accounting.formatMoney(normal-snow) );
 		},
 
 		// Calculate the total lifetime interest for a list of debts sorted by
 		// rate in descending order (Avalanche repayment method).
-		avalancheLifetimeInterest: function() {
-			return accounting.formatMoney(
-				this.totalLifetimeInterest(app.Debts.sortByRate(true)) );
+		avalancheLifetimeInterest: function( overPayment ) {
+			return this.totalLifetimeInterest(app.Debts.sortByRate(true), overPayment);
 		},
 
 		// Calculate the total lifetime interest for a list of debts sorted by
 		// principal in ascending order (Snowball repayment method).
-		snowballLifetimeInterest: function() {
-			return accounting.formatMoney(
-				this.totalLifetimeInterest(app.Debts.sortByPrincipal()) );
+		snowballLifetimeInterest: function( overPayment ) {
+			return this.totalLifetimeInterest(app.Debts.sortByPrincipal(), overPayment);
 		},
 
-		// TODO: Implement
+		// Each debt accrues interest in the same manner during every period.
+		// The only thing that changes is the amount by which the principal 
+		// decreases. For the top debt in the list, an over payment is applied.
+		// The principal for every other debt in the list decreases by its
+		// pre-calculated monthly payment amount.
+		// This recursive function uses a reduce() to determine the interest earned
+		// during each period and to lower each debt's principal by the correct amount.
+		totalInterest: function( debtList, overPayment ) {
+			// Base case: No more debts left in the list
+			if ( _.isEmpty(debtList) ) {
+				return 0;
+			}
+
+			// Calculate interest for this period and then calculate the payment
+			// for each debt by factoring in overpayment amount and principal balance.
+			var interestThisPeriod = _.reduce( debtList, function(sum, debt) {
+				var interest = (debt.principal * debt.rate);
+				debt.principal += interest;
+				
+				var payment = 0;
+
+				if ( overPayment > 0 ) {
+					if ( overPayment > debt.monthly ) {
+						payment = overPayment;
+					} else {
+						payment = debt.monthly + overPayment;
+					}
+				} else {
+					payment = debt.monthly;
+				}
+
+				if ( payment > debt.principal ) {
+					debt.principal = 0;
+					overPayment -= debt.principal;
+				} else {
+					debt.principal -= payment;
+					overPayment = 0;
+				}
+
+				return sum + interest;
+			}, 0 );
+
+			// Reject debts in the list with a principal of 0
+			debtList = _.reject(debtList, function(debt) { 
+				return debt.principal <= 0.0; 
+			});
+
+			return interestThisPeriod + this.totalInterest( debtList, overPayment );
+		},
+
 		// Helper function that calculates total lifetime interest for a list of debts
-		// by applying a fixed overpayment during each month to the first debt in the list.
-		totalLifetimeInterest: function( debts ) {
-			// Create a new list from the debts
+		// by applying an overpayment during each month to the first debt in the list.
+		totalLifetimeInterest: function( debts, overPayment ) {
+			// Create a new array from the debts parameter.
 			var debtList = _.map( debts, function(debt) { 
 				return {
 					'principal': 	debt.attributes.principal,
 					'rate':		(debt.attributes.rate/100.0)/12.0,
-					'monthly': 	debt.calculateMonthly()
+					'monthly': 	debt.attributes.monthly
 				}; 
 			});
 
-			var interest = 0.0;
-			var sum = 0.0;
-			// Iterate until all debts in the list are paid off (list is empty).
-			while ( !_.isEmpty(debtList) ) {
+			var sum = this.totalInterest(debtList, overPayment);
 
-				// Treat the rest of the list normally
-				_.each( debtList, function(debt, key, debtList) {
-					// Calculate interest and new principal
-					interest = debt.principal * debt.rate;
-					debt.principal += interest;
-
-					// Apply payment
-					if ( debt.monthly > debt.principal ) {
-						debt.principal = 0.0;
-					} else {
-						debt.principal -= debt.monthly;
-					}	
-
-					// Add interest to sum
-					sum += interest;
-				});
-
-				// Reject debts in the list with a principal of 0
-				debtList = _.reject(debtList, function(debt) { 
-					return debt.principal == 0.0; 
-				});
-			}
-
-			console.log( 'Total sum: ' + sum );
-
-			// If applying there is $$ left after applying the overpayment to a debt,
-			// the remaining amount will be applied to the next loan.
+			console.log( 'Total sum recursive: ' + sum );
 
 			return sum;
 		}
