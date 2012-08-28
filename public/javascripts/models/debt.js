@@ -148,8 +148,8 @@ var app = app || {};
 		// Calculate interest gained today
 		calculateDailyInterest: function() {
 			// TODO Make this more efficient by caching lifetimeInterest calculations
-			// TODO Make this more accurate by using the exact number of days in this month.
-			return this.calculateLifetimeInterest() / this.attributes.repayment / 30;
+			return this.calculateLifetimeInterest() / this.attributes.repayment / 
+				new Date(0,0,0).getDate();
 		},
 
 		// Calculate total interest accrued over lifetime of this debt
