@@ -20,11 +20,7 @@ $(function( $ ) {
 		// At initialization we bind to the relevant events in the 'Debts"
 		// collection when debts are added or changed.
 		initialize: function() {
-			// TODO: Bind to the appropriate events (once Debts are added / changed
-			// call render to update clocks
-
-			// TODO: Use only the appropriate events to limit calls
-			window.app.Debts.on( 'all', this.render, this );
+			window.app.Debts.on( 'reset change remove', this.render, this );
 			window.app.AppRouter.on( 'all', this.updateTabView, this );
 
 			this.$stepOne = this.$('#step-one');
@@ -63,22 +59,18 @@ $(function( $ ) {
 				function(sum, model) { return sum + model.calculateDailyInterest(); }, 0 );
 			this.$dailyInterest.html( accounting.formatMoney(dailySum) );
 
-			// Be specific about which events to show / hide the wizard since we are using
-			// animations and do not want them to repeat unnecessarily 
-			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
-				switch ( app.Debts.length ) {
-					case 0:
-						this.$stepOne.show('blind', 1000);
-						this.$clockWrapper.hide();
-						break;
-					case 1:
-						this.$stepOne.hide();
-						this.$clockWrapper.show('blind', { direction: 'vertical' }, 1000);
-						break;
-					default:
-						this.$clockWrapper.show();
-						break;
-				}
+			switch ( app.Debts.length ) {
+				case 0:
+					this.$stepOne.show('blind', 1000);
+					this.$clockWrapper.hide();
+					break;
+				case 1:
+					this.$stepOne.hide();
+					this.$clockWrapper.show('blind', { direction: 'vertical' }, 1000);
+					break;
+				default:
+					this.$clockWrapper.show();
+					break;
 			}
 		},
 
