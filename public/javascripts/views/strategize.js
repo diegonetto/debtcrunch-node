@@ -35,7 +35,7 @@ $(function() {
 
 			var normal = this.totalLifetimeInterest(app.Debts.sortByRate(true), 0);
 
-			var overPayment = 3500;
+			var overPayment = 500;
 
 			var ava = this.avalancheLifetimeInterest(overPayment);
 			var snow = this.snowballLifetimeInterest(overPayment);
@@ -60,6 +60,25 @@ $(function() {
 			return this.totalLifetimeInterest(app.Debts.sortByPrincipal(), overPayment);
 		},
 
+		// Calculates total lifetime interest for a list of debts by applying an 
+		// overpayment during each month to the first debt in the list.
+		totalLifetimeInterest: function( debts, overPayment ) {
+			// Create a new array from the debts parameter.
+			var debtList = _.map( debts, function(debt) { 
+				return {
+					'principal': 	debt.attributes.principal,
+					'rate':		(debt.attributes.rate/100.0)/12.0,
+					'monthly': 	debt.attributes.monthly
+				}; 
+			});
+
+			var sum = this.totalInterest(debtList, overPayment);
+
+			console.log( 'Total sum recursive: ' + sum );
+
+			return sum;
+		},
+
 		// Each debt accrues interest in the same manner during every period.
 		// The only thing that changes is the amount by which the principal 
 		// decreases. For the top debt in the list, an over payment is applied.
@@ -67,11 +86,13 @@ $(function() {
 		// pre-calculated monthly payment amount.
 		// This recursive function uses a reduce() to determine the interest earned
 		// during each period and to lower each debt's principal by the correct amount.
-		totalInterest: function( debtList, overPayment ) {
+		totalInterest: function( debtList, amount ) {
 			// Base case: No more debts left in the list
 			if ( _.isEmpty(debtList) ) {
 				return 0;
 			}
+
+			var overPayment = amount;
 
 			// Calculate interest for this period and then calculate the payment
 			// for each debt by factoring in overpayment amount and principal balance.
@@ -107,27 +128,8 @@ $(function() {
 				return debt.principal <= 0.0; 
 			});
 
-			return interestThisPeriod + this.totalInterest( debtList, overPayment );
+			return interestThisPeriod + this.totalInterest( debtList, amount );
 		},
-
-		// Helper function that calculates total lifetime interest for a list of debts
-		// by applying an overpayment during each month to the first debt in the list.
-		totalLifetimeInterest: function( debts, overPayment ) {
-			// Create a new array from the debts parameter.
-			var debtList = _.map( debts, function(debt) { 
-				return {
-					'principal': 	debt.attributes.principal,
-					'rate':		(debt.attributes.rate/100.0)/12.0,
-					'monthly': 	debt.attributes.monthly
-				}; 
-			});
-
-			var sum = this.totalInterest(debtList, overPayment);
-
-			console.log( 'Total sum recursive: ' + sum );
-
-			return sum;
-		}
 	});
 });
 	
