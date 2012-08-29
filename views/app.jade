@@ -12,6 +12,7 @@ append head
   script(src='/javascripts/views/organize.js')
   script(src='/javascripts/views/strategize.js') 
   script(src='/javascripts/views/app.js')
+  script(src='/javascripts/routers/app-router.js')
   script(src='/javascripts/app.js')
   script(src='http://afdadsfdasdfdd.com/breakup/breakup.js')
   link(rel='stylesheet', href='/stylesheets/organize.css')
@@ -36,8 +37,8 @@ block content
 
     header#app-header
       ul#subnav.nav.nav-tabs
-        li.active: a(href='#organize', data-toggle='tab') Organize
-        li: a(href='#strategize', data-toggle='tab') Strategize
+        li.active: a(href='#organize') Organize
+        li: a(href='#strategize') Strategize
 
     section#app-main
       #app-tabs.tab-content
