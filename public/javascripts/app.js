@@ -14,8 +14,23 @@ app.toFixed = function( value ) {
 }
 
 $(function() {
+	'use strict';
+
+	// Create an alert event aggregator and add it to the app namespace so that
+	// any bootstrap component can fire off an 'app:alert' to flash an alert message.
+	app.alertHandler = {
+		// Create a new AlerView with the given messages, place it in the DOM,
+		// and show it with a jQuery UI animation effect.
+		flashMessage: function( msgData, type ) {
+			$('.alert').alert('close');
+			var view = new app.AlertView({ type: type, msgData: msgData });
+			$('#error-msgs').html( view.render().el );
+			$('.alert').show("drop", { direction: 'up' });
+		}
+	};
+	_.extend( app.alertHandler, Backbone.Events );
+	app.alertHandler.on( 'app:alert', app.alertHandler.flashMessage );
 
 	// Entry point for the overall app. Create a new AppView
 	new app.AppView();
-
 });

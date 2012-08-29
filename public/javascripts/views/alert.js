@@ -12,11 +12,18 @@ $(function() {
                 //... is a div
                 tagName: 'div',
 	
-		className: 'alert alert-block alert-error fade in',
+		className: 'alert alert-block fade in',
 
                 // Cache the template function for a single alert.
                 template: _.template( $('#alert-template').html() ),
 
+		// Set up the type of alert, if specified
+		initialize: function() {
+			if ( this.options.type ) {
+				// TODO: Perform some error checking before adding class
+				this.$el.addClass(' alert-' + this.options.type);
+			}
+		},
 
                 // Re-render the alert
                 render: function() {
@@ -25,11 +32,11 @@ $(function() {
                         return this;
                 },
 
-		// Reduce all the error messages from the various fields
-		// into one array for easier manipulation in the View Template.
+		// Reduce all the messages passed into this view into one array
+		// for easier manipulation in the View Template.
 		collectMsgs: function() {
-			return _.reduce( this.options.errors, function(memo, error) { 
-				return memo.concat(error.msgs);
+			return _.reduce( this.options.msgData, function(memo, data) { 
+				return memo.concat(data.msgs);
 			}, [] );
 		}
 

@@ -26,6 +26,7 @@ var app = app || {};
 		// subsequently on 'type', 'principal', 'rate', or 'repayment' change.
 		initialize: function() {
 			this.on( 'add change:type change:principal change:rate change:repayment', this.updateMonthly, this );
+			this.on( 'change:type', this.defaultRepayment, this );
 		},
 
 		// Helper function that will update the model's 'monthly' attribute
@@ -61,6 +62,20 @@ var app = app || {};
 				this.set( { monthly: this.attributes.principal }, { silent: true } );
 			} else {
 				this.set( { monthly: payment }, { silent: true } );
+			}
+		},
+
+		// Attempts to set the default repayment back 120 months (10 years)
+		// when the debt type changes to a credit card or loan program.
+		defaultRepayment: function() {
+			var type = this.attributes.type;
+
+			if ( type == 'Credit Card' || type == 'Stafford Loan' ||
+				type == 'Perkins Loan' || type == 'Plus Loan' ) {
+				this.set( { repayment: 120 });
+
+				// TODO: Flash notification message
+				console.log("FLASH MESSAGE WILL GO HERE!!!!!");
 			}
 		},
 
@@ -116,8 +131,8 @@ var app = app || {};
 			}
 		},
 
-		// Update the repayment time for this debt to factor in a minimum 
-		// monthly repayment requirement.
+		// Update the repayment time for this debt based on a minimum payment.
+		// Used to correct repayment time for debts with minimum payment stipulations.
 		fixRepayment: function( payment ) {
 			var rate = (this.attributes.rate/100.0)/12.0;
 			var interest = 0.0;

@@ -184,7 +184,7 @@ $(function() {
 			_.each( errors, function(error){ 
 				$('#' + error.field + '-group').addClass('error'); });
 
-			this.flashErrors( model, errors );
+			app.alertHandler.trigger( 'app:alert', errors, 'error' );
 		},
 
 		// Debt model error handling.
@@ -201,17 +201,9 @@ $(function() {
 			// debt creation form since we just cleared any errors it might have had.
 			this.clearFormInputs();
 
-			this.flashErrors( model, errors );
+			app.alertHandler.trigger( 'app:alert', errors, 'error' );
 		},
 		
-		// Hide all control-group errors, create a new AlertView with the
-		// given errors, place it in the DOM, show it with a jQuery UI Effect
-		flashErrors: function( model, errors ) {
-			var view = new app.AlertView({ errors: errors });
-			$('#error-msgs').html( view.render().el );
-			$('.alert').show("drop", { direction: 'up' });
-		},
-
 		clearErrors: function() {
 			$('.control-group').removeClass('error');
 			$('.alert').alert('close');
