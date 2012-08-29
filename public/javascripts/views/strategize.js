@@ -49,6 +49,11 @@ $(function() {
 				accounting.formatMoney(normal-snow) );
 		},
 
+		// On view close, we unbind all callbacks previously bound in initialize().
+		onClose: function() {
+			window.app.Debts.off( null, null, this );
+		},
+
 		// Calculate the total lifetime interest for a list of debts sorted by
 		// rate in descending order (Avalanche repayment method).
 		avalancheLifetimeInterest: function( overPayment ) {

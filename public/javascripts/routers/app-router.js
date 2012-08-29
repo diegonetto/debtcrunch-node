@@ -7,25 +7,22 @@ var app = app || {};
 	// ----------
 
 	var Workspace = Backbone.Router.extend({
+
+		// Client side app routes.
 		routes:{
-			'*app': 'setView'
+			'*app': 'requestView'
 		},
 
-		setView: function( view ) {
-			switch ( view.trim() || '' ) {
-				case 'strategize':
-					console.log('Render strategize view');
-					break;
-				default:
-					console.log('Render organize view');
-					break;
-			}
-
-			// Trigger something to cause the view to update
+		// Updates the app's requestedView variable and fires
+		// off 'route:requestView' event.
+		requestView: function( view ) {
+			var tab = '';
+			app.requestedView = view.trim() || '';
 		}
+
 	});
 
-	app.DebtRouter = new Workspace();
+	app.AppRouter = new Workspace();
 	Backbone.history.start();
 
 }());

@@ -17,6 +17,19 @@ $(function() {
 	'use strict';
 
 	//--------------
+	// Add a close() method to the Backbone.View prototype to assist
+	// during view clean up and avoid zombie views during page transitions.	
+	Backbone.View.prototype.close = function(){
+		// TODO: Make it so that the Organize and Strategize view generate
+		// their 'el' (DOM elements) from a template so that calling remove() works.
+		// this.remove();
+		this.unbind();
+		if (this.onClose){
+			this.onClose();
+ 		}
+	}
+
+	//--------------
 	// Create an alert event aggregator and add it to the app namespace so that
 	// any bootstrap component can fire off an 'app:alert' to flash an alert message.
 	app.AlertHandler = {
@@ -33,10 +46,6 @@ $(function() {
 	};
 	_.extend( app.AlertHandler, Backbone.Events );
 	app.AlertHandler.on( 'app:alert', app.AlertHandler.flashMessage );
-
-	//--------------
-	// Event Aggregator
-	app.
 
 	//--------------
 	// Entry point for the overall app. Create a new AppView.

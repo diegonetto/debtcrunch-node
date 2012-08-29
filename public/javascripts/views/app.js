@@ -25,6 +25,7 @@ $(function( $ ) {
 
 			// TODO: Use only the appropriate events to limit calls
 			window.app.Debts.on( 'all', this.render, this );
+			window.app.AppRouter.on( 'all', this.updateTabView, this );
 
 			this.$stepOne = this.$('#step-one');
 			this.$clockWrapper = this.$('#interest-clocks-wrapper');
@@ -36,14 +37,13 @@ $(function( $ ) {
 			heroUnit.css('padding-top', '10px');
 			heroUnit.css('padding-bottom', '10px');
 
-			// Create the views for the tabs
-			new app.OrganizeView();
-			new app.StrategizeView();
+			// Create the inital tab view.
+			this.updateTabView();
 
 			// Kick things off by fetching an pre-existing models from the collection
-			// stored in *LocalStorage*.
+			// stored in *LocalStorage*.                                    
 			// TODO: Remove this and boostrap it to the page as per Backbone JS
-			// 	 recommendation: http://backbonejs.org/#FAQ-bootstrap
+			//       recommendation: http://backbonejs.org/#FAQ-bootstrap
 			app.Debts.fetch();
 		},
 
@@ -80,6 +80,32 @@ $(function( $ ) {
 						break;
 				}
 			}
-		}
+		},
+
+		// Helper function for activating a specific tab and rendering its 
+		// associated view based on the requestedView variable set by the AppRouter.
+		updateTabView: function() {
+			// Close the currentView if it exists
+			if ( window.app.currentView ) {
+				window.app.currentView.close();
+			}
+
+			switch ( window.app.requestedView ) {
+				case 'strategize': 
+					this.$('#subnav a[href="#strategize"]').tab('show');
+					window.app.currentView = new app.StrategizeView();
+					break;
+				default:
+					this.$('#subnav a[href="#organize"]').tab('show');
+					window.app.currentView = new app.OrganizeView();
+					break;
+			}
+
+			// Render the current view
+			window.app.currentView.render('created');
+
+		},
+
+		
 	});
 });

@@ -78,7 +78,15 @@ $(function() {
 						break;
 				}
 			}
+
+			// Add all debts to table
+			this.addAll();
                 },
+
+		// On view close, we unbind all callbacks previously bound in initialize().
+		onClose: function() {
+			window.app.Debts.off( null, null, this );
+		},
 
 		// Helper function that iterates over the debtInputs and creates unique popovers.
 		enablePopovers: function( input ) {
