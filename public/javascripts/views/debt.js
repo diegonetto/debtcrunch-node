@@ -31,17 +31,22 @@ $(function() {
 		// a one-to-one correspondence between a **Debt** and a *DebtView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.on( 'change sync', this.render, this );
+			this.model.on( 'change sync error', this.render, this );
 			this.model.on( 'destroy', this.remove, this );
-			this.model.on( 'error', this.render, this );
 		},
 
 		// Re-render the data in the table of this debt, and update the inputs accordingly.
 		// (See debt-item template).
-		render: function() {
+		render: function( eventName ) {
+			console.log( 'DebtView render() called with "' + eventName + '"' );
 			this.$el.html( this.template( this.model.toJSON() ) );
 			
 			return this;
+		},
+
+		// On view close, we unbind all callbacks previously bound in initialize().
+		onClose: function() {
+			this.model.off( null, null, this );
 		},
 
 		// Remove the debt item, destroy the model from *LocalStorage* and delete
