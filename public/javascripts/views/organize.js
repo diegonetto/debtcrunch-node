@@ -184,7 +184,7 @@ $(function() {
 			_.each( errors, function(error){ 
 				$('#' + error.field + '-group').addClass('error'); });
 
-			app.alertHandler.trigger( 'app:alert', errors, 'error' );
+			app.AlertHandler.trigger( 'app:alert', errors, 'error' );
 		},
 
 		// Debt model error handling.
@@ -201,7 +201,7 @@ $(function() {
 			// debt creation form since we just cleared any errors it might have had.
 			this.clearFormInputs();
 
-			app.alertHandler.trigger( 'app:alert', errors, 'error' );
+			app.AlertHandler.trigger( 'app:alert', errors, 'error' );
 		},
 		
 		clearErrors: function() {

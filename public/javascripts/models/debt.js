@@ -74,7 +74,7 @@ var app = app || {};
 				type == 'Perkins Loan' || type == 'Plus Loan' ) {
 				this.set( { repayment: 120 });
 
-				app.alertHandler.trigger( 'app:alert', [{msgs: 'Test'}], 'info' );
+				app.AlertHandler.trigger( 'app:alert', [{msgs: 'Test'}], 'info' );
 			}
 		},
 

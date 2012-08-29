@@ -16,9 +16,10 @@ app.toFixed = function( value ) {
 $(function() {
 	'use strict';
 
+	//--------------
 	// Create an alert event aggregator and add it to the app namespace so that
 	// any bootstrap component can fire off an 'app:alert' to flash an alert message.
-	app.alertHandler = {
+	app.AlertHandler = {
 		// Create a new AlerView with the given messages, place it in the DOM,
 		// and show it with a jQuery UI animation effect.
 		flashMessage: function( msgData, type ) {
@@ -30,9 +31,14 @@ $(function() {
 
 		// TODO: Add a utility function to create the message data structure.
 	};
-	_.extend( app.alertHandler, Backbone.Events );
-	app.alertHandler.on( 'app:alert', app.alertHandler.flashMessage );
+	_.extend( app.AlertHandler, Backbone.Events );
+	app.AlertHandler.on( 'app:alert', app.AlertHandler.flashMessage );
 
+	//--------------
+	// Event Aggregator
+	app.
+
+	//--------------
 	// Entry point for the overall app. Create a new AppView.
 	new app.AppView();
 });
