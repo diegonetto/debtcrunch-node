@@ -27,10 +27,12 @@ $(function() {
 			$('#error-msgs').html( view.render().el );
 			$('.alert').show("drop", { direction: 'up' });
 		}
+
+		// TODO: Add a utility function to create the message data structure.
 	};
 	_.extend( app.alertHandler, Backbone.Events );
 	app.alertHandler.on( 'app:alert', app.alertHandler.flashMessage );
 
-	// Entry point for the overall app. Create a new AppView
+	// Entry point for the overall app. Create a new AppView.
 	new app.AppView();
 });

@@ -19,15 +19,30 @@ $(function() {
 
 		// Set up the type of alert, if specified
 		initialize: function() {
-			if ( this.options.type ) {
-				// TODO: Perform some error checking before adding class
-				this.$el.addClass(' alert-' + this.options.type);
+			switch ( this.options.type ) {
+				case 'error':
+					this.$el.addClass('alert-error');
+					this.heading = 'Oops!';
+					break;
+				case 'success':
+					this.$el.addClass('alert-success');
+					this.heading = 'Woohoo!';
+					break;
+				case 'info':
+					this.$el.addClass('alert-info');
+					this.heading = 'Heads up!';
+					break;
+				default:
+					this.heading = 'Warning!';
+					break;
 			}
 		},
 
+		// TODO: Fire off a timer to automatically dismiss alerts that aren't super important.
+
                 // Re-render the alert
                 render: function() {
-                        this.$el.html( this.template({ msgs: this.collectMsgs() }) );
+                        this.$el.html( this.template({ heading: this.heading, msgs: this.collectMsgs() }) );
 
                         return this;
                 },

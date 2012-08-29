@@ -74,8 +74,7 @@ var app = app || {};
 				type == 'Perkins Loan' || type == 'Plus Loan' ) {
 				this.set( { repayment: 120 });
 
-				// TODO: Flash notification message
-				console.log("FLASH MESSAGE WILL GO HERE!!!!!");
+				app.alertHandler.trigger( 'app:alert', [{msgs: 'Test'}], 'info' );
 			}
 		},
 
