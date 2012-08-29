@@ -24,11 +24,20 @@ $(function() {
                 // At initialization we bind to the relevant events in the 'Debts'
                 // collection when debts are added or changed.
                 initialize: function() {
+			window.app.Debts.on( 'reset change remove', this.render, this );
+			window.app.Debts.on( 'add reset', this.addAll, this );
+			window.app.Debts.on( 'creation-error', this.formError, this );
+			window.app.Debts.on( 'error', this.modelError, this );
+
                         this.title = this.$('#debt-title');
                         this.type = this.$('#debt-type');
                         this.principal = this.$('#debt-principal');
                         this.rate = this.$('#debt-rate');
                         this.repayment = this.$('#debt-repayment');
+
+			this.$debtTable = this.$('#debt-table-wrapper');
+			this.$principalTotal = this.$('#principal-total');
+			this.$monthlyTotal = this.$('#monthly-total');
 
 			// Wrap the debt inputs in a list for ease of processing.
 			this.debtInputs = [this.title, this.type, this.principal, this.rate, this.repayment];
@@ -36,16 +45,8 @@ $(function() {
 			// Enable the help pop-overs for each of the debt inputs.
 			_.each( this.debtInputs, this.enablePopovers, this );
 
-                        window.app.Debts.on( 'add', this.addAll, this );
-                        window.app.Debts.on( 'reset', this.addAll, this );
-                        window.app.Debts.on( 'change:completed', this.addAll, this );
-                        window.app.Debts.on( 'all', this.render, this );
-			window.app.Debts.on( 'creation-error', this.formError, this );
-			window.app.Debts.on( 'error', this.modelError, this );
-
-			this.$debtTable = this.$('#debt-table-wrapper');
-			this.$principalTotal = this.$('#principal-total');
-			this.$monthlyTotal = this.$('#monthly-total');
+			// Kick things off by adding all debts to table
+			this.addAll();
                 },
 
                 // Re-rendering the Organize view means showing or hiding the debt table
@@ -78,9 +79,6 @@ $(function() {
 						break;
 				}
 			}
-
-			// Add all debts to table
-			this.addAll();
                 },
 
 		// On view close, we unbind all callbacks previously bound in initialize().
@@ -130,7 +128,7 @@ $(function() {
 		// appending its element to the table
 		addOne: function( debt ) {
 			var view = new app.DebtView({ model: debt});
-			$('#debt-table-body').append( view.render().el );
+			$('#debt-table-body').append( view.render('OrganizeView:addOne').el );
 		},
 
 		// Add all debts in the **Debts** collection at once.

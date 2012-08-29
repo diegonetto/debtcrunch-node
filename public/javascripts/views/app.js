@@ -94,7 +94,7 @@ $(function( $ ) {
 			}
 
 			// Render the current view
-			window.app.currentView.render('created');
+			window.app.currentView.render('AppView:updateTabView');
 
 		},
 
