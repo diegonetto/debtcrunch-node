@@ -21,7 +21,8 @@ $(function() {
 		// collection when debts are added or changed.
 		initialize: function() {
 
-			// TODO: Use only the appropriate events to limit calls (optimize)
+			// TODO: Use only the appropriate events to limit calls 
+			// 	 Check 'add change reset destroy'
 			window.app.Debts.on( 'all', this.render, this );
 
 			this.$avaLifeInterest = this.$('#avalanche-lifetime');
@@ -74,7 +75,7 @@ $(function() {
 
 			var sum = this.totalInterest(debtList, overPayment);
 
-			console.log( 'Total sum recursive: ' + sum );
+			console.log( '--StrategizeView totalLifetimeInterest() recursive sum: ' + sum );
 
 			return sum;
 		},

@@ -199,7 +199,7 @@ var app = app || {};
 				sum += interest;
 			}
 			
-			console.log('Debt Principal: $' + this.attributes.principal + ' Interest: $' + sum );
+			//console.log('Debt Principal: $' + this.attributes.principal + ' Interest: $' + sum );
 
 			return sum;
 		},
