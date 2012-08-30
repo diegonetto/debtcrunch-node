@@ -31,8 +31,11 @@ $(function() {
 		// a one-to-one correspondence between a **Debt** and a *DebtView** in this
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
-			this.model.on( 'change sync error', this.render, this );
+			this.model.on( 'change error', this.render, this );
+			this.model.on( 'sync', this.fadeOut, this );
 			this.model.on( 'destroy', this.remove, this );
+			this.model.on( 'app:typeChangedRepayment', this.fadeRepayment, this );
+
 		},
 
 		// Re-render the data in the table of this debt, and update the inputs accordingly.
@@ -47,6 +50,21 @@ $(function() {
 		// On view close, we unbind all callbacks previously bound in initialize().
 		onClose: function() {
 			this.model.off( null, null, this );
+		},
+
+		// Adds a special class to the just edited field when the
+		// 'app:typeChangedRepayment' event is fired.
+		fadeRepayment: function() {
+			$('.just-edited').addClass('fade-repayment');
+		},
+
+		// Perform any Fade Out (highlight) animations after sync'ing, since
+		// that should be the last evetn fired.
+		fadeOut: function() {
+			console.log('fadeOut()');
+			$('.fade-repayment td:eq(4)').effect('highlight', 
+				{ color: '#006dcc' }, 1500, this.test);
+			$('.fade-repayment').removeClass('fade-repayment');
 		},
 
 		// Remove the debt item, destroy the model from *LocalStorage* and delete
@@ -103,6 +121,11 @@ $(function() {
 				return;
 			}			
 
+			var cell = this.$('.editing').removeClass('editing');
+			cell.removeClass('editing');
+			$('.just-edited').removeClass('just-edited');
+			cell.parent().addClass('just-edited');
+
 			var response;
 			switch ( this.currentInput.selector ) {
 				case '.edit-title':
@@ -123,8 +146,6 @@ $(function() {
 				default:
 					break;
 			}
-
-			this.$('.editing').removeClass('editing');
 		},
 
 		// Calls the this.close() function if enter key is pressed in an .edit input.

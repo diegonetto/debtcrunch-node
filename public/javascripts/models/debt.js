@@ -22,17 +22,19 @@ var app = app || {};
 		},
 
 		// The model listens for changes on itself in order properly
-		// update its 'monthly' attribute value when it is first added and
-		// subsequently on 'type', 'principal', 'rate', or 'repayment' change.
+		// update its 'monthly' attribute value.
+		// The reason that 'change:type' has its own callback is because if defaultRepayment
+		// decides to change the repayment value then a'change:repayment' event is fired.
 		initialize: function() {
-			this.on( 'add change:type change:principal change:rate change:repayment', this.updateMonthly, this );
 			this.on( 'change:type', this.defaultRepayment, this );
+			this.on( 'add change:principal change:rate change:repayment', this.updateMonthly, this );
 		},
 
 		// Helper function that will update the model's 'monthly' attribute
 		// based on the current 'type' value. Use the 'silent: true' option
 		// when setting so that another 'change' event is not triggered on the model.
 		updateMonthly: function( eventName ) {
+			console.log('--updateMonthly() called');
 			var payment = 0.0;
 
 			switch( this.attributes.type ) {
@@ -68,13 +70,17 @@ var app = app || {};
 		// Attempts to set the default repayment back 120 months (10 years)
 		// when the debt type changes to a credit card or loan program.
 		defaultRepayment: function() {
+			console.log('--defaultRepayment() called');
+
 			var type = this.attributes.type;
 
 			if ( type == 'Credit Card' || type == 'Stafford Loan' ||
 				type == 'Perkins Loan' || type == 'Plus Loan' ) {
-				this.set( { repayment: 120 });
+				this.set( { repayment: 120 }, { silent: true });
 
-				app.AlertHandler.trigger( 'app:alert', [{msgs: 'Test'}], 'info' );
+				this.trigger( 'app:typeChangedRepayment' );
+			} else {
+				this.updateMonthly();		
 			}
 		},
 
