@@ -34,8 +34,8 @@ $(function() {
 			this.model.on( 'change error', this.render, this );
 			this.model.on( 'sync', this.fadeOut, this );
 			this.model.on( 'destroy', this.remove, this );
-			this.model.on( 'app:typeChangedRepayment', this.fadeRepayment, this );
-
+			this.model.on( 'change:repayment', this.fadeRepayment, this );
+			this.model.on( 'change:monthly', this.fadeMonthly, this );
 		},
 
 		// Re-render the data in the table of this debt, and update the inputs accordingly.
@@ -52,19 +52,28 @@ $(function() {
 			this.model.off( null, null, this );
 		},
 
-		// Adds a special class to the just edited field when the
-		// 'app:typeChangedRepayment' event is fired.
+		// Adds a special class to the just edited field when the repayment is changed.
 		fadeRepayment: function() {
 			$('.just-edited').addClass('fade-repayment');
 		},
 
+		// Adds a special class to the just edited field when the monthly is changed.
+		fadeMonthly: function() {
+			$('.just-edited').addClass('fade-monthly');
+		},
+
 		// Perform any Fade Out (highlight) animations after sync'ing, since
-		// that should be the last evetn fired.
+		// that should be the last event fired.
 		fadeOut: function() {
-			console.log('fadeOut()');
+			// Attempt repayment fade
 			$('.fade-repayment td:eq(4)').effect('highlight', 
-				{ color: '#006dcc' }, 1500, this.test);
+				{ color: '#0088cc' }, 1500, this.test);
 			$('.fade-repayment').removeClass('fade-repayment');
+
+			// Attempt monthly fade
+			$('.fade-monthly td:eq(5)').effect('highlight', 
+				{ color: '#0088cc' }, 1500, this.test);
+			$('.fade-monthly').removeClass('fade-monthly');
 		},
 
 		// Remove the debt item, destroy the model from *LocalStorage* and delete
