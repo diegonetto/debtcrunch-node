@@ -32,7 +32,8 @@ $(function() {
 		// app, we set a direct reference on the model for convenience.
 		initialize: function() {
 			this.model.on( 'change error', this.render, this );
-			this.model.on( 'sync', this.fadeOut, this );
+			this.model.on( 'error:msgs', this.fadeError, this );
+			this.model.on( 'sync error', this.fadeOut, this );
 			this.model.on( 'destroy', this.remove, this );
 			this.model.on( 'change:repayment', this.fadeRepayment, this );
 			this.model.on( 'change:monthly', this.fadeMonthly, this );
@@ -52,28 +53,50 @@ $(function() {
 			this.model.off( null, null, this );
 		},
 
-		// Adds a special class to the just edited field when the repayment is changed.
+		// Adds a special class to the just edited row when the repayment is changed.
 		fadeRepayment: function() {
 			$('.just-edited').addClass('fade-repayment');
 		},
 
-		// Adds a special class to the just edited field when the monthly is changed.
+		// Adds a special class to the just edited row when the monthly is changed.
 		fadeMonthly: function() {
 			$('.just-edited').addClass('fade-monthly');
+		},
+
+		// Adds a special class to the just edited row when an error occurs during
+		// inline editing.
+		fadeError: function(model, errorData) {
+			console.log('fade error called');
+			var e = $('.just-edited');
+			var field = errorData[0].field
+			e.addClass('fade-error');
+			e.attr('data-error-idx', _.indexOf( DEBT_FIELDS, field ));
 		},
 
 		// Perform any Fade Out (highlight) animations after sync'ing, since
 		// that should be the last event fired.
 		fadeOut: function() {
+			console.log('fadeOut');
+			// First render the view
+			this.render('sync');
+
 			// Attempt repayment fade
 			$('.fade-repayment td:eq(4)').effect('highlight', 
-				{ color: '#0088cc' }, 1500, this.test);
+				{ color: '#0088cc' }, 1500 );
 			$('.fade-repayment').removeClass('fade-repayment');
 
 			// Attempt monthly fade
 			$('.fade-monthly td:eq(5)').effect('highlight', 
-				{ color: '#0088cc' }, 1500, this.test);
+				{ color: '#0088cc' }, 1500 );
 			$('.fade-monthly').removeClass('fade-monthly');
+
+			// Attempt error fade
+			var e = $('.fade-error');
+			var fieldIdx = e.attr('data-error-idx');
+			$('.fade-error td:eq(' + fieldIdx + ')').effect('highlight',
+				{ color: '#ff6881' }, 2000 );
+			e.removeAttr('data-error-idx');
+			e.removeClass('fade-error');
 		},
 
 		// Remove the debt item, destroy the model from *LocalStorage* and delete

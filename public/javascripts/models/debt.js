@@ -204,7 +204,10 @@ var app = app || {};
 				// Since we have a handle on the Debts collection
 				// from the app, fire off an error event during validation
 				// so the errors will be visible even during Collection.create.
+				// TODO: Re-work this
 				window.app.Debts.trigger('creation-error', this, errors);
+
+				this.trigger('error:msgs', this, errors);
 				return errors;
 			}
 		},
