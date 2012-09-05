@@ -26,6 +26,33 @@ app.configure('development', function(){
 });
 
 /**
+ * Middleware for responding with a 404 error.
+ *
+ * Since this is positioned below app.router,
+ * Express will attempt to match routes defined below
+ * before continuing on. If no routes are matched than
+ * we respond with a 404 since the request was not handled.
+ */
+app.use(function(req, res, next){
+  res.status(404);
+  
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404', { title: 'Oops!', page: '404', url: req.url });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
+
+/**
  * Routing
  */
 app.get('/', routes.home);
