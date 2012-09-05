@@ -15,15 +15,19 @@ html, body {
   background-image:url(/images/bar_noise.png) !important;
 }
 
+.brand {
+  font-family: 'Pacifico', cursive;
+}
+
 a {
   color: #FFAD33;
 }
 
 .navbar-inverse .nav .active > a,
 .navbar-inverse .nav .active > a:hover,
-.navbar-inverse .nav .active > a:focus {
-  color: #F90;
-/*  background-color: #333; */
+.navbar-inverse .nav .active > a:focus,
+.navbar-inverse .brand:hover {
+  color: #FFA008;
 }
 
 .nav li {
@@ -33,6 +37,7 @@ a {
 
 .nav li a:hover {
   color: #F90 !important;
+  color: #FFA008 !important;
 }
 
 .main-wrapper {
