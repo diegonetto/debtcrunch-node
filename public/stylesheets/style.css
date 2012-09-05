@@ -8,11 +8,11 @@ html, body {
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased; 
-  background-image:url(/images/bg_noise.png);
+  background-image:url(/images/light_noise.png);
 }
 
 .navbar-inner {
-  background-image:url(/images/bar_noise.png) !important;
+  background-image:url(/images/dark_noise.png) !important;
 }
 
 .brand {
