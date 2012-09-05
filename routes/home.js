@@ -3,5 +3,5 @@
  */
 
 module.exports = function(req, res){
-  res.render('home', { title: 'Homepage' });
+  res.render('home', { title: 'Homepage', page: 'home' });
 };

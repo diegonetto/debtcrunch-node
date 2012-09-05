@@ -19,7 +19,18 @@ html
           .navbar-inner
             .container
               ul#top-nav.nav.pull-left
-                block navbar
+                if page == 'home'
+                  li.active: a(href='/') Home
+                else
+                  li: a(href='/') Home
+                if page == 'app'
+                  li.active: a(href='/app') App
+                else
+                  li: a(href='/app') App
+                if page == 'faq'
+                  li.active: a(href='/faq') FAQ
+                else
+                  li: a(href='/faq') FAQ
         #main
           #error-msgs
           block content

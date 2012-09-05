@@ -3,5 +3,5 @@
  */
 
 module.exports = function(req, res){
-  res.render('app', { title: 'Manage your Debt' });
+  res.render('app', { title: 'Manage your Debt', page: 'app' });
 };
