@@ -4,7 +4,9 @@ html
     title= title
     block head
       link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
+      link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.css')
       link(rel='stylesheet', href='/stylesheets/style.css')
+      link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Ubuntu', type='text/css')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js')
       script(src='/vendor/bootstrap/js/bootstrap.js')
@@ -16,9 +18,8 @@ html
         .navbar.navbar-fixed-top.navbar-inverse
           .navbar-inner
             .container
-              ul.nav.pull-left
-                li: a(href='/') Home
-                li: a(href='/app') App
+              ul#top-nav.nav.pull-left
+                block navbar
         #main
           #error-msgs
           block content

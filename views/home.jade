@@ -1,5 +1,9 @@
 extends layout
 
+append navbar
+  li.active: a(href='/') Home
+  li: a(href='/app') App
+
 block content
   .caption
     h1= title
