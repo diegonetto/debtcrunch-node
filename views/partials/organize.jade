@@ -1,45 +1,45 @@
 #debt-table-wrapper
   table#debt-table.table.table-condensed
-    thead
-      tr
-        th#title Title
-        th#type.center-col Type
-        th#prin.center-col Principal
-        th#rate.center-col Rate
-        th#repay.center-col Repayment
-        th#monthly.center-col Monthly
     tfoot#sum-row
       td(colspan="2") Totals
       td#principal-total.center-col $100.66
       td(colspan="2")
       td#monthly-total.center-col $200.69
     tbody#debt-table-body
-      td
-        #title-group.control-group
-          .controls
-            input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input
-      td
-        #type-group.control-group
-          .controls
-            select(data-field="type")#debt-type.debt-input
-              include /templates/debt-types
-                each type in DEBT_TYPES
-                  option= type
-      td
-        #principal-group.control-group
-          .controls
-            input(maxlength="35", data-field="title", type="text", placeholder="Principal")#debt-principal.debt-input
-      td
-        #rate-group.control-group
-          .controls
-            input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input
-      td
-        #repayment-group.control-group
-          .controls
-            input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input
-      td
-        button(type="button")#debt-add.btn.btn-primary Add
+      tr
+        td
+          #title-group.control-group
+            .controls
+              input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input
+        td
+          #type-group.control-group
+            .controls
+              select(data-field="type")#debt-type.debt-input
+                include /templates/debt-types
+                  each type in DEBT_TYPES
+                    option= type
+        td
+          #principal-group.control-group
+            .controls
+              input(maxlength="35", data-field="title", type="text", placeholder="Principal")#debt-principal.debt-input
+        td
+          #rate-group.control-group
+            .controls
+              input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input
+        td
+          #repayment-group.control-group
+            .controls
+              input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input
+        td
+          button(type="button")#debt-add.btn.btn-primary Add
 
+      tr.headings
+        td Title
+        td.center-col Type
+        td.center-col Principal
+        td.center-col Rate
+        td.center-col Repayment
+        td.center-col Monthly
 
   #table-notes
     p Double-click on a cell above to edit its value.
