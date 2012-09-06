@@ -11,8 +11,26 @@
   float: left;
 }
 
-#debt-rate {
+#debt-title {
+  width: 257px;
+}
+
+#debt-type {
+  width: 140px;
+}
+
+#debt-principal {
+  width: 170px;
+}
+
+#debt-rate,
+#debt-repayment {
   width: 110px;
+}
+
+.input-wrapper {
+/*  width: 850px;
+  margin: 0px auto;*/
 }
 
 /* Table formatting */

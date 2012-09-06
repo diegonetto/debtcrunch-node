@@ -1,23 +1,25 @@
-form#debt-form.well.form-inline
-  #title-group.control-group
-    .controls
-      input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input.span2
-  #type-group.control-group
-    .controls
-      select(data-field="type")#debt-type.debt-input.span2
-        include /templates/debt-types
-        each type in DEBT_TYPES
-          option= type
-  #principal-group.control-group
-    .controls
-      input(maxlength="18", data-field="principal", type="text", placeholder="Principal")#debt-principal.debt-input.span2
-  #rate-group.control-group
-    .controls
-      input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input.span2
-  #repayment-group.control-group
-    .controls
-      input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input.span2
-  button(type="button")#debt-add.btn.btn-primary Add
+.form.row-fluid
+  .offset1.span10
+    form#debt-form.form-inline
+      #title-group.control-group
+        .controls
+          input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input
+      #type-group.control-group
+        .controls
+          select(data-field="type")#debt-type.debt-input
+            include /templates/debt-types
+            each type in DEBT_TYPES
+              option= type
+      #principal-group.control-group
+        .controls
+          input(maxlength="18", data-field="principal", type="text", placeholder="Principal")#debt-principal.debt-input
+      #rate-group.control-group
+        .controls
+          input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input
+      #repayment-group.control-group
+        .controls
+          input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input
+      button(type="button")#debt-add.btn.btn-primary Add
   
 #debt-table-wrapper
   table#debt-table.table.table-condensed
