@@ -98,6 +98,7 @@
 }
 
 #debt-table tr.debt-view:hover,
+#debt-table tr.debt-view:hover td,
 #debt-table tr:hover .edit {
   background-color: #E6DED1;
 }
