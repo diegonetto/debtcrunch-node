@@ -19,10 +19,7 @@ html, body {
   font-family: 'Pacifico', cursive;
 }
 
-a {
-  color: #FFAD33;
-}
-
+a,
 .navbar-inverse .nav .active > a,
 .navbar-inverse .nav .active > a:hover,
 .navbar-inverse .nav .active > a:focus,
