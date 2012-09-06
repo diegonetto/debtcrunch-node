@@ -2,6 +2,19 @@
   margin-bottom: 0px;
 }
 
+#subnav a:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#subnav .active a {
+  color: #FFA008;
+  background-color: #FFF;
+  border-top-color: #DDD;
+  border-left-color: #DDD;
+  border-right-color: #DDD;
+}
+
 .tab-pane {
   margin-top: 10px;
   margin-left: 10px;
