@@ -7,7 +7,7 @@ html, body {
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-  font-smoothing: antialiased; 
+  font-smoothing: antialiased;
   background-image:url(/images/light_noise.png);
 }
 
@@ -60,7 +60,6 @@ footer {
   height: 60px;
   color: #999;
   font-size: 12px;
-  font-weight: bold;
   text-align: center;
   background-image:url(/images/dark_noise.png);
 }
