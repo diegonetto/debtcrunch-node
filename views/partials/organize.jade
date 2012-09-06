@@ -1,7 +1,7 @@
 form#debt-form.well.form-inline
   #title-group.control-group
     .controls
-      input(maxlength="35", data-field="title")#debt-title.debt-input.span3(type="text", placeholder="Title of debt")
+      input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input.span2
   #type-group.control-group
     .controls
       select(data-field="type")#debt-type.debt-input.span2
@@ -10,13 +10,13 @@ form#debt-form.well.form-inline
           option= type
   #principal-group.control-group
     .controls
-      input(maxlength="18", data-field="principal")#debt-principal.debt-input.span2(type="text", placeholder="Principal")
+      input(maxlength="18", data-field="principal", type="text", placeholder="Principal")#debt-principal.debt-input.span2
   #rate-group.control-group
     .controls
-      input(maxlength="5", data-field="rate")#debt-rate.debt-input.span2(type="text", placeholder="Rate")
+      input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input.span2
   #repayment-group.control-group
     .controls
-      input(maxlength="5", data-field="repayment")#debt-repayment.debt-input.span2(type="text", placeholder="Repayment")
+      input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input.span2
   button(type="button")#debt-add.btn.btn-primary Add
   
 #debt-table-wrapper
