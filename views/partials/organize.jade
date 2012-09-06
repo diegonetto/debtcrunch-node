@@ -1,26 +1,3 @@
-.form.row-fluid
-  .offset1.span10
-    form#debt-form.form-inline
-      #title-group.control-group
-        .controls
-          input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input
-      #type-group.control-group
-        .controls
-          select(data-field="type")#debt-type.debt-input
-            include /templates/debt-types
-            each type in DEBT_TYPES
-              option= type
-      #principal-group.control-group
-        .controls
-          input(maxlength="18", data-field="principal", type="text", placeholder="Principal")#debt-principal.debt-input
-      #rate-group.control-group
-        .controls
-          input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input
-      #repayment-group.control-group
-        .controls
-          input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input
-      button(type="button")#debt-add.btn.btn-primary Add
-  
 #debt-table-wrapper
   table#debt-table.table.table-condensed
     thead
@@ -37,6 +14,33 @@
       td(colspan="2")
       td#monthly-total.center-col $200.69
     tbody#debt-table-body
+      td
+        #title-group.control-group
+          .controls
+            input(maxlength="35", data-field="title", type="text", placeholder="Title of debt")#debt-title.debt-input
+      td
+        #type-group.control-group
+          .controls
+            select(data-field="type")#debt-type.debt-input
+              include /templates/debt-types
+                each type in DEBT_TYPES
+                  option= type
+      td
+        #principal-group.control-group
+          .controls
+            input(maxlength="35", data-field="title", type="text", placeholder="Principal")#debt-principal.debt-input
+      td
+        #rate-group.control-group
+          .controls
+            input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input
+      td
+        #repayment-group.control-group
+          .controls
+            input(maxlength="5", data-field="repayment", type="text", placeholder="Repayment")#debt-repayment.debt-input
+      td
+        button(type="button")#debt-add.btn.btn-primary Add
+
+
   #table-notes
     p Double-click on a cell above to edit its value.
 

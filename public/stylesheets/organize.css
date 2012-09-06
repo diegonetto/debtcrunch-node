@@ -4,7 +4,7 @@
 }
 
 .debt-input {
-  margin-right: 10px;
+  width: auto;
 }
 
 .control-group {
@@ -89,7 +89,7 @@
   vertical-align: middle;
 }
 
-#debt-table tr input {
+#debt-table .debt-view tr input {
   border: none;
   box-shadow: none;
 }

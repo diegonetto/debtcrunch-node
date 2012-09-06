@@ -12,6 +12,9 @@ $(function() {
 		//... is a table row tag.
 		tagName: 'tr',
 
+		// class
+		className: 'debt-view',
+
 		// Cache the template function for a single debt.
 		template: _.template( $('#debt-template').html() ),
 

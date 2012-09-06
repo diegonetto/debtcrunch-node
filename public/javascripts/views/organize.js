@@ -132,9 +132,9 @@ $(function() {
 		},
 
 		// Add all debts in the **Debts** collection at once.
-		// Clear current rows from the table and current errors.
+		// Remove all debt-view rows from the table and current errors.
 		addAll: function() {
-			this.$('#debt-table-body').html('');
+			this.$('.debt-view').remove();
 			this.clearErrors();	
 			app.Debts.each( this.addOne, this );
 		},
