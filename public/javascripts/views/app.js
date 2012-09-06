@@ -31,7 +31,7 @@ $(function( $ ) {
 			// Set the padding for the wizard hero units so they will be correct during animation
 			var heroUnit = this.$('.hero-unit');
 			heroUnit.css('padding-top', '10px');
-			heroUnit.css('padding-bottom', '10px');
+			heroUnit.css('padding-bottom', '0px');
 
 			// Create the inital tab view.
 			this.updateTabView();
@@ -61,12 +61,12 @@ $(function( $ ) {
 
 			switch ( app.Debts.length ) {
 				case 0:
-					this.$stepOne.show('blind', 1000);
+					this.$stepOne.show('drop', { direction: 'up' }, 1000);
 					this.$clockWrapper.hide();
 					break;
 				case 1:
 					this.$stepOne.hide();
-					this.$clockWrapper.show('blind', { direction: 'vertical' }, 1000);
+					this.$clockWrapper.show('drop', { direction: 'up' }, 1000);
 					break;
 				default:
 					this.$clockWrapper.show();
