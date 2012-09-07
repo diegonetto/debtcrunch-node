@@ -141,8 +141,8 @@ $(function() {
 		// Positions the current debt form input based on its parent cell, adds the
 		// 'editing' class and sets focus.
 		displayFormInput: function( cell ) {
-			this.currentInput.width( cell.innerWidth() );
-			this.currentInput.height( cell.innerHeight() );
+			this.currentInput.width( cell.find('.view').innerWidth() );
+			this.currentInput.height( cell.find('.view').innerHeight() );
 			cell.addClass('editing');
 			this.currentInput.focus();
 		},
