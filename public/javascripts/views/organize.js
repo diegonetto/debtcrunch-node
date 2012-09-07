@@ -147,19 +147,20 @@ $(function() {
 			this.currentInput.focus();
 		},
 
-		// Removes the editing class (which hides the input) from the table cell 
-		// containing the input. If the value is not empty, it updates the associated
-		// view with the current input. If the value is empty, it sets it back to its
-		// default, which is given by the 'data-default' attribute. Remove 'focused' class
-		// from form cell element.
+		// Removes the editing (which hides the input) and focused classes from the table
+		// cell containing the input. If the value is not empty, it updates the associated
+		// view with the current input and adds the 'not-empty' class. If the value is empty, 
+		// it sets it back to its default, which is given by the 'data-default' attribute. 
 		hideFormInput: function() {
 			this.currentInputView.parent().removeClass('editing focused');
 
 			var value = this.currentInput.val();
 			if ( value ) {
 				this.currentInputView.html( this.currentInput.val() );
+				this.currentInputView.parent().addClass('not-empty');
 			} else {
 				this.currentInputView.html( this.currentInput.attr('data-default') );
+				this.currentInputView.parent().removeClass('not-empty');
 			}
 		},
 
@@ -224,6 +225,7 @@ $(function() {
 				$('.form-cell').each(function(idx, item) {
 					var defaultText = $(this).find('[data-default]').attr('data-default');
 					$(this).find('.view').html(defaultText);
+					$(this).removeClass('not-empty');
 				});
 		},
 
