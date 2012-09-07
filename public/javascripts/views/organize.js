@@ -20,7 +20,7 @@ $(function() {
 			'click .form-cell':		'showFormInput',
                         'click #debt-add':		'createOnAdd',
 			'keypress .debt-input':		'createOrUpdate',
-			'blur .edit':			'hideFormInput'
+			'blur .debt-input':		'hideFormInput'
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts'
@@ -126,15 +126,19 @@ $(function() {
 			});
 		},
 
+		// Uses the event's currentTarget's data-form attribute to find the input that
+		// needs to be shown. Also sets a reference to the .view div that contains the text
+		// for the current input.
 		showFormInput: function( event ) {
 			var formInput = event.currentTarget.getAttribute('data-form');
-			var cell = $('td[data-form="' + formInput + '"]')
+			var cellSelector = 'td[data-form="' + formInput + '"]';
 			this.currentInput = this.$('#' + formInput);
-			this.currentInputView = $('.form-cell');
-			this.displayFormInput( cell );
+			this.currentInputView = $(cellSelector + ' :first');
+			this.displayFormInput( $(cellSelector) );
 		},
 
-		// TODO: Document
+		// Positions the current debt form input based on its parent cell, adds the
+		// 'editing' class and sets focus.
 		displayFormInput: function( cell ) {
 			this.currentInput.width( cell.innerWidth() );
 			this.currentInput.height( cell.innerHeight() );
@@ -142,9 +146,13 @@ $(function() {
 			this.currentInput.focus();
 		},
 
-		// TODO: Document
+		// Removes the editing class (which hides the input) only if its value is not empty.
 		hideFormInput: function() {
-			this.$('.editing').removeClass('editing');
+			var value = this.currentInput.val();
+			if ( value ) {
+				this.$('.editing').removeClass('editing');
+				this.currentInputView.html( this.currentInput.val() );
+			}
 		},
 
 		// Add a single debt to the list by creating a view for it and
@@ -192,9 +200,6 @@ $(function() {
 		createOrUpdate: function( e ) {
 				if ( e.which == ENTER_KEY ) {
 					this.createOnAdd();
-				} else {
-					var test = String.fromCharCode(e.keyCode);
-					this.currentInputView.append(String.fromCharCode(e.keyCode));
 				}
 		},
 
