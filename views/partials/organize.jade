@@ -21,7 +21,7 @@
         td(data-form="debt-principal").form-cell.center-col
           .view Amount
           .edit-wrapper
-            input(maxlength="35", data-field="title", type="text", data-default="Amount")#debt-principal.debt-input
+            input(maxlength="18", data-field="principal", type="text", data-default="Amount")#debt-principal.debt-input
         td(data-form="debt-rate").form-cell.center-col
           .view %
           .edit-wrapper
@@ -31,7 +31,7 @@
           .edit-wrapper
             input(maxlength="5", data-field="repayment", type="text", data-default="Duration")#debt-repayment.debt-input
         td.center-col
-          button(type="button")#debt-add.btn.btn-primary Add
+          button(type="button")#debt-add.btn.btn-primary <i class="icon-plus"></i>
 
       tr.headings
         td Title
