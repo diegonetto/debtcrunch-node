@@ -10,7 +10,7 @@
         td(data-form="debt-title").form-cell
           .view Enter a title
           .edit-wrapper
-            input(maxlength="35", data-field="title", type="text", placeholder="Enter a title")#debt-title.debt-input
+            input(maxlength="35", data-field="title", type="text", data-default="Enter a title")#debt-title.debt-input
         td(data-form="debt-type").form-cell.center-col
           .view Select a type
           .edit-wrapper
@@ -21,15 +21,15 @@
         td(data-form="debt-principal").form-cell.center-col
           .view Enter amount
           .edit-wrapper
-            input(maxlength="35", data-field="title", type="text", placeholder="Enter amount")#debt-principal.debt-input
+            input(maxlength="35", data-field="title", type="text", data-default="Enter amount")#debt-principal.debt-input
         td(data-form="debt-rate").form-cell.center-col
           .view Enter percentage
           .edit-wrapper
-            input(maxlength="5", data-field="rate", type="text", placeholder="Enter percentage")#debt-rate.debt-input
+            input(maxlength="5", data-field="rate", type="text", data-default="Enter percentage")#debt-rate.debt-input
         td(data-form="debt-repayment").form-cell.center-col
           .view Enter duration
           .edit-wrapper
-            input(maxlength="5", data-field="repayment", type="text", placeholder="Enter duration")#debt-repayment.debt-input
+            input(maxlength="5", data-field="repayment", type="text", data-default="Enter duration")#debt-repayment.debt-input
         td.center-col
           button(type="button")#debt-add.btn.btn-primary.btn-small Add
 

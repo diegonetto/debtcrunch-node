@@ -150,14 +150,14 @@ $(function() {
 		// Removes the editing class (which hides the input) from the table cell 
 		// containing the input. If the value is not empty, it updates the associated
 		// view with the current input. If the value is empty, it sets it back to its
-		// default, which is identical to its placeholder.
+		// default, which is given by the 'data-default' attribute.
 		hideFormInput: function() {
 			this.currentInputView.parent().removeClass('editing');
 			var value = this.currentInput.val();
 			if ( value ) {
 				this.currentInputView.html( this.currentInput.val() );
 			} else {
-				this.currentInputView.html( this.currentInput.attr('placeholder') );
+				this.currentInputView.html( this.currentInput.attr('data-default') );
 			}
 		},
 
