@@ -40,9 +40,11 @@ $(function() {
 
 		// TODO: Fire off a timer to automatically dismiss alerts that aren't super important.
 
-                // Re-render the alert
+		// Re-render the alert, dynamically setting its width to the value of the main content's width
+		// minus the size of its padding and borders - 51 px.
                 render: function() {
-                        this.$el.html( this.template({ heading: this.heading, msgs: this.collectMsgs() }) );
+			this.$el.html( this.template({ heading: this.heading, msgs: this.collectMsgs() }) );
+			this.$el.width( $('#main').width() - 51 );
 
                         return this;
                 },
