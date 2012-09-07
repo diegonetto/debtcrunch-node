@@ -75,13 +75,30 @@
   width: 0px;
 }
 
-#debt-table tr .debt-input,
+#debt-table tr .debt-input {
+  display: none;
+  padding: auto;
+  position: absolute;
+  top: -27px;
+  left: -5px;
+  font-family: Ubuntu, sans-serif;
+  text-align: inherit;
+  border: 1px solid #999;
+  border: 1px solid #615456;
+  box-shadow: inset 0 -1px 5px 0 rgba(97, 84, 86, 0.2);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 #debt-table tr .edit {
   display: none;
   padding: auto;
   position: absolute;
   top: -24px;
-  left: -8px;
+  left: -5px;
   font-family: Ubuntu, sans-serif;
   text-align: inherit;
   border: 1px solid #999;
