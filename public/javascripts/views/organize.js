@@ -236,7 +236,8 @@ $(function() {
 		// during validation to take care of returning errors during model creation.
 		formError: function( model, errors ) {
 			_.each( errors, function(error){ 
-				$('#' + error.field + '-group').addClass('error'); });
+				$('[data-form="debt-' + error.field + '"]').addClass('error'); 
+			});
 
 			app.AlertHandler.trigger( 'app:alert', errors, 'error' );
 		},
@@ -259,7 +260,7 @@ $(function() {
 		},
 		
 		clearErrors: function() {
-			$('.control-group').removeClass('error');
+			$('.form-cell').removeClass('error');
 			$('.alert').alert('close');
 		}
 	});
