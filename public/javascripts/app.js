@@ -50,6 +50,13 @@ $(function() {
 	app.AlertHandler.on( 'app:alert', app.AlertHandler.flashMessage );
 
 	//--------------
+	// Add a window resize callback that monitors the app page and cleans
+	// up certain DOM elements when appropriate.
+	$(window).resize(function() {
+		$('.alert').alert('close');
+	});
+
+	//--------------
 	// Entry point for the overall app. Create a new AppView.
 	new app.AppView();
 });
