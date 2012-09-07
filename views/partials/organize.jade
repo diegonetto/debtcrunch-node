@@ -7,12 +7,12 @@
       td#monthly-total.center-col $200.69
     tbody#debt-table-body
       tr.input-row
-        td
+        td(data-form="debt-title").form-cell
           .view Enter a title
           #title-group.control-group.edit-wrapper
             .controls
               input(maxlength="35", data-field="title", type="text", placeholder="Enter a title")#debt-title.debt-input.edit
-        td.center-col
+        td(data-form="debt-type").form-cell.center-col
           .view Select a type
           #type-group.control-group.edit-wrapper
             .controls
@@ -20,17 +20,17 @@
                 include /templates/debt-types
                   each type in DEBT_TYPES
                     option= type
-        td.center-col
+        td(data-form="debt-principal").form-cell.center-col
           .view Enter amount
           #principal-group.control-group.edit-wrapper
             .controls
               input(maxlength="35", data-field="title", type="text", placeholder="Principal")#debt-principal.debt-input.edit
-        td.center-col
+        td(data-form="debt-rate").form-cell.center-col
           .view Enter percentage
           #rate-group.control-group.edit-wrapper
             .controls
               input(maxlength="5", data-field="rate", type="text", placeholder="Rate")#debt-rate.debt-input.edit
-        td.center-col
+        td(data-form="debt-repayment").form-cell.center-col
           .view Enter duration
           #repayment-group.control-group.edit-wrapper
             .controls

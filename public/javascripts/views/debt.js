@@ -156,7 +156,7 @@ $(function() {
 				return;
 			}			
 
-			var cell = this.$('.editing').removeClass('editing');
+			var cell = this.$('.editing');
 			cell.removeClass('editing');
 			$('.just-edited').removeClass('just-edited');
 			cell.parent().addClass('just-edited');

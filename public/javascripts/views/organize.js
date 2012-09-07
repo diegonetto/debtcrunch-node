@@ -17,8 +17,10 @@ $(function() {
 
                 // Delegated events for creating and deleting debts
                 events: {
+			'click .form-cell':		'showFormInput',
                         'click #debt-add':		'createOnAdd',
-			'keypress .debt-input':		'createOnEnter'
+			'keypress .debt-input':		'createOrUpdate',
+			'blur .edit':			'hideFormInput'
                 },
 
                 // At initialization we bind to the relevant events in the 'Debts'
@@ -124,6 +126,27 @@ $(function() {
 			});
 		},
 
+		showFormInput: function( event ) {
+			var formInput = event.currentTarget.getAttribute('data-form');
+			var cell = $('td[data-form="' + formInput + '"]')
+			this.currentInput = this.$('#' + formInput);
+			this.currentInputView = $('.form-cell');
+			this.displayFormInput( cell );
+		},
+
+		// TODO: Document
+		displayFormInput: function( cell ) {
+			this.currentInput.width( cell.innerWidth() );
+			this.currentInput.height( cell.innerHeight() );
+			cell.addClass('editing');
+			this.currentInput.focus();
+		},
+
+		// TODO: Document
+		hideFormInput: function() {
+			this.$('.editing').removeClass('editing');
+		},
+
 		// Add a single debt to the list by creating a view for it and
 		// appending its element to the table
 		addOne: function( debt ) {
@@ -166,9 +189,12 @@ $(function() {
 		},
 
 		// If the enter key is pressed while in a debt input, attempt to create a new debt.
-		createOnEnter: function( e ) {
+		createOrUpdate: function( e ) {
 				if ( e.which == ENTER_KEY ) {
 					this.createOnAdd();
+				} else {
+					var test = String.fromCharCode(e.keyCode);
+					this.currentInputView.append(String.fromCharCode(e.keyCode));
 				}
 		},
 
