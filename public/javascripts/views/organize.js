@@ -139,20 +139,22 @@ $(function() {
 		},
 
 		// Positions the current debt form input based on its parent cell, adds the
-		// 'editing' class and sets focus.
+		// 'editing' and 'focused' classes and sets focus.
 		displayFormInput: function( cell ) {
 			this.currentInput.width( cell.find('.view').innerWidth() );
 			this.currentInput.height( cell.find('.view').innerHeight() );
-			cell.addClass('editing');
+			cell.addClass('editing focused');
 			this.currentInput.focus();
 		},
 
 		// Removes the editing class (which hides the input) from the table cell 
 		// containing the input. If the value is not empty, it updates the associated
 		// view with the current input. If the value is empty, it sets it back to its
-		// default, which is given by the 'data-default' attribute.
+		// default, which is given by the 'data-default' attribute. Remove 'focused' class
+		// from form cell element.
 		hideFormInput: function() {
-			this.currentInputView.parent().removeClass('editing');
+			this.currentInputView.parent().removeClass('editing focused');
+
 			var value = this.currentInput.val();
 			if ( value ) {
 				this.currentInputView.html( this.currentInput.val() );
