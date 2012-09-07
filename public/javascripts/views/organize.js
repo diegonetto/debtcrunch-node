@@ -146,11 +146,12 @@ $(function() {
 			this.currentInput.focus();
 		},
 
-		// Removes the editing class (which hides the input) only if its value is not empty.
+		// Removes the editing class (which hides the input) from the table cell 
+		// containing the input only if the input's value is not empty.
 		hideFormInput: function() {
 			var value = this.currentInput.val();
 			if ( value ) {
-				this.$('.editing').removeClass('editing');
+				this.currentInputView.parent().removeClass('editing');
 				this.currentInputView.html( this.currentInput.val() );
 			}
 		},
