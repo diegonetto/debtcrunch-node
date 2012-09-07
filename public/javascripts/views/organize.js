@@ -68,18 +68,13 @@ $(function() {
 				function(sum, num) { return sum + num; }, 0 );
 			this.$monthlyTotal.html( accounting.formatMoney(monthlySum) );
 
-			if ( eventName == 'reset' || eventName == 'add' || eventName == 'destroy') {
-				switch ( app.Debts.length ) {
-					case 0:
-						this.$debtTable.hide();
-						break;
-					case 1:
-						this.$debtTable.show('blind', 700);
-						break;
-					default:
-						this.$debtTable.show();
-						break;
-				}
+			switch ( app.Debts.length ) {
+				case 0:
+					this.$debtTable.addClass('empty');
+					break;
+				default:
+					this.$debtTable.removeClass('empty');
+					break;
 			}
                 },
 
@@ -141,8 +136,8 @@ $(function() {
 		// Positions the current debt form input based on its parent cell, adds the
 		// 'editing' and 'focused' classes and sets focus.
 		displayFormInput: function( cell ) {
-			this.currentInput.width( cell.find('.view').innerWidth() );
-			this.currentInput.height( cell.find('.view').innerHeight() );
+			this.currentInput.width( cell.find('.view').innerWidth() -1 );
+			this.currentInput.height( cell.find('.view').innerHeight() - 1 );
 			cell.addClass('editing focused');
 			this.currentInput.focus();
 		},

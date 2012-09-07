@@ -1,11 +1,22 @@
+/* Debt table visibility styles */
+#debt-table-wrapper.empty tr.headings,
+#debt-table-wrapper.empty tfoot,
+#debt-table-wrapper.empty #table-notes {
+  display: none;
+}
+
+#debt-table-wrapper.empty #debt-table {
+  margin-bottom: 10px;
+}
+
 /* Debt creation row styles */
 .input-row td {
   color: #999;
   border: none;
 }
 
-.input-row .view:first-child {
-  padding-left: 6px;
+.input-row td:first-child .view{
+  padding-left: 7px;
 }
 
 .input-row td:last-child {
@@ -47,10 +58,6 @@
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-}
-
-.debt-input {
-  width: auto;
 }
 
 /* Debt headings row styles */ 
@@ -107,9 +114,10 @@
 
 #debt-table tr .debt-input {
   display: none;
-  padding: auto;
+  padding-top: 7px;
+  padding-bottom: 7px;
   position: absolute;
-  top: -33px;
+  top: -32px;
   left: 1px;
   font-family: Ubuntu, sans-serif;
   text-align: inherit;
