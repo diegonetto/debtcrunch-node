@@ -14,7 +14,7 @@
         td(data-form="debt-type").form-cell.center-col
           .view Select
           .edit-wrapper
-            select(data-field="type", data-default="Select")#debt-type.debt-input.edit
+            select(data-field="type", data-default="Select")#debt-type.debt-input
               include /templates/debt-types
                 each type in DEBT_TYPES
                   option= type
