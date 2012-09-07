@@ -1,14 +1,6 @@
 /* Debt creation form styling */
-#debt-form {
-  margin-bottom: 10px;
-}
-
 .debt-input {
   width: auto;
-}
-
-.control-group {
-  float: left;
 }
 
 #debt-title {
