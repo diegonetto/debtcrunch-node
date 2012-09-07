@@ -203,19 +203,26 @@ $(function() {
 		},
 
 		// If the enter key is pressed while in a debt input, attempt to create a new debt.
+		// If the tab key is pressed, find the next tabindex to focus on.
 		createOrUpdate: function( e ) {
 				if ( e.which == ENTER_KEY ) {
 					this.createOnAdd();
+				} else if ( e.which == TAB_KEY ) {
+					console.log('TODO: switch to the next tabindex input');
 				}
 		},
 
-		// Helper function that clears debt form input fields
+		// Helper function that clears debt form input fields and resets form cell views.
 		clearFormInputs: function() {
 				this.title.val('');
 				this.type.val(DEBT_TYPES[0]);
 				this.principal.val('');
 				this.rate.val('');
 				this.repayment.val('');
+				$('.form-cell').each(function(idx, item) {
+					var defaultText = $(this).find('[data-default]').attr('data-default');
+					$(this).find('.view').html(defaultText);
+				});
 		},
 
 		// Debt from error handling.
