@@ -44,7 +44,7 @@
 
 .alert {
   display: none;
-  width: 889px;
+  width: auto;
   position: fixed;
   margin: 0px auto;
   top: 45px;
@@ -117,4 +117,3 @@
 #daily-interest-clock {
   float: right;
 }
-
