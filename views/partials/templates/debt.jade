@@ -24,5 +24,5 @@ script(type="text/template")#debt-template
       input(type="text",  value!="<%- repayment %>", maxlength="5").edit.edit-repayment
   td.center-col <% print(accounting.formatMoney(monthly)) %>  
     div#destroy-wrapper
-      button.destroy-btn
+      i.icon-trash.destroy-btn
 

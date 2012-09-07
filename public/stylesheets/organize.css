@@ -192,17 +192,15 @@ button {
 
 #debt-table tr .destroy-btn {
   display: none;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
   position: absolute;
-  top: 19px;
+  top: 1px;
   right: 0px;
-  float: right;
-  bottom: 0;
-  width: 20px;
-  height: 20px;
-  margin: auto 0;
-  font-size: 22px;
-  border: 0px 0px 0px 0px;
-  color: #B5B5B5;
+  color: #000000;
+  opacity: 0.2;
+
   -webkit-transition: all 0.1s;
   -moz-transition: all 0.1s;
   -ms-transition: all 0.1s;
@@ -211,18 +209,9 @@ button {
 }
 
 #debt-table .destroy-btn:hover {
-  text-shadow: 0 0 1px #000,
-			 0 0 10px rgba(255, 255, 255, 0.8);
-  color: #2C2C2C;
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-#debt-table tr .destroy-btn:after {
-  content: '✖';
+  color: FireBrick;
+  cursor: pointer;
+  opacity: 1;
 }
 
 #debt-table tr:hover .destroy-btn {
