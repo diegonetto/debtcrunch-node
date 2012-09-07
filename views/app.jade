@@ -21,21 +21,24 @@ append head
 
 block content
   section#debtapp
-    #wizard-wrapper
-      #step-one.hero-unit
-        h1 About damn time!
-        h2 So you finally want me to analyze your debts. Fantastic.
-        p Before I can begin number-crunching I need some <span class="stress">basic information</span> about what you owe.
-          |<br /> Use the <span class="stress">form below</span> to add debts, then click the <span class="stress">Strategize</span> tab to customize your repayment strategy.
-      #interest-clocks-wrapper
-        #lifetime-interest-clock.top-clock 
-          .top-clock-inner 
-            h1#lifetime-interest $$.$$
-            p Total Lifetime Interest
-        #daily-interest-clock.top-clock 
-          .top-clock-inner 
-            h1#daily-interest $$.$$
-            p Interest Gained Today
+    .row-fluid
+      #wizard-wrapper.span12
+        #step-one.hero-unit
+          h1 About damn time!
+          h2 So you finally want me to analyze your debts. Fantastic.
+          p Before I can begin number-crunching I need some <span class="stress">basic information</span> about what you owe.
+            |<br /> Use the <span class="stress">form below</span> to add debts, then click the <span class="stress">Strategize</span> tab to customize your repayment strategy.
+    .row-fluid
+      #interest-clocks-wrapper.offset1.span10
+        .row-fluid
+          #lifetime-interest-clock.top-clock.span5
+            .top-clock-inner 
+              h1#lifetime-interest $$.$$
+              p Total Lifetime Interest
+          #daily-interest-clock.top-clock.span5
+            .top-clock-inner 
+              h1#daily-interest $$.$$
+              p Interest Gained Today
 
     header#app-header
       ul#subnav.nav.nav-tabs
