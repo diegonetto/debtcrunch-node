@@ -12,9 +12,9 @@
           .edit-wrapper
             input(maxlength="35", data-field="title", type="text", data-default="Enter a title")#debt-title.debt-input
         td(data-form="debt-type").form-cell.center-col
-          .view Select
+          .view Credit Card
           .edit-wrapper
-            select(data-field="type", data-default="Select")#debt-type.debt-input
+            select(data-field="type", data-default="Credit Card")#debt-type.debt-input
               include /templates/debt-types
                 each type in DEBT_TYPES
                   option= type
