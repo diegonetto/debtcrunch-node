@@ -1,3 +1,9 @@
+/* NavBar styles */
+.tweet-btn {
+  margin-top: 10px;
+}
+
+/* Subnav styles */
 #subnav {
   margin-bottom: 0px;
   border-bottom: none;
