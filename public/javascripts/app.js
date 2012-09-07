@@ -1,5 +1,6 @@
 var app = app || {};
 var ENTER_KEY = 13;
+var TAB_KEY = 9;
 var DEBT_TYPES = ['Credit Card', 'Stafford Loan', 'Perkins Loan', 'Plus Loan', 'Mortgage', 'Other'];
 var DEBT_FIELDS = ['title', 'type', 'principal', 'rate', 'repayment'];
 var STAFFORD_LOAN_MIN = 50.0;
