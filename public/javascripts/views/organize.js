@@ -131,10 +131,11 @@ $(function() {
 		// for the current input.
 		showFormInput: function( event ) {
 			var formInput = event.currentTarget.getAttribute('data-form');
-			var cellSelector = 'td[data-form="' + formInput + '"]';
 			this.currentInput = this.$('#' + formInput);
-			this.currentInputView = $(cellSelector + ' :first');
-			this.displayFormInput( $(cellSelector) );
+
+			var cell = $('td[data-form="' + formInput + '"]');
+			this.currentInputView = cell.find('.view');
+			this.displayFormInput( cell );
 		},
 
 		// Positions the current debt form input based on its parent cell, adds the
@@ -147,12 +148,16 @@ $(function() {
 		},
 
 		// Removes the editing class (which hides the input) from the table cell 
-		// containing the input only if the input's value is not empty.
+		// containing the input. If the value is not empty, it updates the associated
+		// view with the current input. If the value is empty, it sets it back to its
+		// default, which is identical to its placeholder.
 		hideFormInput: function() {
+			this.currentInputView.parent().removeClass('editing');
 			var value = this.currentInput.val();
 			if ( value ) {
-				this.currentInputView.parent().removeClass('editing');
 				this.currentInputView.html( this.currentInput.val() );
+			} else {
+				this.currentInputView.html( this.currentInput.attr('placeholder') );
 			}
 		},
 
