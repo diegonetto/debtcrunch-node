@@ -87,17 +87,25 @@ a {
 
 /* Custom btn styles */
 .btn-orange {
-    background-color: #FFA008;
-    background-image: -moz-linear-gradient(center top , #ffb43c, #FFA008);
-    background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #FFA008;
+  *background-color: #ffb43c,;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffb43c), to(#FFA008));
+  background-image: -webkit-linear-gradient(top, #ffb43c, #FFA008);
+  background-image: -o-linear-gradient(top, #ffb43c, #FFA008);
+  background-image: linear-gradient(to bottom, #ffb43c, #FFA008);
+  background-image: -moz-linear-gradient(top, #ffb43c, #FFA008);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffb43c,', endColorstr='#FFA008', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 }
 
 .btn-orange:hover {
-    background-color: #FFA008;
-    color: #FFFFFF;
+  color: #FFFFFF;
+  background-color: #FFA008;
+  *background-color: #EE9200;
 }
 
 /* Footer styles */
