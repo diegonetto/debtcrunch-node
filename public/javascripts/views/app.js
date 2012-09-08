@@ -29,11 +29,6 @@ $(function( $ ) {
 			this.$dailyInterest = this.$('#daily-interest');
 			this.$freedomDate = this.$('#freedom-date');
 
-			// Set the padding for the wizard hero units so they will be correct during animation
-			var heroUnit = this.$('.hero-unit');
-			heroUnit.css('padding-top', '10px');
-			heroUnit.css('padding-bottom', '0px');
-
 			// Create the inital tab view.
 			this.updateTabView();
 
