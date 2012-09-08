@@ -25,7 +25,7 @@ html, body {
 }
 
 a {
-  color: #555;
+  color: #333;
 }
 
 .navbar-inverse .nav .active > a,
@@ -59,6 +59,29 @@ a {
 .push {
   /* At minimum must be equal to the margin in main-wrapper */
   height: 70px;
+}
+
+/* Hero Unit styles */
+.hero-unit {
+/*  background-color: #FFA008; */
+  background-color: #FFAA22;
+  border-color: #FFA008;
+  color: GhostWhite;
+}
+
+.hero-unit h1,
+.hero-unit h2 {
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+}
+
+.hero-unit p {
+  color: #333;
+}
+
+.stress {
+  font-weight: bold;
+  color: GhostWhite;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
 }
 
 /* Footer styles */
