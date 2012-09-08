@@ -72,7 +72,7 @@ a {
 
 .hero-unit h1,
 .hero-unit h2 {
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hero-unit p {
@@ -82,7 +82,7 @@ a {
 .stress {
   font-weight: bold;
   color: GhostWhite;
-  text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 /* Custom btn styles */

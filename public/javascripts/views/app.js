@@ -40,10 +40,31 @@ $(function( $ ) {
 		},
 
 		// Re-rendering the App means managing the guide at the top of the page
-		// and refreshing the stat blocks.
+		// and refreshing the stat blocks if needed.
 		render: function( eventName ) {
 			console.log( 'AppView render() called with "' + eventName + '"' );
 
+			switch ( app.Debts.length ) {
+				case 0:
+					this.$stepOne.show('drop', { direction: 'up' }, 1000);
+					this.$statsWrapper.hide();
+					this.$statsWrapper.addClass('animate');
+					break;
+				case 1:
+					this.$stepOne.hide();
+					this.updateStats();
+					this.$('.stats-wrapper.animate').show('drop', { direction: 'up' }, 1000);
+					this.$statsWrapper.removeClass('animate');
+					break;
+				default:
+					this.updateStats();
+					this.$statsWrapper.show();
+					break;
+			}
+		},
+
+		// Function that updates the stats table if necessary.
+		updateStats: function() {
 			// Iterate over all Debt models in the Debts collection and reduce
 			// all the lifetime interest calculations down to one sum.
                         var lifetimeSum = app.Debts.reduce( 
@@ -55,22 +76,13 @@ $(function( $ ) {
 				function(sum, model) { return sum + model.calculateDailyInterest(); }, 0 );
 			this.$dailyInterest.html( accounting.formatMoney(dailySum) );
 
-			// TODO: Update the freedom date.
-			this.$freedomDate.html('January 11, 2013');
-
-			switch ( app.Debts.length ) {
-				case 0:
-					this.$stepOne.show('drop', { direction: 'up' }, 1000);
-					this.$statsWrapper.hide();
-					break;
-				case 1:
-					this.$stepOne.hide();
-					this.$statsWrapper.show('drop', { direction: 'up' }, 1000);
-					break;
-				default:
-					this.$statsWrapper.show();
-					break;
-			}
+			// Find the maximum repayment time in the Debts collection and
+			// update the freedom date accordingly.
+			// TODO
+			var totalMonths = app.Debts.max(function(debt) {
+				return debt.attributes.repayment;
+			}).attributes.repayment;
+			this.$freedomDate.html(totalMonths.months().fromNow().toString('dddd MMMM d, yyyy'));
 		},
 
 		// Helper function for activating a specific tab and rendering its 

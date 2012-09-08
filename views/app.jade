@@ -4,6 +4,7 @@ append head
   script(src='/vendor/underscore/underscore-min.js')  
   script(src='/vendor/backbone/backbone-min.js')  
   script(src='/vendor/accounting/accounting.min.js')
+  script(src='/vendor/datejs/date.js')
   script(src='/javascripts/lib/backbone-localstorage.js')
   script(src='/javascripts/models/debt.js')
   script(src='/javascripts/collections/debts.js')
@@ -29,7 +30,7 @@ block content
           p Before I can begin number-crunching I need some <span class="stress">basic information</span> about what you owe.
             |<br /> Use the <span class="stress">form below</span> to add debts, then click the <span class="stress">Strategize</span> tab to customize your repayment strategy.
 
-    .row-fluid.stats-wrapper
+    .row-fluid.stats-wrapper.animate
       .span12
         .row-fluid
           .span6
