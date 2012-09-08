@@ -24,9 +24,10 @@ $(function( $ ) {
 			window.app.AppRouter.on( 'all', this.updateTabView, this );
 
 			this.$stepOne = this.$('#step-one');
-			this.$clockWrapper = this.$('#interest-clocks-wrapper');
+			this.$statsWrapper = this.$('.stats-wrapper');
 			this.$lifetimeInterest = this.$('#lifetime-interest');
 			this.$dailyInterest = this.$('#daily-interest');
+			this.$freedomDate = this.$('#freedom-date');
 
 			// Set the padding for the wizard hero units so they will be correct during animation
 			var heroUnit = this.$('.hero-unit');
@@ -44,7 +45,7 @@ $(function( $ ) {
 		},
 
 		// Re-rendering the App means managing the guide at the top of the page
-		// and refreshing the interest clocks.
+		// and refreshing the stat blocks.
 		render: function( eventName ) {
 			console.log( 'AppView render() called with "' + eventName + '"' );
 
@@ -59,17 +60,20 @@ $(function( $ ) {
 				function(sum, model) { return sum + model.calculateDailyInterest(); }, 0 );
 			this.$dailyInterest.html( accounting.formatMoney(dailySum) );
 
+			// TODO: Update the freedom date.
+			this.$freedomDate.html('January 11, 2013');
+
 			switch ( app.Debts.length ) {
 				case 0:
 					this.$stepOne.show('drop', { direction: 'up' }, 1000);
-					this.$clockWrapper.hide();
+					this.$statsWrapper.hide();
 					break;
 				case 1:
 					this.$stepOne.hide();
-					this.$clockWrapper.show('drop', { direction: 'up' }, 1000);
+					this.$statsWrapper.show('drop', { direction: 'up' }, 1000);
 					break;
 				default:
-					this.$clockWrapper.show();
+					this.$statsWrapper.show();
 					break;
 			}
 		},

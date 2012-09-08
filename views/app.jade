@@ -28,18 +28,23 @@ block content
           h2 So you finally want me to analyze your debts. Fantastic.
           p Before I can begin number-crunching I need some <span class="stress">basic information</span> about what you owe.
             |<br /> Use the <span class="stress">form below</span> to add debts, then click the <span class="stress">Strategize</span> tab to customize your repayment strategy.
-    .row-fluid
-      #interest-clocks-wrapper.offset1.span10
+
+    .row-fluid.stats-wrapper
+      .span12
         .row-fluid
-          #lifetime-interest-clock.top-clock.span5
-            .top-clock-inner 
+          .span6
+            canvas#chart-view
+          .span6
+            .stat-block
               h1#lifetime-interest $$.$$
               p Total Lifetime Interest
-          #daily-interest-clock.top-clock.span5
-            .top-clock-inner 
+            .stat-block
               h1#daily-interest $$.$$
-              p Interest Gained Today
-
+              p Interest Accrued Today
+            .stat-block
+              h1#freedom-date Date
+              p Freedom Date
+              
     header#app-header
       ul#subnav.nav.nav-tabs
         li.active: a(href='#organize') Organize
