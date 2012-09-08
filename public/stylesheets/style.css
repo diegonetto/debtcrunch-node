@@ -11,6 +11,11 @@ html, body {
   background-image:url(/images/light_noise.png);
 }
 
+/* NavBar styles */
+.tweet-btn {
+  margin-top: 10px;
+}
+
 .navbar-inner {
   background-image:url(/images/dark_noise.png) !important;
 }
