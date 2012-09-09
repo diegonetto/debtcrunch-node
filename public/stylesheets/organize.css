@@ -154,7 +154,8 @@
 #debt-table tr.debt-view:hover,
 #debt-table tr.debt-view:hover td,
 #debt-table tr:hover .edit {
-  background-color: #DFE3D7;
+  background-color: #FFAA22;
+  color: GhostWhite;
 }
 
 #debt-table tr .editing .debt-input,
