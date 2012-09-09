@@ -82,7 +82,7 @@ $(function( $ ) {
 			var totalMonths = app.Debts.max(function(debt) {
 				return debt.attributes.repayment;
 			}).attributes.repayment;
-			this.$freedomDate.html(totalMonths.months().fromNow().toString('dddd MMMM d, yyyy'));
+			this.$freedomDate.html(totalMonths.months().fromNow().toString('MMMM d, yyyy'));
 		},
 
 		// Helper function for activating a specific tab and rendering its 
