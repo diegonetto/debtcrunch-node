@@ -80,8 +80,6 @@ $(function() {
 		// that should be the last event fired.
 		fadeOut: function() {
 			console.log('fadeOut');
-			// First render the view
-			this.render('sync');
 
 			// Attempt repayment fade
 			$('.fade-repayment td:eq(4)').effect('highlight', 
