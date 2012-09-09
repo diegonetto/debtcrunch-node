@@ -20,18 +20,10 @@ html
             .container
               a(href='/').brand DebtCrunch
               ul#top-nav.nav.pull-left
-//-                if page == 'home'
-//-                  li.active: a(href='/') Home
-//-                else
-//-                  li: a(href='/') Home
                 if page == 'app'
                   li.active: a(href='/app') App
                 else
                   li: a(href='/app') App
-//-                if page == 'faq'
-//-                  li.active: a(href='/faq') FAQ
-//-                else
-//-                   li: a(href='/faq') FAQ
               .tweet-btn.pull-right
                 a(href="https://twitter.com/share", class="twitter-share-button", data-url="http://debtcrun.ch", data-text="Find out how much time and money your debt is really costing you @", data-count="none").twitter-share-button Tweet
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
