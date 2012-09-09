@@ -62,14 +62,19 @@
 /* Stat Block styles */
 .stat-block {
   text-align: center;
-  box-shadow: 2px 2px 7px 5px #E3E3E3 inset;
-  border: 1px solid #333;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2),
+                                0 10px 25px 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid #DDD;
   border-radius: 6px;
   margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .stat-block h1 {
   color: FireBrick;
+}
+
+.stat-block p {
 }
 
 /* Chart View Styles */
@@ -78,44 +83,4 @@
   border: 1px solid #333;
   border-radius: 6px;
   background-color: #333;
-}
-
-#interest-clocks-wrapper {
-  display: none;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.top-clock {
-  border: 2px solid #E3E3E3;
-  background-color: #EEEEEE;
-  padding: 7px;
-
-  box-shadow: 2px 2px 7px 5px #E3E3E3 inset;
-
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-.top-clock-inner {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  height: inherit;
-  width: inherit;
-  margin: 0px auto;
-}
-
-.top-clock-inner > h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-  color: FireBrick;
-}
-
-.top-clock-inner > p {
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
 }
