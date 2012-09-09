@@ -108,6 +108,13 @@ a {
   *background-color: #EE9200;
 }
 
+/* Alert styles */
+.alert-danger,
+.alert-error {
+  background-color: FireBrick;
+  border-color: #b94a48;
+  color: GhostWhite;
+
 /* Footer styles */
 footer {
   height: 60px;
