@@ -19,7 +19,7 @@ $(function() {
                 events: {
 			'click .form-cell':		'showFormInput',
                         'click #debt-add':		'createOnAdd',
-			'keypress .debt-input':		'createOrUpdate',
+			'keypress .debt-input':		'createOrTab',
 			'blur .debt-input':		'hideFormInput'
                 },
 
@@ -202,8 +202,9 @@ $(function() {
 
 		// If the enter key is pressed while in a debt input, attempt to create a new debt.
 		// If the tab key is pressed, find the next tabindex to focus on.
-		createOrUpdate: function( e ) {
+		createOrTab: function( e ) {
 				if ( e.which == ENTER_KEY ) {
+					this.$('.debt-input').blur();
 					this.createOnAdd();
 				} else if ( e.which == TAB_KEY ) {
 					console.log('TODO: switch to the next tabindex input');
