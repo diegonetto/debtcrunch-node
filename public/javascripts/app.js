@@ -51,7 +51,6 @@ $(function() {
 	// Add a window resize callback that monitors the app and triggers 
 	// an 'app:resize' event.
 	$(window).resize(function() {
-		$('.alert').alert('close');
 		app.EventAggregator.trigger('app:resize');
 	});
 

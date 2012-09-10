@@ -17,8 +17,11 @@ $(function() {
                 // Cache the template function for a single alert.
                 template: _.template( $('#alert-template').html() ),
 
-		// Set up the type of alert, if specified
+		// Set up the type of alert, if specified, and bind to the 'app:resize' event
+		// from the EventAggregator so that we can re-render the alert messages.
 		initialize: function() {
+			window.app.EventAggregator.on( 'app:resize', this.render, this );
+
 			switch ( this.options.type ) {
 				case 'error':
 					this.$el.addClass('alert-error');
@@ -48,6 +51,11 @@ $(function() {
 
                         return this;
                 },
+
+		// On view close, we unbind all callbacks previously bound in initialize().
+		onClose: function() {
+			window.app.EventAggregator.off( null, null, this );
+		},
 
 		// Reduce all the messages passed into this view into one array
 		// for easier manipulation in the View Template.
