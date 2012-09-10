@@ -34,7 +34,7 @@ $(function( $ ) {
 
 		// Rendering the pie chart means redrawing it based on data from the Debts collection.
 		render: function( eventName ) {
-			console.log( 'PieChart render() called with "' + eventName + '"' );
+			console.log( 'PieChartView render() called with "' + eventName + '"' );
 
 			// Only attempt to draw the pie char if there are models in the Debts collection.
 			if ( app.Debts.length  > 0 ) {
@@ -55,15 +55,13 @@ $(function( $ ) {
 				var totalSum = _.reduce(totals, function(sum, num) {
 					return sum + num;
 				});
-				this.data = _.map(totals, function(num) {
+				var data = _.map(totals, function(num) {
 					return (num/totalSum) * 360;
 				});
 
-				// TODO: Draw the Pie Chart
-				this.colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', '#333', 'Purple'];
-				for (var i = 0; i < this.data.length; i++) {
-					this.drawPieSlice( i );
-				}
+				// Draw the Pie Chart, giving it a compacted (no falsy values) data and color array.
+				var colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', '#333', 'Purple'];
+				this.drawPieChart( _.compact(data), colors );
 			}
 
 			return this;
@@ -84,41 +82,55 @@ $(function( $ ) {
 			paper.setup(this.el);
 		},
 
-		// Draw a slice of the pie chart using Paper.js methods.
-		drawPieSlice: function( idx ) {
-			// Create a new path and set up a few configuration attributes
-			var path = new paper.Path();
-			path.strokeColor = 'GhostWhite';
-			path.closed = true;			
-			path.fillColor = this.colors[idx];
-
+		// Draw a pie chart using Paper.js vector graphics scripting library.
+		// Create a new path for each non-zero entry in the data array
+		// TODO: Interaction: MouseOver (or click) to scale and transform
+		// TOOD: Animation: onFrame handler to animate scale and transform
+		drawPieChart: function(values, colors) {
+			// Pre-compute points that will be used by all paths
 			// Use the dimensions of the canvas view to calculate the center of the chart.		
 			var centerX = Math.floor(paper.view.size.width / 2);
 			var centerY = Math.floor(paper.view.size.height / 2);
 			var radius = Math.floor(paper.view.size.width / 4);
 			var center = new paper.Point(centerX, centerY);
 
-			// Calculate the offset degrees by summing previous data values
-			var offset = this.sumTo(this.data, idx);
-
 			// Set up a point that corresponds to 0 degrees
 			var zero = new paper.Point(center.add([radius, 0]));
+			this.colors = colors;		
 
-			// Calculate the first slice corner by rotating the zero point around the center
-			// by the offset degrees
-			var sliceCorner1 = zero.rotate(offset, center);
+			_.each(values, function(value, idx, values) {
 
-			// Calculate the half way point between the first and second slice corners
-			var halfway = zero.rotate(offset + this.data[idx]/2, center);			
+				// Only draw arcs if there is more than 1 value, otherwise draw a circle
+				if ( values.length >  1) {
+					// Create a new path and set up a few configuration attributes
+					var path = new paper.Path();
+					path.fillColor = this.colors[idx];
+					path.strokeColor = 'GhostWhite';
+					path.closed = true;
 
-			// Calculate the second slice corner by rotating the first by the amount 
-			// for this data value
-			var sliceCorner2 = sliceCorner1.rotate(this.data[idx], center);
+					// Calculate the offset degrees by summing previous data values
+					var offset = this.sumTo(values, idx);
 
-			// Add the points to the path
-			path.add(center);
-			path.add(sliceCorner1);
-			path.arcTo(halfway, sliceCorner2);
+					// Calculate the first slice corner by rotating the zero point around the center
+					// by the offset degrees
+					var sliceCorner1 = zero.rotate(offset, center);
+
+					// Calculate the half way point between the first and second slice corners
+					var halfway = zero.rotate(offset + value / 2, center);			
+
+					// Calculate the second slice corner by rotating the first by the amount 
+					// for this data value
+					var sliceCorner2 = sliceCorner1.rotate(value, center);
+
+					// Add the points to the path
+					path.add(center);
+					path.add(sliceCorner1);
+					path.arcTo(halfway, sliceCorner2);
+				} else {
+					var circle = new paper.Path.Circle(center, radius);
+					circle.fillColor = this.colors[idx];
+				}
+			}, this);
 
 			// Draw the view
 			paper.view.draw();
