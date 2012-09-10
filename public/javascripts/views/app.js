@@ -32,6 +32,10 @@ $(function( $ ) {
 			// Create the inital tab view.
 			this.updateTabView();
 
+			// Create the overview pie chart.
+			var overviewChart = new app.PieChartView();
+			this.$('.chart-wrapper').html( overviewChart.render().el );
+
 			// Kick things off by fetching an pre-existing models from the collection
 			// stored in *LocalStorage*.                                    
 			// TODO: Remove this and boostrap it to the page as per Backbone JS
