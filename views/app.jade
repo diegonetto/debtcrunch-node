@@ -12,6 +12,7 @@ append head
   script(src='/javascripts/views/debt.js')
   script(src='/javascripts/views/organize.js')
   script(src='/javascripts/views/strategize.js') 
+  script(src='/javascripts/views/pie-chart.js')
   script(src='/javascripts/views/app.js')
   script(src='/javascripts/routers/app-router.js')
   script(src='/javascripts/app.js')
@@ -33,9 +34,8 @@ block content
     .row-fluid.stats-wrapper.animate
       .span12
         .row-fluid
-          .span6
-            canvas#chart-view
-          .span6
+          .span6.chart-wrapper
+          .span6.stat-blocks-wrapper
             .stat-block
               h1#lifetime-interest $$.$$
               p Total Lifetime Interest
