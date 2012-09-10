@@ -132,6 +132,22 @@ $(function( $ ) {
 				}
 			}, this);
 
+			// Define hit options, create a new tool, and define a mouse move handler
+			var hitOptions = {
+				segments: true,
+				stroke: true,
+				fill: true,
+				tolerance: 5
+			};
+
+			var tool = new paper.Tool();
+			tool.onMouseMove = function(event) {
+				var hitResult = paper.project.hitTest(event.point, hitOptions);
+				paper.project.activeLayer.selected = false;
+				if (hitResult && hitResult.item)
+					hitResult.item.selected = true;
+			}
+
 			// Draw the view
 			paper.view.draw();
 		},
