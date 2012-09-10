@@ -34,7 +34,7 @@ $(function( $ ) {
 
 			// Create the overview pie chart.
 			var overviewChart = new app.PieChartView();
-			this.$('.chart-wrapper').html( overviewChart.render().el );
+			this.$('.chart-wrapper').html( overviewChart.render('AppView:initalize()').el );
 
 			// Kick things off by fetching an pre-existing models from the collection
 			// stored in *LocalStorage*.                                    

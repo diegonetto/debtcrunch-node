@@ -13,6 +13,9 @@ $(function( $ ) {
 		// The DOM element for a pie chart is a canvas
 		tagName: 'canvas',
 
+		// DOM id
+		id: 'overview-chart',
+
 		// class
 		className: 'pie-chart',
 	
@@ -21,10 +24,12 @@ $(function( $ ) {
 		},
 
 		// At initialization we bind to the relevant events in the 'Debts"
-		// so that we can redraw this chart dynamically.
+		// so that we can update this chart appropriately. Also setup the 
+		// Paper.js canvas object.
 		initialize: function() {
-			// TODO: Bind to only required events
-			window.app.Debts.on( 'all', this.render, this );
+			window.app.Debts.on( 'reset add destroy sync', this.render, this );
+
+			this.setupPaper();
 		},
 
 		// Rendering the pie chart means redrawing it based on data from the Debts collection.
@@ -54,21 +59,13 @@ $(function( $ ) {
 					return (num/totalSum) * 360;
 				});
 
-
 				// TODO: Draw the Pie Chart
-				// TODO: Set the width and height so the pie chart doesn't look funny
-				this.el.width = 570;
-				this.el.height = 290;			
-
-				var canvas = this.el;
-				var context = canvas.getContext("2d");
-
 				this.colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', '#333', 'Purple'];
 				for (var i = 0; i < this.data.length; i++) {
-					this.drawSlice(canvas, context, i);
+					this.drawPieSlice( i );
 				}
 			}
-	
+
 			return this;
 		},
 
@@ -77,35 +74,54 @@ $(function( $ ) {
 			window.app.Debts.off( null, null, this );
 		},
 
-		// TODO: Document
-		drawSlice: function( canvas, context, idx ) {
-			context.save();
-			var centerX = Math.floor(canvas.width / 2);
-			var centerY = Math.floor(canvas.height / 2);
-			var radius = Math.floor(canvas.width / 4);
+		// Sets up the Paperjs project and view for the desired canvas element.
+		setupPaper: function() {
+			// TODO: Set the width and height and modify when window resizes
+			this.el.width = 570;
+			this.el.height = 290;			
 
-			var startingAngle = this.toRadians(this.sumTo(this.data, idx));
-			var arcSize = this.toRadians(this.data[idx]);
-			var endingAngle = startingAngle + arcSize;
-
-			context.beginPath();
-			context.moveTo(centerX, centerY);
-			context.arc(centerX, centerY, radius, startingAngle, endingAngle, false);
-			context.closePath();
-
-			context.fillStyle = this.colors[idx];
-			context.fill();
-
-			context.strokeStyle = 'GhostWhite';
-			context.lineWidth = 1;
-			context.stroke();
-
-			context.restore();
+			// Create an empty project and a view for the canvas:
+			paper.setup(this.el);
 		},
 
-		// TODO: Document
-		toRadians: function( degrees ) {
-			return (degrees * Math.PI)/180;
+		// Draw a slice of the pie chart using Paper.js methods.
+		drawPieSlice: function( idx ) {
+			// Create a new path and set up a few configuration attributes
+			var path = new paper.Path();
+			path.strokeColor = 'GhostWhite';
+			path.closed = true;			
+			path.fillColor = this.colors[idx];
+
+			// Use the dimensions of the canvas view to calculate the center of the chart.		
+			var centerX = Math.floor(paper.view.size.width / 2);
+			var centerY = Math.floor(paper.view.size.height / 2);
+			var radius = Math.floor(paper.view.size.width / 4);
+			var center = new paper.Point(centerX, centerY);
+
+			// Calculate the offset degrees by summing previous data values
+			var offset = this.sumTo(this.data, idx);
+
+			// Set up a point that corresponds to 0 degrees
+			var zero = new paper.Point(center.add([radius, 0]));
+
+			// Calculate the first slice corner by rotating the zero point around the center
+			// by the offset degrees
+			var sliceCorner1 = zero.rotate(offset, center);
+
+			// Calculate the half way point between the first and second slice corners
+			var halfway = zero.rotate(offset + this.data[idx]/2, center);			
+
+			// Calculate the second slice corner by rotating the first by the amount 
+			// for this data value
+			var sliceCorner2 = sliceCorner1.rotate(this.data[idx], center);
+
+			// Add the points to the path
+			path.add(center);
+			path.add(sliceCorner1);
+			path.arcTo(halfway, sliceCorner2);
+
+			// Draw the view
+			paper.view.draw();
 		},
 
 		// TODO: Document
