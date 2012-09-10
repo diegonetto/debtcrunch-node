@@ -32,28 +32,27 @@ $(function() {
 	}
 
 	//--------------
-	// Create an alert event aggregator and add it to the app namespace so that
-	// any bootstrap component can fire off an 'app:alert' to flash an alert message.
-	app.AlertHandler = {
-		// Create a new AlerView with the given messages, place it in the DOM,
-		// and show it with a jQuery UI animation effect.
-		flashMessage: function( msgData, type ) {
-			$('.alert').alert('close');
-			var view = new app.AlertView({ type: type, msgData: msgData });
-			$('#error-msgs').html( view.render().el );
-			$('.alert').show("drop", { direction: 'up' });
-		}
-
-		// TODO: Add a utility function to create the message data structure.
-	};
-	_.extend( app.AlertHandler, Backbone.Events );
-	app.AlertHandler.on( 'app:alert', app.AlertHandler.flashMessage );
+	// Create an event aggregator and add it to the app namespace.
+	app.EventAggregator = {};
+	_.extend( app.EventAggregator, Backbone.Events );
 
 	//--------------
-	// Add a window resize callback that monitors the app page and cleans
-	// up certain DOM elements when appropriate.
+	// Add an app-wide handler for the 'app:alert' event that will flash an alert message.
+	app.EventAggregator.on( 'app:alert', function( msgData, type ) {
+		// Create a new AlerView with the given messages, place it in the DOM,
+		// and show it with a jQuery UI animation effect.
+		$('.alert').alert('close');
+		var view = new app.AlertView({ type: type, msgData: msgData });
+		$('#error-msgs').html( view.render().el );
+		$('.alert').show("drop", { direction: 'up' });
+	});
+
+	//--------------
+	// Add a window resize callback that monitors the app and triggers 
+	// an 'app:resize' event.
 	$(window).resize(function() {
 		$('.alert').alert('close');
+		app.EventAggregator.trigger('app:resize');
 	});
 
 	//--------------
