@@ -155,7 +155,6 @@
 #debt-table tr.debt-view:hover td,
 #debt-table tr:hover .edit {
   background-color: #FFAA22;
-  color: GhostWhite;
 }
 
 #debt-table tr .editing .debt-input,
@@ -195,12 +194,10 @@ button {
   display: none;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 18px;
-  font-weight: bold;
   position: absolute;
   top: 1px;
   right: 0px;
-  color: #000000;
-  opacity: 0.2;
+  color: GhostWhite;
 
   -webkit-transition: all 0.1s;
   -moz-transition: all 0.1s;
