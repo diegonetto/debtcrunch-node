@@ -190,6 +190,8 @@ $(function( $ ) {
 				}
 			}, this);
 
+			// Draw the view initially. Can be removed if an onFrame handler is used for animation.
+			paper.view.draw();
 		},
 
 		// TODO: Document
