@@ -42,6 +42,12 @@ var app = app || {};
 		sortByRate: function( descending ) {
 			var dir = descending ? -1 : 1;
 			return this.sortBy( function(debt) { return dir * debt.attributes.rate; } );
+		},
+
+		// Iterate over all Debt models in the Debts collection and reduce
+		// all the lifetime interest calculations down to one sum.
+		sumLifetimeInterest: function() {
+			return this.reduce(function(sum, model) { return sum + model.calculateLifetimeInterest(); }, 0 );
 		}
 	});
 

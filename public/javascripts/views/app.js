@@ -69,10 +69,8 @@ $(function( $ ) {
 
 		// Function that updates the stats table if necessary.
 		updateStats: function() {
-			// Iterate over all Debt models in the Debts collection and reduce
-			// all the lifetime interest calculations down to one sum.
-                        var lifetimeSum = app.Debts.reduce( 
-				function(sum, model) { return sum + model.calculateLifetimeInterest(); }, 0 );
+			// Get the lifetime interest sum from the Debts collection
+			var lifetimeSum = app.Debts.sumLifetimeInterest();
 			this.$lifetimeInterest.html( accounting.formatMoney(lifetimeSum) );
 
 			// Update the daily interest in a similar manner.
