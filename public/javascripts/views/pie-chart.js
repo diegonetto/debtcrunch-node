@@ -49,6 +49,9 @@ $(function( $ ) {
 					}, 0);
 				});
 
+				// Add the lifetime interest sum to the totals so it will be included in the chart
+				totals.push(app.Debts.sumLifetimeInterest());
+
 				// The values now need to be normalized to add up to 360.
 				// Start by finding the sum of all the values, then iterate over each one
 				// and normalize it.
@@ -60,7 +63,7 @@ $(function( $ ) {
 				});
 
 				// Draw the Pie Chart, giving it a compacted (no falsy values) data and color array.
-				var colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', '#333', 'Purple'];
+				var colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', 'GoldenRod', 'Purple', 'DarkCyan'];
 				this.drawPieChart( _.compact(data), colors );
 			}
 
@@ -73,13 +76,56 @@ $(function( $ ) {
 		},
 
 		// Sets up the Paperjs project and view for the desired canvas element.
+		// Creates a mouse tool and registers an onMouseUp handler.
 		setupPaper: function() {
 			// TODO: Set the width and height and modify when window resizes
 			this.el.width = 570;
-			this.el.height = 290;			
+			this.el.height = 290;	
 
 			// Create an empty project and a view for the canvas:
 			paper.setup(this.el);
+
+			// Define hit options, create a new tool, and define a mouse move handler
+			// TODO: Optimize hit test options (including bounds)
+			var hitOptions = {
+				//segments: true,
+				//stroke: true,
+				fill: true,
+				tolerance: 0
+			};
+
+			// Save 'this' context so it can be included in closure.
+			var context = this;
+
+			var tool = new paper.Tool();
+			tool.onMouseMove = function(event) {
+				paper.project.activeLayer.strokeColor = 'GhostWhite';
+				paper.project.activeLayer.strokeWidth = 1;
+
+				// Move all items to their original positions every time a click happens
+				moveItems(paper.project.activeLayer.children, context.originalPos);
+
+				var hitResult = paper.project.hitTest(event.point, hitOptions);
+				if (hitResult && hitResult.item) {
+					// Re-stroke item, calculate vector and translate item
+					hitResult.item.strokeColor = '#333';
+					hitResult.item.strokeWidth = 2;
+					var viewCenter = paper.view.center;
+					var idx = paper.project.activeLayer.children.indexOf(hitResult.item);
+					var vector = new paper.Point(context.halfwayPos[idx].subtract([viewCenter.x, viewCenter.y]));
+					var destination = vector.normalize().transform(new paper.Matrix(10, 0, 0, 10, 0, 0));		
+					hitResult.item.translate(destination);
+				}
+			};
+
+			// Helper function that given an array of items and positions
+			// will update the items' positions accordingly.
+			var moveItems = function( items, positions ) {
+				for(var i = 0; i < positions.length; i++) {
+					items[i].position = positions[i];
+				}
+			};
+
 		},
 
 		// Draw a pie chart using Paper.js vector graphics scripting library.
@@ -87,19 +133,24 @@ $(function( $ ) {
 		// TODO: Interaction: MouseOver (or click) to scale and transform
 		// TOOD: Animation: onFrame handler to animate scale and transform
 		drawPieChart: function(values, colors) {
+			// TODO: Consider removing this. For now remove all active layer children
+			// 	 before adding new paths.
+			paper.project.activeLayer.removeChildren();
+
+			// Clear interaction variables
+			this.originalPos = [];
+			this.halfwayPos = [];
+
 			// Pre-compute points that will be used by all paths
 			// Use the dimensions of the canvas view to calculate the center of the chart.		
-			var centerX = Math.floor(paper.view.size.width / 2);
-			var centerY = Math.floor(paper.view.size.height / 2);
-			var radius = Math.floor(paper.view.size.width / 4);
-			var center = new paper.Point(centerX, centerY);
+			var radius = Math.floor(paper.view.size.width / 5);
+			var center = paper.view.center;
 
 			// Set up a point that corresponds to 0 degrees
 			var zero = new paper.Point(center.add([radius, 0]));
 			this.colors = colors;		
 
 			_.each(values, function(value, idx, values) {
-
 				// Only draw arcs if there is more than 1 value, otherwise draw a circle
 				if ( values.length >  1) {
 					// Create a new path and set up a few configuration attributes
@@ -126,30 +177,19 @@ $(function( $ ) {
 					path.add(center);
 					path.add(sliceCorner1);
 					path.arcTo(halfway, sliceCorner2);
+
+					// Add path to active layer
+					paper.project.activeLayer.addChild(path);
+
+					// Set interaction variables
+					this.originalPos.push(paper.project.activeLayer.children[idx].position);
+					this.halfwayPos.push(halfway);
 				} else {
 					var circle = new paper.Path.Circle(center, radius);
 					circle.fillColor = this.colors[idx];
 				}
 			}, this);
 
-			// Define hit options, create a new tool, and define a mouse move handler
-			var hitOptions = {
-				segments: true,
-				stroke: true,
-				fill: true,
-				tolerance: 5
-			};
-
-			var tool = new paper.Tool();
-			tool.onMouseMove = function(event) {
-				var hitResult = paper.project.hitTest(event.point, hitOptions);
-				paper.project.activeLayer.selected = false;
-				if (hitResult && hitResult.item)
-					hitResult.item.selected = true;
-			}
-
-			// Draw the view
-			paper.view.draw();
 		},
 
 		// TODO: Document
