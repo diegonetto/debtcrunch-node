@@ -6,6 +6,7 @@ var app = app || {};
 // Dependencies:
 //		Paper.js
 //		Underscore.js
+//		Accounting.js
 {
 	'use strict';
 
@@ -20,6 +21,8 @@ var app = app || {};
 
 			// Save context
 			var context = this;
+
+			// Setup Label to be used
 
                         // Define hit options, create a new tool, and define a mouse move handler
                         // TODO: Optimize hit test options (including bounds)
@@ -36,10 +39,10 @@ var app = app || {};
                                	resetSlices();
 
 				// Perform hit test and verify that their was a resulting item and
-				// that the item is one of the slices (not text, data value, or shadow).
+				// that the item is one of the slices.
                                 var hitResult = paper.project.hitTest(event.point, hitOptions);
                                 if (hitResult && hitResult.item && context.slices.indexOf(hitResult.item) >= 0) {
-                                        // Re-stroke item, calculate vector and translate item
+                                        // Re-stroke, calculate vector and translate item
                                         hitResult.item.strokeColor = '#333';
                                         hitResult.item.strokeWidth = 2;
                                         var viewCenter = paper.view.center;
@@ -48,26 +51,25 @@ var app = app || {};
                                         var destination = vector.normalize().transform(new paper.Matrix(10, 0, 0, 10, 0, 0));
                                         hitResult.item.translate(destination);
 
-					// Add label, but set it to be removed on the next mouseUp event.
-					var textPosition = destination.transform(new paper.Matrix(1.2, 0, 0, 1.2, 0, 0));
-//					var label = new paper.PointText(textPosition);
-//					label.paragraphStyle.justification = 'center';
-//					label.characterStyle.fontSize = 18;
-//					label.fillColor = '#333';
-//					paper.project.activeLayer.addChild(label);
-//					label.removeOnUp();
-			
+					// Show items label
+					context.labels[idx].firstChild.visible = true;
+
+					// Show amount label
+					context.labels[idx].lastChild.visible = true;
                                 }
+
                         };
 			
-			// Helper function that given an array of items and positions
-                        // will update the items' positions accordingly.
+			// Helper function resets the pie slices to their original position
+			// and hides their labels.
                         var resetSlices = function() {
                                 for(var i = 0; i < context.slices.length; i++) {
 					var slice = context.slices[i];
                                         slice.position = context.originalPos[i];
 	                                slice.strokeColor = 'GhostWhite';
         	                        slice.strokeWidth = 1;
+					context.labels[i].firstChild.visible = false;
+					context.labels[i].lastChild.visible = false;
                                 }
                         };
 		},
@@ -105,12 +107,8 @@ var app = app || {};
                         // Clear interaction variables
                         this.originalPos = [];
                         this.halfwayPos = [];
-			this.slices = []
-
-			// Update color, values, and labels reference
-                        this.colors = colors;
-			this.dataValues = values;
-			this.labels = labels;
+			this.slices = [];
+			this.labels = [];
 
                         // Pre-compute points that will be used by all paths
                         // Use the dimensions of the canvas view to calculate the center of the chart.
@@ -125,7 +123,7 @@ var app = app || {};
                                 if ( data.length >  1) {
                                         // Create a new path and set up a few configuration attributes
                                         var path = new paper.Path();
-                                        path.fillColor = this.colors[idx];
+                                        path.fillColor = colors[idx];
                                         path.strokeColor = 'GhostWhite';
                                         path.closed = true;
 
@@ -157,9 +155,39 @@ var app = app || {};
 					this.slices.push(path);
                                 } else {
                                         var circle = new paper.Path.Circle(center, radius);
-                                        circle.fillColor = this.colors[idx];
+                                        circle.fillColor = colors[idx];
                                 }
                         }, this);
+
+			// Update color, values, and add create PointText for each label and dollar value.
+			// Add them to a custom group, and push to this.labels for interaction handling.
+                        this.colors = colors;
+			this.dataValues = values;
+			for(var i = 0; i < values.length; i++) {
+				var title = new paper.PointText(new paper.Point(5, paper.view.size.height/3));
+				var percent = (values[i] / totalSum) * 100;
+				title.content = labels[i] + '  ' + accounting.toFixed(percent, 1) + '%';
+				title.visible = false;
+				title.paragraphStyle.justification = 'left';
+				title.characterStyle = {
+					fontSize: 14,
+					font: 'Pacifico',
+					fillColor: '#333',
+				};
+			
+				var amount = new paper.PointText(new paper.Point(title.position.add([0, 30])));
+				amount.content = accounting.formatMoney(values[i]);
+				amount.visible = false;
+				amount.paragraphStyle.justification = 'left';
+				amount.characterStyle = {
+					fontSize: 12,
+					font: 'Ubuntu',
+					fillColor: 'FireBrick',
+				};
+
+				var group = new paper.Group([title, amount]);
+				this.labels.push(group);
+			}
 
                         // Draw the view initially. Can be removed if an onFrame handler is used for animation.
                         paper.view.draw();
