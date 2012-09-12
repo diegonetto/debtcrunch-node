@@ -58,7 +58,7 @@ $(function( $ ) {
 				totals.push(app.Debts.sumLifetimeInterest());
 
 				// Draw the Pie Chart
-				var colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', 'GoldenRod', 'Purple', 'DarkCyan'];
+				var colors = ['#FA2', '#999', 'Navy', 'Sienna', 'DarkGreen', 'Purple', 'DarkCyan', 'FireBrick'];
 				var labels = DEBT_TYPES.slice();
 				labels.push('Interest');
 				this.overviewChart.update( totals, colors, labels );
