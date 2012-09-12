@@ -67,7 +67,25 @@ var app = app || {};
                 // Create a new path for each non-zero entry in the data array
                 // TODO: Interaction: MouseOver (or click) to scale and transform
                 // TOOD: Animation: onFrame handler to animate scale and transform
-		this.update = function(values, colors) {
+		this.update = function(values, colors, labels) {
+                        if (colors.length != values.length || labels.length != values.length) {
+                                throw 'There must be an equal number of colors and labels as there are values!';
+                        }
+
+                        // TODO: Consider removing this. For now remove all active layer children
+                        //       before adding new paths.
+                        paper.project.activeLayer.removeChildren();
+
+                        // The values now need to be normalized to add up to 360.
+                        // Start by finding the sum of all the values, then iterate over each one
+                        // and normalize it.
+                        var totalSum = _.reduce(values, function(sum, num) {
+                                return sum + num;
+                        });
+                        var data = _.map(values, function(num) {
+                                return (num/totalSum) * 360;
+                        });
+
 		      	// TODO: Consider removing this. For now remove all active layer children
                         //       before adding new paths.
                         paper.project.activeLayer.removeChildren();
@@ -85,9 +103,9 @@ var app = app || {};
                         var zero = new paper.Point(center.add([radius, 0]));
                         this.colors = colors;
 
-                        _.each(values, function(value, idx, values) {
+                        _.each(data, function(value, idx, data) {
                                 // Only draw arcs if there is more than 1 value, otherwise draw a circle
-                                if ( values.length >  1) {
+                                if ( data.length >  1) {
                                         // Create a new path and set up a few configuration attributes
                                         var path = new paper.Path();
                                         path.fillColor = this.colors[idx];
@@ -95,7 +113,7 @@ var app = app || {};
                                         path.closed = true;
 
                                         // Calculate the offset degrees by summing previous data values
-                                        var offset = sumTo(values, idx);
+                                        var offset = sumTo(data, idx);
 
                                         // Calculate the first slice corner by rotating the zero point around the center
                                         // by the offset degrees

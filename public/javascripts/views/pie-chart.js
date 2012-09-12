@@ -57,19 +57,11 @@ $(function( $ ) {
 				// Add the lifetime interest sum to the totals so it will be included in the chart
 				totals.push(app.Debts.sumLifetimeInterest());
 
-				// The values now need to be normalized to add up to 360.
-				// Start by finding the sum of all the values, then iterate over each one
-				// and normalize it.
-				var totalSum = _.reduce(totals, function(sum, num) {
-					return sum + num;
-				});
-				var data = _.map(totals, function(num) {
-					return (num/totalSum) * 360;
-				});
-
-				// Draw the Pie Chart, giving it a compacted (no falsy values) data and color array.
+				// Draw the Pie Chart
 				var colors = ['#FA2', '#999', 'FireBrick', 'Navy', 'DarkGreen', 'GoldenRod', 'Purple', 'DarkCyan'];
-				this.overviewChart.update( _.compact(data), colors );
+				var labels = DEBT_TYPES.slice();
+				labels.push('Interest');
+				this.overviewChart.update( totals, colors, labels );
 			}
 
 			return this;
