@@ -38,8 +38,10 @@ var app = app || {};
                                 // Move all items to their original positions every time a click happens
                                 moveItems(paper.project.activeLayer.children, context.originalPos);
 
+				// Perform hit test and verify that their was a resulting item and
+				// that the item is one of the slices (not text, data value, or shadow).
                                 var hitResult = paper.project.hitTest(event.point, hitOptions);
-                                if (hitResult && hitResult.item) {
+                                if (hitResult && hitResult.item && context.slices.indexOf(hitResult.item) >= 0) {
                                         // Re-stroke item, calculate vector and translate item
                                         hitResult.item.strokeColor = '#333';
                                         hitResult.item.strokeWidth = 2;
@@ -48,6 +50,8 @@ var app = app || {};
                                         var vector = new paper.Point(context.halfwayPos[idx].subtract([viewCenter.x, viewCenter.y]));
                                         var destination = vector.normalize().transform(new paper.Matrix(10, 0, 0, 10, 0, 0));
                                         hitResult.item.translate(destination);
+
+					// TODO: add text, but removeOnUp()
                                 }
                         };
 			
@@ -93,6 +97,12 @@ var app = app || {};
                         // Clear interaction variables
                         this.originalPos = [];
                         this.halfwayPos = [];
+			this.slices = []
+
+			// Update color, values, and labels reference
+                        this.colors = colors;
+			this.dataValues = values;
+			this.labels = labels;
 
                         // Pre-compute points that will be used by all paths
                         // Use the dimensions of the canvas view to calculate the center of the chart.
@@ -101,7 +111,6 @@ var app = app || {};
 
                         // Set up a point that corresponds to 0 degrees
                         var zero = new paper.Point(center.add([radius, 0]));
-                        this.colors = colors;
 
                         _.each(data, function(value, idx, data) {
                                 // Only draw arcs if there is more than 1 value, otherwise draw a circle
@@ -137,6 +146,7 @@ var app = app || {};
                                         // Set interaction variables
                                         this.originalPos.push(paper.project.activeLayer.children[idx].position);
                                         this.halfwayPos.push(halfway);
+					this.slices.push(path);
                                 } else {
                                         var circle = new paper.Path.Circle(center, radius);
                                         circle.fillColor = this.colors[idx];
