@@ -32,11 +32,8 @@ var app = app || {};
 
                         var tool = new paper.Tool();
                         tool.onMouseMove = function(event) {
-                                paper.project.activeLayer.strokeColor = 'GhostWhite';
-                                paper.project.activeLayer.strokeWidth = 1;
-
-                                // Move all items to their original positions every time a click happens
-                                moveItems(paper.project.activeLayer.children, context.originalPos);
+                                // Reset slices to their original positions and styles
+                               	resetSlices();
 
 				// Perform hit test and verify that their was a resulting item and
 				// that the item is one of the slices (not text, data value, or shadow).
@@ -51,15 +48,26 @@ var app = app || {};
                                         var destination = vector.normalize().transform(new paper.Matrix(10, 0, 0, 10, 0, 0));
                                         hitResult.item.translate(destination);
 
-					// TODO: add text, but removeOnUp()
+					// Add label, but set it to be removed on the next mouseUp event.
+					var textPosition = destination.transform(new paper.Matrix(1.2, 0, 0, 1.2, 0, 0));
+//					var label = new paper.PointText(textPosition);
+//					label.paragraphStyle.justification = 'center';
+//					label.characterStyle.fontSize = 18;
+//					label.fillColor = '#333';
+//					paper.project.activeLayer.addChild(label);
+//					label.removeOnUp();
+			
                                 }
                         };
 			
 			// Helper function that given an array of items and positions
                         // will update the items' positions accordingly.
-                        var moveItems = function( items, positions ) {
-                                for(var i = 0; i < positions.length; i++) {
-                                        items[i].position = positions[i];
+                        var resetSlices = function() {
+                                for(var i = 0; i < context.slices.length; i++) {
+					var slice = context.slices[i];
+                                        slice.position = context.originalPos[i];
+	                                slice.strokeColor = 'GhostWhite';
+        	                        slice.strokeWidth = 1;
                                 }
                         };
 		},
