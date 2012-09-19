@@ -50,12 +50,12 @@
 }
 
 /* Guidance Wizard styling */
-#wizard-wrapper > .hero-unit {
+.wizard-wrapper > .hero-unit {
   margin-bottom: 10px;
 }
 
 .stats-wrapper,
-#step-one {
+.wizard-wrapper {
   display: none;
 }
 

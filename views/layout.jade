@@ -24,24 +24,23 @@ html
 
   body
     .main-wrapper
-      .container
-        .navbar.navbar-fixed-top.navbar-inverse
-          .navbar-inner
-            .container
-              a(href='/').brand DebtCrunch
-              ul#top-nav.nav.pull-left
-                if page == 'app'
-                  li.active: a(href='/app') App
-                else
-                  li: a(href='/app') App
-              .tweet-btn.pull-right
-                a(href="https://twitter.com/share", class="twitter-share-button", data-url="http://debtcrun.ch", data-text="Find out how much time and money your debt is really costing you @", data-count="none").twitter-share-button Tweet
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      .navbar.navbar-static-top.navbar-inverse
+        .navbar-inner
+          .container
+            a(href='/').brand DebtCrunch
+            ul#top-nav.nav.pull-left
+              if page == 'app'
+                li.active: a(href='/app') App
+              else
+                li: a(href='/app') App
+            .tweet-btn.pull-right
+              a(href="https://twitter.com/share", class="twitter-share-button", data-url="http://debtcrun.ch", data-text="Find out how much time and money your debt is really costing you @", data-count="none").twitter-share-button Tweet
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-        #main
-          #error-msgs
-          block content
-      .push 
+      #main.container
+        #error-msgs
+        block content
+    .push 
 
     footer
       p Created by <a href="http://diegonetto.com", target="_blank">Diego Netto</a> &copy 2012<br />

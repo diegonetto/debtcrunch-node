@@ -23,7 +23,7 @@ $(function( $ ) {
 			window.app.Debts.on( 'reset change remove', this.render, this );
 			window.app.AppRouter.on( 'all', this.updateTabView, this );
 
-			this.$stepOne = this.$('#step-one');
+			this.$wizard = this.$('.wizard-wrapper');
 			this.$statsWrapper = this.$('.stats-wrapper');
 			this.$lifetimeInterest = this.$('#lifetime-interest');
 			this.$dailyInterest = this.$('#daily-interest');
@@ -50,12 +50,12 @@ $(function( $ ) {
 
 			switch ( app.Debts.length ) {
 				case 0:
-					this.$stepOne.show('drop', { direction: 'up' }, 1000);
+					this.$wizard.show('drop', { direction: 'up' }, 1000);
 					this.$statsWrapper.hide();
 					this.$statsWrapper.addClass('animate');
 					break;
 				case 1:
-					this.$stepOne.hide();
+					this.$wizard.hide();
 					this.updateStats();
 					this.$('.stats-wrapper.animate').show('drop', { direction: 'up' }, 1000);
 					this.$statsWrapper.removeClass('animate');
