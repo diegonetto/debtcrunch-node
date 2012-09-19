@@ -90,6 +90,9 @@ var app = app || {};
                         //       before adding new paths.
                         paper.project.activeLayer.removeChildren();
 
+			// Update the view, in case canvas element changed sizes
+			paper.view = new paper.View(paper.view.canvas);
+
                         // The values now need to be normalized to add up to 360.
                         // Start by finding the sum of all the values, then iterate over each one
                         // and normalize it.

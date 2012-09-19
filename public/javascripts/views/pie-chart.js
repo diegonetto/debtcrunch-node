@@ -18,7 +18,7 @@ $(function( $ ) {
 
 		// class
 		className: 'pie-chart',
-	
+
 		// Delegated events
 		events: {
 		},
@@ -26,12 +26,10 @@ $(function( $ ) {
 		// At initialization we bind to the relevant events in the 'Debts"
 		// so that we can update this chart appropriately. Also create a new
 		// PieChart object that we will use to draw the overview chart.
+		// Bind to the 'app:resize' event and initially resize the canvas.
 		initialize: function() {
 			window.app.Debts.on( 'reset add destroy sync', this.render, this );
-
-			// TODO: Set the width and height and modify when window resizes
-			this.el.width = 570;
-			this.el.height = 290;	
+			window.app.EventAggregator.on( 'app:resize', this.render, this );
 
 			this.overviewChart = new app.PieChart();
 			this.overviewChart.setup(this.el);
@@ -44,6 +42,10 @@ $(function( $ ) {
 			// Only attempt to draw the pie char if there are models in the Debts collection.
 			if ( app.Debts.length  > 0 ) {
 				console.log('-- attempting to draw pie chart');
+
+				// Size the canvas appropriately
+				this.el.width = $('.stat-blocks-wrapper').width();
+				this.el.height = $('.stat-blocks-wrapper').height();
 
 				// Map each debt type to a value that is the sum of all debts of that type.
 				// Query the Debts collection for all models of a given type, and reduce the
@@ -70,7 +72,6 @@ $(function( $ ) {
 		// On view close, we unbind all callbacks previously bound in initialize().
 		onClose: function() {
 			window.app.Debts.off( null, null, this );
-		},
-
+		}
 	});
 });
