@@ -155,6 +155,13 @@ footer a:hover {
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
+  /* Full width navbar fix */
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    width: auto;
+  }
+
   /* Full width footer fix */
   footer {
     margin-left: -20px;
