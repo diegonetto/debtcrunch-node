@@ -15,14 +15,18 @@ var app = app || {};
 		//
 		//  Setup
 		//
-		this.setup = function(canvas) {
+		this.setup = function(canvas, title) {
+			if ( !canvas || !title)
+				throw 'Insufficient paramters given to PieChart.setup(): Need canvas and title';
+
                         // Create an empty project and a view for the canvas:
                         paper.setup(canvas);
 
 			// Save context
 			var context = this;
 
-			// Setup Label to be used
+			// Save title
+			this.title = title;
 
                         // Define hit options, create a new tool, and define a mouse move handler
                         // TODO: Optimize hit test options (including bounds)
@@ -34,7 +38,7 @@ var app = app || {};
                         };
 
                         var tool = new paper.Tool();
-                        tool.onMouseMove = function(event) {
+                        tool.onMouseUp = function(event) {
                                 // Reset slices to their original positions and styles
                                	resetSlices();
 
@@ -81,13 +85,12 @@ var app = app || {};
                 // Create a new path for each non-zero entry in the data array
                 // TODO: Interaction: MouseOver (or click) to scale and transform
                 // TOOD: Animation: onFrame handler to animate scale and transform
-		this.update = function(values, colors, labels) {
+		this.update = function(values, colors, labels, title) {
                         if (colors.length != values.length || labels.length != values.length) {
                                 throw 'There must be an equal number of colors and labels as there are values!';
                         }
 
-                        // TODO: Consider removing this. For now remove all active layer children
-                        //       before adding new paths.
+                        // For now remove all active layer children before adding new paths.
                         paper.project.activeLayer.removeChildren();
 
 			// Update the view, in case canvas element changed sizes
@@ -103,11 +106,7 @@ var app = app || {};
                                 return (num/totalSum) * 360;
                         });
 
-		      	// TODO: Consider removing this. For now remove all active layer children
-                        //       before adding new paths.
-                        paper.project.activeLayer.removeChildren();
-
-                        // Clear interaction variables
+	                // Clear interaction variables
                         this.originalPos = [];
                         this.halfwayPos = [];
 			this.slices = [];
@@ -115,7 +114,8 @@ var app = app || {};
 
                         // Pre-compute points that will be used by all paths
                         // Use the dimensions of the canvas view to calculate the center of the chart.
-                        var radius = Math.floor(paper.view.size.width / 5);
+                        var radius = Math.min( Math.floor(paper.view.size.width / 3),
+					       Math.floor(paper.view.size.height / 3) );
                         var center = paper.view.center;
 
                         // Set up a point that corresponds to 0 degrees
@@ -162,6 +162,19 @@ var app = app || {};
                                 }
                         }, this);
 
+
+			// Use the new title if one is specified, then add it to the view
+			if ( title )
+				this.title = title;
+			var chartTitle = new paper.PointText(new paper.Point(paper.view.center.x, paper.view.center.y - radius - 17 ));
+			chartTitle.content = this.title;
+			chartTitle.paragraphStyle.justification = 'center';
+			chartTitle.characterStyle = {
+				fontSize: 14,
+				font: 'Pacifico',
+				fillColor: '#333',
+			};
+
 			// Update color, values, and add create PointText for each label and dollar value.
 			// Add them to a custom group, and push to this.labels for interaction handling.
                         this.colors = colors;
@@ -173,8 +186,8 @@ var app = app || {};
 				title.visible = false;
 				title.paragraphStyle.justification = 'left';
 				title.characterStyle = {
-					fontSize: 14,
-					font: 'Pacifico',
+					fontSize: 12,
+					font: 'Ubuntu',
 					fillColor: '#333',
 				};
 			

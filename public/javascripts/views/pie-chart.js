@@ -32,7 +32,7 @@ $(function( $ ) {
 			window.app.EventAggregator.on( 'app:resize', this.render, this );
 
 			this.overviewChart = new app.PieChart();
-			this.overviewChart.setup(this.el);
+			this.overviewChart.setup(this.el, 'Total Debt by Type');
 		},
 
 		// Rendering the pie chart means redrawing it based on data from the Debts collection.
