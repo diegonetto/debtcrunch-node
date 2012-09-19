@@ -26,7 +26,7 @@ $(function( $ ) {
 		// At initialization we bind to the relevant events in the 'Debts"
 		// so that we can update this chart appropriately. Also create a new
 		// PieChart object that we will use to draw the overview chart.
-		// Bind to the 'app:resize' event and initially resize the canvas.
+		// Bind to the 'app:resize' event to re-render the chart on window resize.
 		initialize: function() {
 			window.app.Debts.on( 'reset add destroy sync', this.render, this );
 			window.app.EventAggregator.on( 'app:resize', this.render, this );
@@ -43,7 +43,7 @@ $(function( $ ) {
 			if ( app.Debts.length  > 0 ) {
 				console.log('-- attempting to draw pie chart');
 
-				// Size the canvas appropriately
+				// Resize the canvas so that it is the same size as the stat-blocks
 				this.el.width = $('.stat-blocks-wrapper').width();
 				this.el.height = $('.stat-blocks-wrapper').height();
 
