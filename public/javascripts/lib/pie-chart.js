@@ -153,7 +153,7 @@ var app = app || {};
                                         paper.project.activeLayer.addChild(path);
 
                                         // Set interaction variables
-                                        this.originalPos.push(paper.project.activeLayer.children[idx].position);
+                                        this.originalPos.push(path.position);
                                         this.halfwayPos.push(halfway);
 					this.slices.push(path);
                                 } else {
@@ -162,48 +162,51 @@ var app = app || {};
                                 }
                         }, this);
 
-
-			// Use the new title if one is specified, then add it to the view
-			if ( title )
-				this.title = title;
-			var chartTitle = new paper.PointText(new paper.Point(paper.view.center.x, paper.view.center.y - radius - 17 ));
-			chartTitle.content = this.title;
-			chartTitle.paragraphStyle.justification = 'center';
-			chartTitle.characterStyle = {
-				fontSize: 14,
-				font: 'Pacifico',
-				fillColor: '#333',
-			};
-
 			// Update color, values, and add create PointText for each label and dollar value.
 			// Add them to a custom group, and push to this.labels for interaction handling.
                         this.colors = colors;
 			this.dataValues = values;
 			for(var i = 0; i < values.length; i++) {
-				var title = new paper.PointText(new paper.Point(5, paper.view.size.height/3));
+				var type = new paper.PointText(new paper.Point(center.x - radius - 10, paper.view.bounds.bottomRight.y - 20));
 				var percent = (values[i] / totalSum) * 100;
-				title.content = labels[i] + '  ' + accounting.toFixed(percent, 1) + '%';
-				title.visible = false;
-				title.paragraphStyle.justification = 'left';
-				title.characterStyle = {
+				type.content = labels[i] + '  ' + accounting.toFixed(percent, 1) + '%';
+				type.visible = false;
+				type.paragraphStyle.justification = 'center';
+				type.characterStyle = {
 					fontSize: 12,
 					font: 'Ubuntu',
 					fillColor: '#333',
 				};
 			
-				var amount = new paper.PointText(new paper.Point(title.position.add([0, 30])));
+				var amount = new paper.PointText(new paper.Point(type.position.subtract([0, 30])));
 				amount.content = accounting.formatMoney(values[i]);
 				amount.visible = false;
-				amount.paragraphStyle.justification = 'left';
+				amount.paragraphStyle.justification = 'center';
 				amount.characterStyle = {
 					fontSize: 12,
 					font: 'Ubuntu',
 					fillColor: 'FireBrick',
 				};
 
-				var group = new paper.Group([title, amount]);
+				var group = new paper.Group([type, amount]);
 				this.labels.push(group);
+
 			}
+
+			// Use the new title if one is specified, then add it to the view			
+			if ( title )
+				this.title = title;
+			var chartTitle = new paper.PointText(new paper.Point(paper.view.center.x, paper.view.center.y - radius - 20 ));
+			chartTitle.content = this.title;
+			chartTitle.visible = true;
+			chartTitle.paragraphStyle.justification = 'center';
+			chartTitle.characterStyle = {
+				fontSize: 14,
+				font: 'Ubuntu',
+				fillColor: '#333',
+				strokeColor: '#333',
+				strokeWidth: 2,
+			};
 
                         // Draw the view initially. Can be removed if an onFrame handler is used for animation.
                         paper.view.draw();
