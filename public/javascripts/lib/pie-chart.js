@@ -198,7 +198,6 @@ var app = app || {};
 				this.title = title;
 			var chartTitle = new paper.PointText(new paper.Point(paper.view.center.x, paper.view.center.y - radius - 20 ));
 			chartTitle.content = this.title;
-			chartTitle.visible = true;
 			chartTitle.paragraphStyle.justification = 'center';
 			chartTitle.characterStyle = {
 				fontSize: 14,
@@ -206,6 +205,25 @@ var app = app || {};
 				fillColor: '#333',
 				strokeColor: '#333',
 				strokeWidth: 2,
+			};
+
+			// Create a PointText for the total sum
+			var totalLabel = new paper.PointText(new paper.Point(center.x + radius + 10, paper.view.bounds.bottomRight.y - 20));
+			totalLabel.content = 'Total Debt'
+			totalLabel.paragraphStyle.justification = 'center';
+			totalLabel.characterStyle = {
+				fontSize: 12,
+				font: 'Ubuntu',
+				fillColor: '#333',
+			};
+			
+			var total = new paper.PointText(new paper.Point(totalLabel.position.subtract([0, 30])));
+			total.content = accounting.formatMoney(totalSum);
+			total.paragraphStyle.justification = 'center';
+			total.characterStyle = {
+				fontSize: 12,
+				font: 'Ubuntu',
+				fillColor: 'FireBrick',
 			};
 
                         // Draw the view initially. Can be removed if an onFrame handler is used for animation.
