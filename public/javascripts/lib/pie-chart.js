@@ -123,7 +123,7 @@ var app = app || {};
 
                         _.each(data, function(value, idx, data) {
                                 // Only draw arcs if there is more than 1 value, otherwise draw a circle
-                                if ( data.length >  1) {
+                                if ( _.compact(data).length >  1) {
                                         // Create a new path and set up a few configuration attributes
                                         var path = new paper.Path();
                                         path.fillColor = colors[idx];
