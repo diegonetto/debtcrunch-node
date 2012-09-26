@@ -21,11 +21,11 @@ $(function() {
 		// The DOM events specific to a debt.
 		events: {
 			'click .destroy-btn':		'clear',
-			'dblclick .title-cell':		'editTitle',
-			'dblclick .type-cell':		'editType',
-			'dblclick .principal-cell':	'editPrincipal',
-			'dblclick .rate-cell':		'editRate',
-			'dblclick ..repayment-cell':	'editRepayment',
+			'click .title-cell':		'editTitle',
+			'click .type-cell':		'editType',
+			'click .principal-cell':	'editPrincipal',
+			'click .rate-cell':		'editRate',
+			'click ..repayment-cell':	'editRepayment',
 			'blur .edit':			'close',
 			'keypress .edit':		'closeOnEnter'
 		},
