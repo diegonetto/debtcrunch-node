@@ -85,3 +85,36 @@
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.9); */
 }
+
+/* Responsive style modifications */
+
+/* Large desktop */
+@media (min-width: 1200px) {
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  h1 {
+    font-size: 35px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  .hero-unit p {
+    font-size: 12px !important;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+}
+
