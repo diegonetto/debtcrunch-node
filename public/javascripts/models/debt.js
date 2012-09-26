@@ -65,13 +65,20 @@ var app = app || {};
 		},
 
 		// Function that calculates monthly payment for Credit Card debts.
+		// Pick the maximum of the monthly payment as calculated by banks
+		// (which doesn't care about repayment time) and the normal monthly
+		// payment calculation. Adjust the repayment time if necessary.
 		creditCardMonthly: function() {
 			// payment = (1% * principal) + (rate / 12) * principal
 			var rate = this.attributes.rate / 100.0;
 			var principal = this.attributes.principal;
 			var payment = (0.01 * principal) + (rate / 12) * principal;
-			this.fixRepayment( payment );
-			return payment;
+
+			var maxPayment = _.max([this.calculateMonthly(), payment]);
+
+			this.fixRepayment( maxPayment );
+
+			return maxPayment;
 		},
 
 		// Calculate monthly payment for Stafford Loan based on minimum payment.
@@ -118,18 +125,22 @@ var app = app || {};
 
 		// Update the repayment time for this debt based on a minimum payment.
 		// Used to correct repayment time for debts with minimum payment stipulations.
+		// Only change the repayment time if the newly calculated months value is smaller.
 		fixRepayment: function( payment ) {
 			var rate = (this.attributes.rate/100.0)/12.0;
 			var interest = 0.0;
 			var months = 0;
 			var principal = this.attributes.principal;
-		
+			var curMonths = this.attributes.repayment;			
+
 			while ( principal > 0 ) {
 				principal = principal + (principal * rate) - payment;
 				months++;
 			}
 
-			this.set( { repayment: months }, { silent: true } );
+			if ( months < curMonths ) {
+				this.set( { repayment: months }, { silent: true } );
+			}
 		},
 
 		// Calculate monthly payment based on compounding interest formula.
